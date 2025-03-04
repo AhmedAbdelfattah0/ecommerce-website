@@ -2,38 +2,42 @@
 
 @use '@angular/material' as mat;
 
-.mobile-menu-panel {
-  width: 100vw;
-  max-width: 300px;
-  margin-top: 8px;
-  @include mat.menu-overrides((
-    item-label-text-color: orange,
-    item-icon-color: red,
-    container-color: blue,
-  ));
-  .mat-menu-content {
-    padding: 0;
+// .mobile-menu {
+//   width: 300px;
+//   padding: 20px;
+//   background: #ffffff;
+//   box-shadow: -2px 0 10px rgba(0,0,0,0.1);
 
-    button {
-      padding: 12px 24px;
-      font-size: 16px;
-      color: $primary-color;
-      border-bottom: 1px solid rgba($primary-color, 0.1);
+//   .menu-header {
+//     display: flex;
+//     justify-content: flex-end;
+//     margin-bottom: 20px;
 
-      &:last-child {
-        border-bottom: none;
-      }
+//     button {
+//       mat-icon {
+//         color: #2d3436;
+//       }
+//     }
+//   }
 
-      &:hover {
-        background: rgba($accent-color, 0.05);
-      }
+//   mat-nav-list {
+//     a {
+//       height: 50px;
+//       display: flex;
+//       align-items: center;
+//       color: #2d3436;
+//       font-weight: 500;
 
-      mat-icon {
-        margin-right: 12px;
-        color: $accent-color;
-      }
-    }
-  }
-}
+//       mat-icon {
+//         margin-right: 15px;
+//         color: #e74c3c;
+//       }
+
+//       &:hover {
+//         background: rgba(231, 76, 60, 0.05);
+//       }
+//     }
+//   }
+// }
 
 

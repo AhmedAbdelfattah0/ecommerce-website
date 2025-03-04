@@ -1,4 +1,4 @@
-<button mat-icon-button [matMenuTriggerFor]="mobileMenu">
+<!-- <button mat-icon-button [matMenuTriggerFor]="mobileMenu">
   <mat-icon>menu</mat-icon>
 </button>
 
@@ -8,4 +8,27 @@
     <mat-icon>{{ item.icon }}</mat-icon>
     <span>{{ item.label }}</span>
   </button>
-</mat-menu>
+</mat-menu> -->
+
+<button *ngIf="isMobile" mat-icon-button (click)="toggleMenu()">
+  <mat-icon>menu</mat-icon>
+</button>
+<mat-drawer-container autosize>
+  <mat-drawer #drawer mode="over"  class="mobile-menu" hasBackdrop="true">
+    <div class="menu-header">
+      <button mat-icon-button (click)="toggleMenu()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <mat-nav-list>
+      <a mat-list-item
+         *ngFor="let item of menuItems"
+         (click)="navigate(item.path)">
+        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+        <span matListItemTitle>{{ item.label }}</span>
+      </a>
+    </mat-nav-list>
+  </mat-drawer>
+
+</mat-drawer-container>

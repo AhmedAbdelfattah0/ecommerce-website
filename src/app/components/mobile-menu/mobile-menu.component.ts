@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseComponent } from '../../common/components/base/base.component';
 import { CommonModule } from '@angular/common';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-mobile-menu',
@@ -10,10 +11,9 @@ import { CommonModule } from '@angular/common';
   imports:[BaseComponent.materialModules,CommonModule]
 })
 export class MobileMenuComponent {
-  @Output() closed = new EventEmitter<void>();
-  @Input() isOpen = false;
-  @Output() menuItemClicked = new EventEmitter<string>();
-
+  // @Output() menuToggled = new EventEmitter<boolean>();
+  @ViewChild('drawer') drawer!: MatDrawer;
+  @Input() isMobile:any = false;
   menuItems = [
     { path: '/', label: 'Home', icon: 'home' },
     { path: '/products', label: 'Products', icon: 'category' },
@@ -22,20 +22,14 @@ export class MobileMenuComponent {
   ];
   constructor(private router: Router) {}
 
-  // toggleMenu(state: boolean): void {
-  //   debugger
-  //   this.isOpen = state;
-  // }
-  handleNavigation(path: string) {
-    this.menuItemClicked.emit(path);
-  }
-  closeMenu(): void {
-    this.isOpen = false;
-    this.closed.emit();
+
+  toggleMenu(): void {
+    debugger
+    this.drawer.toggle();
   }
 
   navigate(path: string): void {
     this.router.navigate([path]);
-    this.closeMenu();
+    this.drawer.close();
   }
 }
