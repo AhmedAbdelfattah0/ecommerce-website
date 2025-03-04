@@ -1,0 +1,129 @@
+@use '../../../scss/variables' as *;
+@use '../../../scss/mixins' as *;
+
+
+.hero {
+  background: $light-gray;
+  position: relative;
+  overflow: hidden;
+  padding: 120px 0;
+  background: url('../../../assets/hero-bg.jpg') center/cover;
+  &__container {
+    @include container;
+    position: relative;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    min-height: 600px;
+
+    @include respond-below(lg) {
+      flex-direction: column;
+      text-align: center;
+      padding-top: 60px;
+    }
+  }
+
+  &__content {
+    flex: 0 1 55%;
+    position: relative;
+    z-index: 2;
+    background: #FFF3E3;
+    padding: 4rem;
+    @include respond-below(lg) {
+      flex: none;
+      width: 100%;
+      margin-bottom: 40px;
+    }
+  }
+
+  &__subtitle {
+    font-size: 1.25rem;
+    color: $primary-color;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 1.5rem;
+
+    @include respond-below(md) {
+      font-size: 1rem;
+    }
+  }
+
+  &__title {
+    font-family: $font-family-secondary;
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    color: $light-brown;
+
+    @include respond-below(xl) {
+      font-size: 3rem;
+    }
+
+    @include respond-below(lg) {
+      font-size: 2.5rem;
+    }
+
+    @include respond-below(md) {
+      font-size: 2rem;
+    }
+  }
+
+  &__description {
+    font-size: 1.1rem;
+    color: $primary-color;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    max-width: 500px;
+
+    @include respond-below(lg) {
+      margin: 0 auto 2.5rem;
+    }
+  }
+
+  &__cta {
+    padding: 1.25rem 3rem !important;
+    font-size: 1.1rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    border-radius: 0px !important;
+    cursor: pointer;
+    background-color: $light-brown !important;
+    border:none;
+    color:$white;
+    font-weight: 700;
+  }
+
+  &__decoration {
+    font-family: $font-family-secondary;
+    font-size: 8rem;
+    font-weight: 700;
+    color: rgba($primary-color, 0.05);
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 1;
+    pointer-events: none;
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 20px;
+      width: 150px;
+      height: 2px;
+      background: $accent-color;
+    }
+
+    @include respond-below(lg) {
+      position: relative;
+      transform: none;
+      font-size: 4rem;
+      margin-top: 2rem;
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+}

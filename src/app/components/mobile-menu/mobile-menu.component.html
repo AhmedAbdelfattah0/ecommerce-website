@@ -1,0 +1,11 @@
+<button mat-icon-button [matMenuTriggerFor]="mobileMenu">
+  <mat-icon>menu</mat-icon>
+</button>
+
+<mat-menu #mobileMenu="matMenu" class="mobile-menu-panel">
+  <button mat-menu-item *ngFor="let item of menuItems"
+          (click)="handleNavigation(item.path)">
+    <mat-icon>{{ item.icon }}</mat-icon>
+    <span>{{ item.label }}</span>
+  </button>
+</mat-menu>

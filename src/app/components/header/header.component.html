@@ -1,0 +1,30 @@
+<mat-toolbar class="header-container">
+
+
+  <!-- Mobile Menu -->
+  <app-mobile-menu   [isOpen]="isMenuOpen"   (closed)="isMenuOpen = false"></app-mobile-menu>
+  <!-- Mobile Menu Toggle -->
+
+  <!-- <button *ngIf="(isMobile$ | async)" mat-icon-button (click)="toggleMenu()" class="mobile-menu-button">
+    <mat-icon>menu</mat-icon>
+  </button> -->
+  <div class="logo">
+    <a routerLink="/">INTERIA</a>
+  </div>
+
+  <nav class="nav-links" *ngIf="(isMobile$ | async) === false">
+    <a mat-button routerLink="/" class="nav-link">Home</a>
+    <a mat-button routerLink="/products" class="nav-link">Products</a>
+    <a mat-button routerLink="/about" class="nav-link">About</a>
+    <a mat-button routerLink="/contact" class="nav-link">Contact</a>
+  </nav>
+
+  <div class="header-actions">
+    <button mat-icon-button class="cart-button">
+      <mat-icon>shopping_cart</mat-icon>
+      <span class="cart-count">0</span>
+    </button>
+  </div>
+
+
+</mat-toolbar>
