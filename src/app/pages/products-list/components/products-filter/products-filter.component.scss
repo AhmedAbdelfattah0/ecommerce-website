@@ -1,0 +1,14 @@
+@use '../../../../../scss/global' as *;
+
+.products-filter {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .filter-options {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+}

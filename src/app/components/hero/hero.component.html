@@ -1,7 +1,17 @@
 <section class="products-hero">
 
   <h1>Our Products</h1>
-  <div class="breadcrumb">
-    <a href="/">Home</a> > <span>Products</span>
+  <div class="products-hero__breadcrumb">
+    @for(breadcrumb of breadcrumbs; track breadcrumb.title; let last = $last;){
+      <div >
+        @if(!last) {
+        <a [routerLink]="breadcrumb.url">{{ breadcrumb.title }}</a>
+        <span> > </span>
+        } @else if(last) {
+          <span>{{ breadcrumb.title }}</span>
+        }
+      </div>
+      }
   </div>
- </section>
+
+</section>

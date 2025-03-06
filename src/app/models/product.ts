@@ -7,4 +7,13 @@ export interface Product {
   category: string;
   stock: number;
   rating: number;
+  isNew: boolean;
+  discount: number;
+  originalPrice: number;
+  reviews: number;
+}
+
+export interface ProductsResponse{
+  total:number;
+  products:Product[]
 }

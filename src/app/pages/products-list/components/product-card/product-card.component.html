@@ -1,14 +1,28 @@
-<article class="product-card" [class.list-view]="layout === 'list'">
+<div class="product-card" [class.grid-view]="layout === 'grid'">
   <div class="image-container">
     <img [src]="product.image" [alt]="product.name">
-    <button mat-icon-button class="wishlist-button">
+    <div class="badges">
+      <span class="badge new" *ngIf="product.isNew">New</span>
+      <span class="badge discount" *ngIf="product.discount">-{{ product.discount }}%</span>
+    </div>
+    <button mat-icon-button class="wishlist-btn">
       <mat-icon>favorite_border</mat-icon>
     </button>
   </div>
 
   <div class="product-info">
-    <h3 class="product-name">{{ product.name }}</h3>
-    <p class="product-price">{{ product.price | currency:'EGP' }}</p>
-    <button mat-raised-button class="add-to-cart">Add to Cart</button>
+    <h3>{{ product.name }}</h3>
+    <div class="price-container">
+      <span class="current-price">{{ product.price | currency }}</span>
+      <span class="original-price" *ngIf="product.originalPrice">
+        {{ product.originalPrice | currency }}
+      </span>
+    </div>
+    <div class="rating">
+      <mat-icon *ngFor="let star of [1,2,3,4,5]" class="star">
+        {{ star <= product.rating ? 'star' : 'star_border' }}
+      </mat-icon>
+      <span>({{ product.reviews }})</span>
+    </div>
   </div>
-</article>
+</div>

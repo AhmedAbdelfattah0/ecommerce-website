@@ -1,1 +1,29 @@
-<p>products-filter works!</p>
+<div class="products-filter">
+  <div class="filter-options">
+    <button mat-button [matMenuTriggerFor]="sortMenu">
+      Sort By: {{ selectedSort }}
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #sortMenu="matMenu">
+      <button mat-menu-item *ngFor="let option of sortOptions"
+              (click)="updateSort(option)">
+        {{ option }}
+      </button>
+    </mat-menu>
+
+    <button mat-button [matMenuTriggerFor]="itemsMenu">
+      Show: {{ itemsPerPage }}
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #itemsMenu="matMenu">
+      <button mat-menu-item *ngFor="let count of itemsOptions"
+              (click)="updateItemsCount(count)">
+        {{ count }}
+      </button>
+    </mat-menu>
+
+    <button mat-icon-button (click)="toggleView()">
+      <mat-icon>{{ isGridView ? 'view_module' : 'view_list' }}</mat-icon>
+    </button>
+  </div>
+</div>

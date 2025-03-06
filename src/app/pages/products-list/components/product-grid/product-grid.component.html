@@ -1,16 +1,7 @@
-<section class="product-grid">
-  <h2 class="section-title">Featured Products</h2>
-
-  <div class="grid-container">
-    <mat-card *ngFor="let product of products" class="product-card">
-      <img mat-card-image [src]="product?.image" [alt]="product?.name">
-      <mat-card-content>
-        <h3 class="product-name">{{ product?.name }}</h3>
-        <p class="product-price">{{ product?.price | currency }}</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" class="add-to-cart">Add to Cart</button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-</section>
+<div class="products-grid" [class.list-view]="!isGridView">
+  <app-product-card
+    *ngFor="let product of products | paginate : config"
+    [product]="product"
+    [layout]="isGridView ? 'grid' : 'list'">
+  </app-product-card>
+</div>

@@ -1,48 +1,30 @@
-@use '../../../scss/variables' as *;
-@use '../../../scss/mixins' as *;
+@use '../../../../../scss/global' as *;
+.products-grid {
+  @include grid(4, 2rem);
+  margin-bottom: 3rem;
 
+  &.list-view {
+    @include grid(1, 2rem);
 
-.product-grid {
-  @extend .section-padding;
-  background-color: $light-gray;
+    .product-card {
+      flex-direction: row;
+      gap: 2rem;
 
-  .section-title {
-    @extend .text-center;
-    font-size: 2rem;
-    margin-bottom: 3rem;
-
-    @include respond-above(md) {
-      font-size: 2.5rem;
-    }
-  }
-
-  .grid-container {
-    @include container;
-    @include grid(1, 1.5rem);
-
-    @include respond-above(sm) {
-      @include grid(2, 2rem);
-    }
-
-    @include respond-above(lg) {
-      @include grid(3, 2rem);
-    }
-  }
-
-  .product-card {
-    @include hover-effect;
-    background: $white;
-    overflow: hidden;
-
-    .product-name {
-      font-size: 1.1rem;
-      @include respond-above(md) {
-        font-size: 1.25rem;
+      .image-container {
+        flex: 0 0 300px;
       }
     }
+  }
 
-    .product-price {
-      color: $accent-color;
-    }
+  @include respond-below(xl) {
+    @include grid(3, 1.5rem);
+  }
+
+  @include respond-below(lg) {
+    @include grid(2, 1rem);
+  }
+
+  @include respond-below(md) {
+    @include grid(1, 1rem);
   }
 }

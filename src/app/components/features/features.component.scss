@@ -1,0 +1,29 @@
+@use '../../../scss/global' as *;
+
+.features {
+  @include grid(4, 2rem);
+  margin: 4rem 0;
+  padding: 3rem 0;
+  border-top: 1px solid $light-gray;
+  border-bottom: 1px solid $light-gray;
+
+  .feature-card {
+    text-align: center;
+
+    mat-icon {
+      font-size: 2.5rem;
+      width: auto;
+      height: auto;
+      margin-bottom: 1rem;
+      color: $accent-color;
+    }
+  }
+
+  @include respond-below(md) {
+    @include grid(2, 1rem);
+  }
+
+  @include respond-below(sm) {
+    @include grid(1, 2rem);
+  }
+}

@@ -11,5 +11,6 @@ import { CommonModule } from '@angular/common';
 })
 export class ProductGridComponent {
   products:any = [];
+  isGridView = true;
   constructor() { }
 }

@@ -1,1 +1,8 @@
-<p>products-pagination works!</p>
+<div class="pagination">
+  <button mat-button
+          *ngFor="let page of pages"
+          [class.active]="currentPage === page"
+          (click)="changePage(page)">
+    {{ page }}
+  </button>
+</div>
