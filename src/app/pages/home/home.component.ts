@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../common/components/base/base.component';
 import { CommonModule } from '@angular/common';
-import { HeroComponent } from '../../components/hero/hero.component';
+import { HeroComponent } from './components/hero/hero.component';
 
 @Component({
   selector: 'app-home',
