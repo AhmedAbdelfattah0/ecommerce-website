@@ -4,10 +4,13 @@ import { ResponsiveService } from '../../common/services/responsive.service';
 import { Observable } from 'rxjs';
 import { MobileMenuComponent } from '../mobile-menu/mobile-menu.component';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-header',
-  imports: [BaseComponent.materialModules, MobileMenuComponent, CommonModule],
+  imports: [BaseComponent.materialModules, MobileMenuComponent, CommonModule,
+    RouterModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })

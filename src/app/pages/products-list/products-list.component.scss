@@ -1,0 +1,79 @@
+@use '../../../scss/global' as *;
+.products-list-page {
+  position: relative;
+
+  padding: 2rem 0;
+
+  
+
+  .products-filter {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .filter-options {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+  }
+
+  .products-grid {
+    @include grid(4, 2rem);
+    margin-bottom: 3rem;
+
+    &.list-view {
+      @include grid(1, 2rem);
+
+      .product-card {
+        flex-direction: row;
+        gap: 2rem;
+
+        .image-container {
+          flex: 0 0 300px;
+        }
+      }
+    }
+
+    @include respond-below(xl) {
+      @include grid(3, 1.5rem);
+    }
+
+    @include respond-below(lg) {
+      @include grid(2, 1rem);
+    }
+
+    @include respond-below(md) {
+      @include grid(1, 1rem);
+    }
+  }
+
+  .features {
+    @include grid(4, 2rem);
+    margin: 4rem 0;
+    padding: 3rem 0;
+    border-top: 1px solid $light-gray;
+    border-bottom: 1px solid $light-gray;
+
+    .feature-card {
+      text-align: center;
+
+      mat-icon {
+        font-size: 2.5rem;
+        width: auto;
+        height: auto;
+        margin-bottom: 1rem;
+        color: $accent-color;
+      }
+    }
+
+    @include respond-below(md) {
+      @include grid(2, 1rem);
+    }
+
+    @include respond-below(sm) {
+      @include grid(1, 2rem);
+    }
+  }
+}

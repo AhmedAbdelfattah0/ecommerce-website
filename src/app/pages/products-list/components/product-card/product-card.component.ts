@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Product } from '../../models/product';
-import { BaseComponent } from '../../common/components/base/base.component';
+import { Product } from '../../../../models/product';
+import { BaseComponent } from '../../../../common/components/base/base.component';
 import { CommonModule } from '@angular/common';
 
 @Component({

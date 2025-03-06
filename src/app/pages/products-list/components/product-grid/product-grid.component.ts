@@ -1,5 +1,5 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { BaseComponent } from '../../common/components/base/base.component';
+import { BaseComponent } from '../../../../common/components/base/base.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
