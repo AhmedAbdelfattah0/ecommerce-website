@@ -5,12 +5,13 @@ export interface Product {
   description: string;
   image: string;
   category: string;
-  stock: number;
+  // stock: number;
   rating: number;
-  isNew: boolean;
-  discount: number;
-  originalPrice: number;
-  reviews: number;
+  isNew?: boolean;
+  discount?: number;
+  originalPrice?: number;
+  reviews?: number;
+  badge?:string;
 }
 
 export interface ProductsResponse{

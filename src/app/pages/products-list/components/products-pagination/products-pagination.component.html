@@ -1,8 +1,18 @@
-<div class="pagination">
-  <button mat-button
-          *ngFor="let page of pages"
-          [class.active]="currentPage === page"
-          (click)="changePage(page)">
+<div class="pagination-container">
+  @if (currentPage > 1) {
+  <button mat-button class="page-button" (click)="goToPage(currentPage - 1)">
+    Prev
+  </button>
+  }
+  @for (page of pages; track $index) {
+  <button class="page-button" mat-button [class.active]="currentPage === page" (click)="goToPage(page)">
     {{ page }}
   </button>
+  }
+  @if (currentPage < totalPages) {
+  <button class="page-button" mat-button (click)="goToPage(currentPage + 1)">
+    Next
+  </button>
+  }
+
 </div>

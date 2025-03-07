@@ -1,5 +1,27 @@
 <app-hero></app-hero>
-<app-product-grid></app-product-grid>
-<app-features></app-features>
-<app-products-pagination></app-products-pagination>
+
+<div class="products-list-wrapper">
+  <!-- Filter & Sorting Section -->
+  <app-products-filter
+    (filterChanged)="onFilterChanged($event)"
+    (sortChanged)="onSortChanged($event)"
+    (viewModeChanged)="onViewModeChanged($event)"
+  ></app-products-filter>
+
+  <!-- Products Grid -->
+  <app-product-grid
+    [products]="filteredProducts"
+    [viewMode]="viewMode"
+  ></app-product-grid>
+
+  <!-- Pagination -->
+  <app-products-pagination
+    [totalItems]="totalProducts"
+    [itemsPerPage]="itemsPerPage"
+    (pageChanged)="onPageChanged($event)"
+  ></app-products-pagination>
+
+  <!-- Features -->
+  <app-features></app-features>
+</div>
 

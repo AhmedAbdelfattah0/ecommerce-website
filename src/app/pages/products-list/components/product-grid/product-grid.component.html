@@ -1,7 +1,6 @@
-<div class="products-grid" [class.list-view]="!isGridView">
-  <app-product-card
-    *ngFor="let product of products | paginate : config"
-    [product]="product"
-    [layout]="isGridView ? 'grid' : 'list'">
-  </app-product-card>
+<div class="products-grid" [ngClass]="viewMode">
+  @for (product of products; track $index) {
+  <app-product-card [product]="product" [viewMode]="viewMode"></app-product-card>
+  }
+
 </div>

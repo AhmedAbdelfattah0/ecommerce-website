@@ -1,7 +1,12 @@
 @use '../../../scss/global' as *;
-.products-list-page {
-  position: relative;
+.products-list-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 
-  padding: 2rem 0;
-
+  /* Additional global styles can go here */
 }
+

@@ -18,11 +18,17 @@
         {{ product.originalPrice | currency }}
       </span>
     </div>
-    <div class="rating">
-      <mat-icon *ngFor="let star of [1,2,3,4,5]" class="star">
-        {{ star <= product.rating ? 'star' : 'star_border' }}
-      </mat-icon>
-      <span>({{ product.reviews }})</span>
-    </div>
+    @if (product) {
+      <div class="rating">
+        @for (star of [1,2,3,4,5]; track $index) {
+          <mat-icon  class="star">
+            {{ star <= product.rating  ? 'star' : 'star_border' }}
+          </mat-icon>
+        }
+
+        <span>({{ product.reviews }})</span>
+      </div>
+    }
+
   </div>
 </div>

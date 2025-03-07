@@ -31,10 +31,5 @@ export class HeaderComponent implements OnInit {
     this.mobileMenu.toggleMenu();
   }
 
-  // @HostListener('document:click', ['$event'])
-  // handleOutsideClick(event: Event): void {
-  //   if (this.isMenuOpen) {
-  //     this.isMenuOpen = false;
-  //   }
-  // }
+
 }

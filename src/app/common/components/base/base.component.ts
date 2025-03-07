@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
  import { MatListModule } from '@angular/material/list';
+ import {MatSelectModule} from '@angular/material/select';
 import '@ingka/icon-webc';
 
 
@@ -19,7 +20,8 @@ export class BaseComponent implements OnDestroy {
     MatIconModule,
     MatCardModule,
     MatMenuModule,
-     MatListModule
+     MatListModule,
+     MatSelectModule
   ];
   ngOnDestroy(): void {
     this.ngUnSubscribe.next();

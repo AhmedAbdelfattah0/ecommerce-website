@@ -1,6 +1,7 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
 import { BaseComponent } from '../../../../common/components/base/base.component';
 import { CommonModule } from '@angular/common';
+import { Product } from '../../../../models/product';
 
 @Component({
   selector: 'app-product-grid',
@@ -10,7 +11,7 @@ import { CommonModule } from '@angular/common';
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProductGridComponent {
-  products:any = [];
-  isGridView = true;
+  @Input() products: Product[] = [];
+  @Input() viewMode: 'grid' | 'list' = 'grid';
   constructor() { }
 }

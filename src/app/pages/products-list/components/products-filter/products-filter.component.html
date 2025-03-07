@@ -1,29 +1,31 @@
-<div class="products-filter">
-  <div class="filter-options">
-    <button mat-button [matMenuTriggerFor]="sortMenu">
-      Sort By: {{ selectedSort }}
-      <mat-icon>arrow_drop_down</mat-icon>
-    </button>
-    <mat-menu #sortMenu="matMenu">
-      <button mat-menu-item *ngFor="let option of sortOptions"
-              (click)="updateSort(option)">
-        {{ option }}
-      </button>
-    </mat-menu>
+<div class="filter-container">
+  <div class="filter-left">
+    <button class="filter-button" (click)="onFilterClick()">Filter</button>
+    <span class="filter-text">Showing 1–{{ itemsCount }} of {{ itemsCount }} results</span>
+  </div>
 
-    <button mat-button [matMenuTriggerFor]="itemsMenu">
-      Show: {{ itemsPerPage }}
-      <mat-icon>arrow_drop_down</mat-icon>
-    </button>
-    <mat-menu #itemsMenu="matMenu">
-      <button mat-menu-item *ngFor="let count of itemsOptions"
-              (click)="updateItemsCount(count)">
-        {{ count }}
-      </button>
-    </mat-menu>
+  <div class="filter-right">
+    <label for="sort-select">Sort by</label>
+    <select id="sort-select" (change)="onSortChange($event)">
+      <option value="default">Default</option>
+      <option value="priceAsc">Price (Low to High)</option>
+      <option value="priceDesc">Price (High to Low)</option>
+    </select>
 
-    <button mat-icon-button (click)="toggleView()">
-      <mat-icon>{{ isGridView ? 'view_module' : 'view_list' }}</mat-icon>
-    </button>
+    <!-- View Mode Buttons -->
+    <div class="view-toggle">
+      <button
+        [class.active]="viewMode === 'grid'"
+        (click)="setViewMode('grid')"
+      >
+        <i class="fas fa-th-large"></i> <!-- or any icon library -->
+      </button>
+      <button
+        [class.active]="viewMode === 'list'"
+        (click)="setViewMode('list')"
+      >
+        <i class="fas fa-list"></i>
+      </button>
+    </div>
   </div>
 </div>

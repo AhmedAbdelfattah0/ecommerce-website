@@ -1,29 +1,38 @@
 @use '../../../scss/global' as *;
+.features-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  justify-content: center;
+  background-color: #FAF3EA;
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    // border: 1px solid #eee;
+    padding: 1rem;
+    flex: 1 1 220px;
+    max-width: 250px;
+    background-color: #FAF3EA;
 
-.features {
-  @include grid(4, 2rem);
-  margin: 4rem 0;
-  padding: 3rem 0;
-  border-top: 1px solid $light-gray;
-  border-bottom: 1px solid $light-gray;
-
-  .feature-card {
-    text-align: center;
-
-    mat-icon {
-      font-size: 2.5rem;
-      width: auto;
-      height: auto;
-      margin-bottom: 1rem;
-      color: $accent-color;
+    .icon {
+      /* Material icon size/color adjustments */
+      font-size: 2rem;
+      color: #ff7f50; /* Example color */
     }
-  }
 
-  @include respond-below(md) {
-    @include grid(2, 1rem);
-  }
-
-  @include respond-below(sm) {
-    @include grid(1, 2rem);
+    .feature-text {
+      h4 {
+        margin: 0 0 0.2rem;
+        font-size: 1rem;
+        color: #333;
+      }
+      p {
+        margin: 0;
+        font-size: 0.85rem;
+        color: #666;
+      }
+    }
   }
 }
