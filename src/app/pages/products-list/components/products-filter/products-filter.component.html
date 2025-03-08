@@ -5,7 +5,7 @@
       <mat-icon class="filter-button" [matMenuTriggerFor]="menu">tune</mat-icon>
       <span class="filter-text">Filter</span>
       <mat-menu #menu="matMenu" class="filter-menue">
-        <button mat-menu-item (click)="onFilterClick(-1)"> All </button>
+        <button mat-menu-item (click)="onFilterClick(null)"> All </button>
 
         @for (item of catigoriesList; track $index) {
 
@@ -29,7 +29,8 @@
     <!-- Showing X of X results -->
     <div class="filter-left">
       <span class="filter-text">
-        Showing 1–{{ itemsCount }} of {{ itemsCount }} results
+        Showing {{ startIndex }}–{{ endIndex }} of {{ totalItems }} results
+
       </span>
     </div>
   </div>

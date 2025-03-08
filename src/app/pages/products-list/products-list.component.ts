@@ -8,10 +8,11 @@ import { ProductsPaginationComponent } from './components/products-pagination/pr
  import { Product } from '../../models/product';
 import { PaginationConfig } from '../../models/pagination.model';
 import { ProductsFilterComponent } from "./components/products-filter/products-filter.component";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-products-list',
-  imports: [HeroComponent, CommonModule, FeaturesComponent, ProductGridComponent, ProductsPaginationComponent, ProductsFilterComponent],
+  imports: [HeroComponent, CommonModule, FeaturesComponent, ProductGridComponent, ProductsPaginationComponent, ProductsFilterComponent, FormsModule],
   templateUrl: './products-list.component.html',
   styleUrl: './products-list.component.scss'
 })
@@ -23,6 +24,9 @@ export class ProductsListComponent implements OnInit {
     itemsPerPage: number = 16;
     currentPage: number = 1;
     viewMode: 'grid' | 'list' = 'grid';
+    startIndex: number = 0;
+    endIndex: number = this.itemsPerPage;
+    showProducts:boolean= true
     constructor( private _productService:ProductService){
       this._productService.getProducts().subscribe((res:any)=>{
         this.products = res
@@ -66,9 +70,13 @@ export class ProductsListComponent implements OnInit {
     }
 
     onPageChanged(event: any): void {
+      this.showProducts =false;
       this.currentPage = event;
-      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-      const endIndex = startIndex + this.itemsPerPage;
-      this.filteredProducts = this.products.slice(startIndex, endIndex);
+       this.startIndex = (this.currentPage - 1) * this.itemsPerPage;
+       this.endIndex = this.startIndex + this.itemsPerPage;
+      this.filteredProducts = this.products.slice(this.startIndex, this.endIndex);
+        setTimeout(()=>{
+          this.showProducts=true;
+        },500)
     }
 }

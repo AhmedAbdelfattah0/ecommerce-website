@@ -12,7 +12,12 @@ import { CatigoryService } from '../../../../services/catigries/catigory.service
   styleUrl: './products-filter.component.scss'
 })
 export class ProductsFilterComponent {
-  @Input() itemsCount: number = 12; // Example: total item count
+  @Input() startIndex  : number = 1;
+  @Input() endIndex  : number = 1;
+  @Input() totalItems  : number = 1;
+
+
+ // Example: total item count
   @Output() filterChanged = new EventEmitter<any>();
   @Output() sortChanged = new EventEmitter<string>();
   @Output() viewModeChanged = new EventEmitter<'grid' | 'list'>();
@@ -28,7 +33,7 @@ export class ProductsFilterComponent {
 
   ngOnInit(): void {}
 
-  onFilterClick(catigoryId:number): void {
+  onFilterClick(catigoryId:any): void {
     // Trigger filter logic
     this.filterChanged.emit(catigoryId);
   }

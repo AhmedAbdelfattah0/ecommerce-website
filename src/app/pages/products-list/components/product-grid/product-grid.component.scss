@@ -8,7 +8,7 @@
   // Switch to a single-column layout if "list" class is present
   &.list {
     @include grid(1, 2rem);
-
+    justify-items: center;
     .product-card {
       flex-direction: row;
       gap: 2rem;
