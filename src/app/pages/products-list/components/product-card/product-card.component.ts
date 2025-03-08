@@ -1,15 +1,21 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Product } from '../../../../models/product';
 import { BaseComponent } from '../../../../common/components/base/base.component';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-product-card',
-  imports: [BaseComponent.materialModules,CommonModule],
+  imports: [BaseComponent.materialModules,CommonModule,RouterModule],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss'
 })
-export class ProductCardComponent {
+export class ProductCardComponent{
   @Input() product!: Product;
-  @Input() layout: 'grid' | 'list' = 'grid';
+  @Input() viewMode: 'grid' | 'list' = 'grid';
+  constructor(){}
+  addToCart(){
+    console.log('Added To Cart');
+
+  }
 }

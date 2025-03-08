@@ -1,4 +1,4 @@
-<div class="product-card" [class.grid-view]="layout === 'grid'">
+<!-- <div class="product-card" [class.grid-view]="viewMode === 'grid'">
   <div class="image-container">
     <img [src]="product.image" [alt]="product.name">
     <div class="badges">
@@ -15,7 +15,7 @@
     <div class="price-container">
       <span class="current-price">{{ product.price | currency }}</span>
       <span class="original-price" *ngIf="product.originalPrice">
-        {{ product.originalPrice | currency }}
+        {{ product.originalPrice | currency:'EGP':'symbol':'1.2-2'  }}
       </span>
     </div>
     @if (product) {
@@ -31,4 +31,69 @@
     }
 
   </div>
+</div> -->
+
+<div class="product-card" [class.grid-view]="viewMode === 'grid'">
+  <!-- Image & Discount Badge -->
+  <div class="image-container">
+    <img
+      class="product-image"
+      [src]="product.imgOne"
+      [alt]="product.title"
+    />
+    <!-- Discount Badge -->
+     @if(product.discount>0){
+      <div class="discount-badge"  >
+        <span>-{{ product.discount }}%</span>
+      </div>
+     }
+
+
+
+  </div>
+
+  <!-- Product Info -->
+  <div class="product-info">
+    <h3 class="product-name">{{ product.title }}</h3>
+    <p class="product-subtitle">{{ product.titleAr }}</p>
+
+    <div class="price">
+      <span class="current-price">{{ product.originalPrice| currency:'EGP':'symbol':'1.2-2' }}</span>
+     @if (product.discountedPrice) {
+      <span class="old-price"  >
+        {{ product.discountedPrice | currency:'EGP':'symbol':'1.2-2'  }}
+      </span>
+     }
+
+    </div>
+  </div>
+
+    <!-- Hover Overlay -->
+    <div class="hover-overlay" >
+      <button
+        mat-raised-button
+        color="primary"
+        class="add-to-cart"
+        (click)="addToCart()"
+      >
+        Add to cart
+      </button>
+
+      <div class="hover-actions">
+        <!-- You can use icon-only buttons or include text. Shown here with icon + text. -->
+        <div class="action-item">
+          <mat-icon>share</mat-icon>
+          <span>Share</span>
+        </div>
+        <div class="action-item" [routerLink]="['details',product.id]">
+          <mat-icon>description</mat-icon>
+          <span>View Details</span>
+        </div>
+        <div class="action-item">
+          <mat-icon>favorite_border</mat-icon>
+          <span>Like</span>
+        </div>
+      </div>
+    </div>
 </div>
+

@@ -1,11 +1,17 @@
 @use '../../../scss/global' as *;
+
 .features-wrapper {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
   margin-top: 2rem;
   justify-content: center;
-  background-color: #FAF3EA;
+  background-color: $Light-beige;
+  height: 270px;
+  width: 100%;
+  @include respond-below(sm){
+    height: 100%;
+  }
   .feature-item {
     display: flex;
     align-items: center;
@@ -14,13 +20,30 @@
     padding: 1rem;
     flex: 1 1 220px;
     max-width: 250px;
-    background-color: #FAF3EA;
+    background-color: $Light-beige;
 
-    .icon {
-      /* Material icon size/color adjustments */
-      font-size: 2rem;
-      color: #ff7f50; /* Example color */
+    .trophy {
+      background: url(../../../assets/trophy.svg) center/cover;
+      height: 60px;
+      width: 60px;
     }
+    .support {
+      background: url(../../../assets/support.svg) center/cover;
+      height: 67px;
+      width: 60px;
+    }
+    .free-shipping {
+      background: url(../../../assets/free-shipping.svg) center/cover;
+      height: 60px;
+      width: 60px;
+    }
+    .Warranty {
+      background: url(../../../assets/Warranty-Protection.svg) center/cover;
+      height: 60px;
+      width: 67px;
+    }
+
+
 
     .feature-text {
       h4 {
@@ -28,6 +51,7 @@
         font-size: 1rem;
         color: #333;
       }
+
       p {
         margin: 0;
         font-size: 0.85rem;

@@ -1,17 +1,19 @@
 export interface Product {
   id: number;
-  name: string;
-  price: number;
+  title: string;
+  titleAr:string;
+  discountedPrice: number;
   description: string;
-  image: string;
+  imgOne: string;
   category: string;
   // stock: number;
   rating: number;
   isNew?: boolean;
-  discount?: number;
-  originalPrice?: number;
+  discount: number;
+  originalPrice: number;
   reviews?: number;
   badge?:string;
+  subtitle?:string;
 }
 
 export interface ProductsResponse{

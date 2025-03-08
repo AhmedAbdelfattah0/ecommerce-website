@@ -11,7 +11,7 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  getProducts(params: {
+  getProducts(params?: {
     page: number,
     perPage: number,
     sort: string,
