@@ -1,5 +1,6 @@
 @use 'mixins' as *;
 @use 'variables' as v;
+@use '@angular/material' as mat;
 
 * {
   margin: 0;
@@ -66,3 +67,12 @@ a {
     }
   }
 }
+
+// // Customize the entire app. Change :root to your selector if you want to scope the styles.
+// :root {
+//   @include mat.menu-overrides((
+//     container-color: #fff
+//   ));
+
+//   :ng-deep
+// }

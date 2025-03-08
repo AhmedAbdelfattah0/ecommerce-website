@@ -2,8 +2,17 @@
   <!-- Wrapper for Filter & View Icons -->
   <div class="filter-wrapper">
     <div class="filter-left">
-      <mat-icon class="filter-button">tune</mat-icon>
+      <mat-icon class="filter-button" [matMenuTriggerFor]="menu">tune</mat-icon>
       <span class="filter-text">Filter</span>
+      <mat-menu #menu="matMenu" class="filter-menue">
+        <button mat-menu-item (click)="onFilterClick(-1)"> All </button>
+
+        @for (item of catigoriesList; track $index) {
+
+          <button mat-menu-item (click)="onFilterClick(item.id)">{{item.title}}</button>
+        }
+
+      </mat-menu>
     </div>
 
     <div class="filter-left" (click)="setViewMode('grid')">

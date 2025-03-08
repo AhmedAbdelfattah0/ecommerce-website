@@ -1,6 +1,5 @@
 @use '../../../../../scss/global' as *;
-
-.filter-container {
+ .filter-container {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -115,6 +114,9 @@
         // Let each item (Filter, Grid, List, border, "Showing...") break or wrap as needed
         flex-wrap: wrap;
         margin-bottom: 0.5rem;
+        .icon-grid, .icon-list{
+          display: none;
+        }
       }
       .border{
         display: none;
@@ -141,4 +143,7 @@
       }
     }
   }
+}
+::ng-deep.mat-mdc-menu-panel {
+  background-color: #fff !important;
 }

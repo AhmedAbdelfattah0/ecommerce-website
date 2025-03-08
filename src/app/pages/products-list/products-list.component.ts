@@ -1,4 +1,4 @@
-import { ProductService } from './../../services/product.service';
+import { ProductService } from '../../services/product/product.service';
 import { Component, OnInit } from '@angular/core';
 import { HeroComponent } from '../../components/hero/hero.component';
 import { CommonModule } from '@angular/common';
@@ -17,59 +17,7 @@ import { ProductsFilterComponent } from "./components/products-filter/products-f
 })
 export class ProductsListComponent implements OnInit {
     // Sample data
-    products: Product[] = [
-      // {
-      //   id: 1,
-      //   name: 'Slytherine',
-      //   price: 240000,
-      //   originalPrice: 250000,
-      //   discount:20,
-      //   image: 'assets/images/chair-1.jpg',
-      //   badge: 'Sale',
-      //   category:'chair',
-      //   description:'lorm lorem',
-      //   rating:0
-      // },
-      // {
-      //   id: 2,
-      //   name: 'Leviosa',
-      //   price: 2500000,
-      //   image: 'assets/images/chair-2.jpg',
-      //   badge: 'New',
-      //   category:'chair',
-      //   description:'lorm lorem',
-      //   rating:1
-
-
-
-      // },
-      // {
-      //   id: 3,
-      //   name: 'Lolito',
-      //   price: 2500000,
-      //   image: 'assets/images/chair-3.jpg',
-      //   category:'chair',
-      //   description:'lorm lorem',
-      //   rating:2,
-      //    originalPrice: 250000,
-      //   discount:20,
-
-
-      // },
-      // {
-      //   id: 4,
-      //   name: 'Respira',
-      //   price: 2500000,
-      //   image: 'assets/images/chair-4.jpg',
-      //   category:'chair',
-      //   description:'lorm lorem',
-      //   rating:3
-
-
-
-      // },
-      // Add as many items as you need...
-    ];
+    products: Product[] = [];
     filteredProducts: Product[] = [];
     totalProducts: number = 0;
     itemsPerPage: number = 16;
@@ -88,12 +36,17 @@ export class ProductsListComponent implements OnInit {
 
     }
 
-    onFilterChanged(filterData: any): void {
-      // Apply filter logic here
-      // For demonstration, we’ll just reassign all products
-      this.filteredProducts = this.products.slice(0, this.itemsPerPage);
+  onFilterChanged(filterData: any): void {
+    if (filterData) {
+      this.filteredProducts = this.products.filter(product => product.categoryId == filterData).slice(0, this.itemsPerPage);
+      this.totalProducts = this.filteredProducts.length
       this.currentPage = 1;
+    }else{
+      this.filteredProducts = this.products.slice(0, this.itemsPerPage);
+      this.totalProducts = this.products.length
     }
+
+  }
 
     onSortChanged(sortData: any): void {
       // Apply sorting logic here
