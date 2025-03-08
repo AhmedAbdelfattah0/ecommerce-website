@@ -109,7 +109,7 @@ export class ProductsListComponent implements OnInit {
     }
 
     onViewModeChanged(mode: any): void {
-      this.viewMode = (mode.target as HTMLInputElement).value as 'grid' | 'list';
+      this.viewMode = mode;
     }
 
     onPageChanged(event: any): void {

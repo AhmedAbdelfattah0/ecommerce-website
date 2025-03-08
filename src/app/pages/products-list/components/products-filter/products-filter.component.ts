@@ -15,7 +15,7 @@ export class ProductsFilterComponent {
   @Output() sortChanged = new EventEmitter<string>();
   @Output() viewModeChanged = new EventEmitter<'grid' | 'list'>();
 
-  viewMode: 'grid' | 'list' = 'grid';
+  viewMode: 'grid' | 'list' = 'list';
 
   ngOnInit(): void {}
 

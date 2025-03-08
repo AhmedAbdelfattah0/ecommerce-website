@@ -1,25 +1,21 @@
 @use '../../../../../scss/global' as *;
 
-
-
 .product-card {
-
-  /* Default width on small screens */
+  // Default width (grid style)
   width: 285px;
   height: 446px;
-
   border: 1px solid #ddd;
-  // border-radius: 4px;
   background-color: #fff;
   overflow: hidden;
   position: relative;
 
-  /* On medium screens and above, limit width to 240px */
+  // Ensure consistent sizing above md breakpoint
   @include respond-above(md) {
     width: 285px;
     height: 446px;
   }
 
+  // List-view overrides
   &.list-view {
     display: flex;
     gap: 2rem;
@@ -29,6 +25,7 @@
       height: 200px;
     }
 
+    // On smaller screens, stack image + info vertically
     @include respond-below(md) {
       flex-direction: column;
 
@@ -43,13 +40,11 @@
     position: relative;
     width: 100%;
     height: 301px;
-
     overflow: hidden;
 
     .product-image {
       width: 100%;
       height: 301px;
-
       object-fit: cover;
       display: block;
     }
@@ -60,20 +55,18 @@
       right: 8px;
       background: #E97171;
       color: #fff;
-      padding: 0.3rem 0.5rem;
       font-size: 0.9rem;
       border-radius: 100%;
       height: 48px;
       width: 48px;
       display: flex;
       align-items: center;
+      justify-content: center;
     }
-
   }
 
-
   .hover-overlay {
-    /* Fill the container */
+    // Full overlay
     position: absolute;
     top: 0;
     left: 0;
@@ -81,30 +74,27 @@
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
 
-    /* Use your flex-center mixin to center content; column direction */
+    // Center contents in a column
     @include flex-center(column);
-
     gap: 1rem;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
 
     .add-to-cart {
-        background-color: #fff;
-        color: $light-brown;
-        border-radius: 0;
-        width: 202px;
-        height: 48px;
-
-      }
+      background-color: #fff;
+      color: $light-brown;
+      border-radius: 0;
+      width: 202px;
+      height: 48px;
+    }
 
     .hover-actions {
-      /* Another flex-center usage if you like; row direction */
       @include flex-center(row);
       gap: 1rem;
 
       .action-item {
-        display: flex; // or use flex-center if you want them centered differently
+        display: flex;
         align-items: center;
         gap: 0.3rem;
         color: #fff;
@@ -118,15 +108,11 @@
     }
   }
 
-
-
-
   .product-info {
     padding: 1rem;
     background: #F4F5F7;
     width: 285px;
     height: 145px;
-    top: 301px;
 
     .product-name {
       margin: 0 0 0.3rem;
@@ -155,8 +141,7 @@
     }
   }
 
-
-  /* On hover over the card, show the overlay */
+  // Reveal the hover overlay
   &:hover {
     .hover-overlay {
       opacity: 1;

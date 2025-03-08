@@ -1,9 +1,31 @@
 <div class="filter-container">
-  <div class="filter-left">
-    <button  mat-icon-button (click)="onFilterClick()"> <mat-icon>tune</mat-icon></button>Filter
-    <span class="filter-text">Showing 1–{{ itemsCount }} of {{ itemsCount }} results</span>
+  <!-- Wrapper for Filter & View Icons -->
+  <div class="filter-wrapper">
+    <div class="filter-left">
+      <mat-icon class="filter-button">tune</mat-icon>
+      <span class="filter-text">Filter</span>
+    </div>
+
+    <div class="filter-left" (click)="setViewMode('grid')">
+      <div class="icon-grid"></div>
+    </div>
+
+    <div class="filter-left" (click)="setViewMode('list')">
+      <div class="icon-list"></div>
+    </div>
+
+    <!-- Separator (border) -->
+    <div class="border"></div>
+
+    <!-- Showing X of X results -->
+    <div class="filter-left">
+      <span class="filter-text">
+        Showing 1–{{ itemsCount }} of {{ itemsCount }} results
+      </span>
+    </div>
   </div>
 
+  <!-- Sort & View Toggle -->
   <div class="filter-right">
     <label for="sort-select">Sort by</label>
     <select id="sort-select" (change)="onSortChange($event)">
@@ -12,13 +34,12 @@
       <option value="priceDesc">Price (High to Low)</option>
     </select>
 
-    <!-- View Mode Buttons -->
     <div class="view-toggle">
       <button
         [class.active]="viewMode === 'grid'"
         (click)="setViewMode('grid')"
       >
-        <i class="fas fa-th-large"></i> <!-- or any icon library -->
+        <i class="fas fa-th-large"></i>
       </button>
       <button
         [class.active]="viewMode === 'list'"

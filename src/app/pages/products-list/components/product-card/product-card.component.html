@@ -1,45 +1,13 @@
-<!-- <div class="product-card" [class.grid-view]="viewMode === 'grid'">
-  <div class="image-container">
-    <img [src]="product.image" [alt]="product.name">
-    <div class="badges">
-      <span class="badge new" *ngIf="product.isNew">New</span>
-      <span class="badge discount" *ngIf="product.discount">-{{ product.discount }}%</span>
-    </div>
-    <button mat-icon-button class="wishlist-btn">
-      <mat-icon>favorite_border</mat-icon>
-    </button>
-  </div>
 
-  <div class="product-info">
-    <h3>{{ product.name }}</h3>
-    <div class="price-container">
-      <span class="current-price">{{ product.price | currency }}</span>
-      <span class="original-price" *ngIf="product.originalPrice">
-        {{ product.originalPrice | currency:'EGP':'symbol':'1.2-2'  }}
-      </span>
-    </div>
-    @if (product) {
-      <div class="rating">
-        @for (star of [1,2,3,4,5]; track $index) {
-          <mat-icon  class="star">
-            {{ star <= product.rating  ? 'star' : 'star_border' }}
-          </mat-icon>
-        }
-
-        <span>({{ product.reviews }})</span>
-      </div>
-    }
-
-  </div>
-</div> -->
-
-<div class="product-card" [class.grid-view]="viewMode === 'grid'">
+<div class="product-card"  [class.list-view]="viewMode === 'list'"
+[class.grid-view]="viewMode === 'grid'">
   <!-- Image & Discount Badge -->
   <div class="image-container">
     <img
       class="product-image"
       [src]="product.imgOne"
       [alt]="product.title"
+      loading="lazy"
     />
     <!-- Discount Badge -->
      @if(product.discount>0){

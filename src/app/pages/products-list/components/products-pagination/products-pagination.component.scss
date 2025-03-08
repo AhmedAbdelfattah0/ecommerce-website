@@ -5,15 +5,20 @@
   justify-content: center;
   gap: 0.5rem;
   margin: 1rem 0;
+  flex-wrap: nowrap; // default is no wrapping on larger screens
 
   .page-button {
-    background-color: $Light-beige;;
+    background-color: $Light-beige;
     border: 1px solid #ccc;
     padding: 0.5rem 0.8rem;
     cursor: pointer;
     width: 60px;
     height: 60px;
     border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     &.active {
       background-color: $light-brown;
       color: #fff;
@@ -22,6 +27,20 @@
     &:disabled {
       cursor: not-allowed;
       opacity: 0.5;
+    }
+  }
+
+  // On screens below the "md" breakpoint, allow wrapping
+  @include respond-below(md) {
+    flex-wrap: wrap;
+    gap: 0.3rem; // reduce gap for smaller screens
+
+    .page-button {
+      width: 50px;
+      height: 50px;
+      padding: 0.3rem 0.5rem;
+      font-size: 0.8rem;
+      border-radius: 6px;
     }
   }
 }

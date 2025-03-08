@@ -1,12 +1,12 @@
 <app-hero></app-hero>
+<!-- Filter & Sorting Section -->
+<app-products-filter
+(filterChanged)="onFilterChanged($event)"
+(sortChanged)="onSortChanged($event)"
+(viewModeChanged)="onViewModeChanged($event)"
+></app-products-filter>
 
 <div class="products-list-wrapper">
-  <!-- Filter & Sorting Section -->
-  <app-products-filter
-    (filterChanged)="onFilterChanged($event)"
-    (sortChanged)="onSortChanged($event)"
-    (viewModeChanged)="onViewModeChanged($event)"
-  ></app-products-filter>
 
   <!-- Products Grid -->
   <app-product-grid

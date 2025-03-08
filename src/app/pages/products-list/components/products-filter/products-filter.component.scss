@@ -1,30 +1,64 @@
 @use '../../../../../scss/global' as *;
+
 .filter-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   margin-bottom: 1rem;
   flex-wrap: wrap;
   gap: 1rem;
+  background: $Light-beige;
+  height: 100px;
+  padding: 0 1rem; // Add some horizontal padding
 
-  .filter-left {
+  // Main Wrapper for Filter + Icons + "Showing x of x"
+  .filter-wrapper {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.438rem;
 
-    .filter-button {
-      background-color: #f5f5f5;
-      border: 1px solid #ccc;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
+    .border {
+      border-right: solid 2px #9f9f9f;
+      height: 37px;
+
     }
+    .filter-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
 
-    .filter-text {
-      font-size: 0.9rem;
-      color: #777;
+      .filter-button {
+        cursor: pointer;
+      }
+
+      .icon-grid {
+        background: url(../../../../../assets/grid-view.svg) center/cover;
+        width: 20.33px;
+        height: 20.33px;
+        cursor: pointer;
+      }
+
+      .icon-list {
+        background: url(../../../../../assets/bi_view-list.svg) center/cover;
+        width: 20.33px;
+        height: 20.33px;
+        cursor: pointer;
+      }
+
+
+      .filter-text {
+        font-size: 20px;
+        color: $black;
+      }
+
+      .filter-sub-text {
+        font-size: 0.9rem;
+        color: #777;
+      }
     }
   }
 
+  // Right Section (Sort by + Select + View Mode Buttons)
   .filter-right {
     display: flex;
     align-items: center;
@@ -56,6 +90,53 @@
 
         &:hover {
           color: #555;
+        }
+      }
+    }
+  }
+
+  // =============================
+  // Responsive Adjustments
+  // =============================
+  @include respond-below(md) {
+    // Let the container grow in height and stack items
+    flex-direction: column;
+    height: auto;
+    padding: 1rem;
+
+    // "filter-wrapper" becomes its own row
+    .filter-wrapper {
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      width: 90%;
+      justify-content: space-between;
+
+      .filter-left {
+        // Let each item (Filter, Grid, List, border, "Showing...") break or wrap as needed
+        flex-wrap: wrap;
+        margin-bottom: 0.5rem;
+      }
+      .border{
+        display: none;
+      }
+    }
+
+    // Move "filter-right" to its own row, full width
+    .filter-right {
+      width: 90%;
+      gap: 0.75rem;
+      justify-content: flex-start;
+      margin-top: 0.5rem;
+
+      label,
+      select {
+        font-size: 0.85rem;
+      }
+
+      .view-toggle {
+        button {
+          font-size: 1rem;
+          margin-left: 0;
         }
       }
     }
