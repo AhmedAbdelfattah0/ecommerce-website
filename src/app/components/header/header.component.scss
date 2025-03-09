@@ -2,6 +2,7 @@
 
 .header-container {
   background-color: $white;
+
   @include flex-center(row);
   justify-content: space-between;
   padding: 2.5rem 2rem;
@@ -10,7 +11,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 4;
   @include respond-above(lg) {
     padding: 1.5rem 6rem;
   }

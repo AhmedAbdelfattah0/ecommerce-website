@@ -1,0 +1,62 @@
+<div class="rooms-inspiration">
+  <!-- Left Content -->
+  <div class="hero-content">
+    <h2>50+ Beautiful rooms inspiration</h2>
+    <p>
+      Our designer already made a lot of beautiful prototype of rooms
+      that inspire you
+    </p>
+    <button class="explore-btn">Explore More</button>
+  </div>
+  <div class="hero-img">
+    <img src="bedroom1.png" alt="">
+    <div class="slide-info">
+      <span class="slide-number">1 __ Bed Room</span>
+      <span class="slide-title">Inner Peace</span>
+      <span class="slide-subtitle"> </span>
+      <button class="arrow-btn next-arrow" (click)="nextSlide()">
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Right Slider Section -->
+
+  <div class="slider-container">
+    <!-- Slider Track -->
+    <div class="slider-track" [style.transform]="trackTransform">
+      <!-- Slides -->
+      @for (slide of slides; track $index; let i = $index){
+         <div class="slide" >
+        <img [src]="slide.image" [alt]="slide.alt" />
+      </div>
+      }
+
+    </div>
+
+    <!-- Next Arrow (on the boundary between main & partial slide) -->
+    <button
+      class="arrow-btn next-arrow"
+      (click)="nextSlide()"
+
+    >
+    <mat-icon>arrow_forward</mat-icon>
+
+    </button>
+
+    <!-- Dots / Pagination -->
+    <div class="dots">
+      @for (slide of slides; track $index; let i = $index){
+           <span
+        class="dot"
+
+        [class.active]="i === currentIndex"
+        (click)="goToSlide(i)"
+      ></span>
+      }
+
+    </div>
+  </div>
+
+</div>

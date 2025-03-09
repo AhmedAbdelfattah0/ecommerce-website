@@ -1,44 +1,115 @@
 @use '../../../../../scss/global' as *;
 
-.social-gallery {
+.collage-section {
   text-align: center;
-  padding: 2rem 1rem; // Some vertical/horizontal padding
-
+  padding: 2rem 1rem;
+  margin-top: 67px;
+  margin-bottom: 50px;
   h2 {
     font-size: 1.5rem;
     margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
 
     span {
-      color: #e67e22; // Example accent color
+      color: #e67e22;
     }
   }
 
-  .gallery-grid {
-    // Example: 4 columns, 1.5rem gap
-    @include grid(4, 1.5rem);
+  .collage-wrapper {
+    // Maintain a 1200:800 aspect ratio => 66.6667%
+    // This ensures the container scales proportionally.
+    position: relative;
+    width: 99%;
+    height: 780px;
 
-    .gallery-item {
-      position: relative;
-
-      img {
-        width: 100%;
-        height: auto;
-        display: block;
-        object-fit: cover; // if you want to crop
-      }
+    .collage-item {
+      position: absolute;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
-    // Adjust columns at breakpoints
-    @include respond-below(xl) {
-      @include grid(3, 1.2rem);
+
+    .item-1 {
+      top: 0%;
+      left: -19.3333%;
+      width: 25%;
+      height: 50%;
+      background-image: url('../../../../../assets/gallery1.png');
     }
 
-    @include respond-below(lg) {
-      @include grid(2, 1rem);
+
+    .item-2 {
+      top: 10.875%;
+      left: 6.4167%;
+      width: 27.8333%;
+      height: 39%;
+      background-image: url('../../../../../assets/gallery2.png');
     }
 
-    @include respond-below(md) {
-      @include grid(1, 1rem);
+
+    .item-3 {
+      top: 21.75%;
+      left: 34.5%;
+      width: 16%;
+      height: 49%;
+      background-image: url('../../../../../assets/gallery3.png');
     }
+
+    .item-4 {
+      top: 10.875%;
+      right: 29.5%;
+      width: 19.5833%;
+      height: 43.5%;
+      background-image: url('../../../../../assets/gallery4.png');
+    }
+
+
+    .item-5 {
+      top: 0.125%;
+      right: -1.25%;
+      width: 30.3333%;
+      height: 54.125%;
+      background-image: url('../../../../../assets/gallery5.png');
+    }
+
+
+    .item-6 {
+      top: 51.25%;
+      left: -16.9167%;
+      width: 31.75%;
+      height: 40.375%;
+      background-image: url('../../../../../assets/gallery6.png');
+    }
+
+
+    .item-7 {
+      top: 51.25%;
+      left: 15.75%;
+      width: 18.4167%;
+      height: 30.25%;
+      background-image: url('../../../../../assets/gallery7.png');
+    }
+
+
+    .item-8 {
+      top: 55.625%;
+      right: 32.0833%;
+      width: 14.3333%;
+      height: 46.5%;
+      background-image: url('../../../../../assets/gallery8.png');
+    }
+
+
+    .item-9 {
+      top: 55.625%;
+      right: 9.6667%;
+      width: 21.5%;
+      height: 46.5%;
+      background-image: url('../../../../../assets/gallery9.png');
+    }
+
+
   }
 }
