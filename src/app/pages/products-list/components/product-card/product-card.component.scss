@@ -50,7 +50,7 @@
       display: block;
     }
 
-    .discount-badge {
+    .discount-badge , .new-badge , .top-badge {
       position: absolute;
       top: 8px;
       right: 8px;
@@ -63,6 +63,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+    .new-badge {
+
+      background: #2EC1AC;
+
+    }
+    .top-badge {
+
+      background: #ffc65c;
+
     }
   }
 

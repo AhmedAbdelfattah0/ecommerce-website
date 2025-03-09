@@ -68,6 +68,15 @@ export class ProductsListComponent implements OnInit {
     onViewModeChanged(mode: any): void {
       this.viewMode = mode;
     }
+    itemsPerPageChanged(items: any): void {
+
+      this.currentPage = 1;
+      this.itemsPerPage = items;
+      this.filteredProducts = this.products.slice(0, this.itemsPerPage);
+      this.totalProducts = this.products.length;
+      this.onPageChanged(this.currentPage)
+
+    }
 
     onPageChanged(event: any): void {
       this.showProducts =false;

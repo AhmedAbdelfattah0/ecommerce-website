@@ -15,6 +15,16 @@
         <span>-{{ product.discount }}%</span>
       </div>
      }
+     @if(product.subCategoryId == 1){
+      <div class="new-badge"  >
+        <span>New</span>
+      </div>
+     }
+     @if(product.subCategoryId == 2){
+      <div class="top-badge"  >
+        <span>Top</span>
+      </div>
+     }
 
 
 

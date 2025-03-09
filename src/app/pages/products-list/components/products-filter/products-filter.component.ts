@@ -19,6 +19,7 @@ export class ProductsFilterComponent {
 
  // Example: total item count
   @Output() filterChanged = new EventEmitter<any>();
+  @Output() itemsPerPageChanged = new EventEmitter<any>();
   @Output() sortChanged = new EventEmitter<string>();
   @Output() viewModeChanged = new EventEmitter<'grid' | 'list'>();
 
@@ -34,8 +35,13 @@ export class ProductsFilterComponent {
   ngOnInit(): void {}
 
   onFilterClick(catigoryId:any): void {
+     this.filterChanged.emit(catigoryId);
+  }
+  onItemsPerPageClicked(event:Event): void {
+    const select = event.target as HTMLSelectElement;
+
     // Trigger filter logic
-    this.filterChanged.emit(catigoryId);
+    this.itemsPerPageChanged.emit(Number(select.value));
   }
 
   onSortChange(event: Event): void {

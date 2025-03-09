@@ -6,6 +6,7 @@ export interface Product {
   description: string;
   imgOne: string;
   categoryId: string;
+  subCategoryId: number;
   // stock: number;
   rating: number;
   isNew?: boolean;

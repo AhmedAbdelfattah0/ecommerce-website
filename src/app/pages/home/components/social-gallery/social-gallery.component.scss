@@ -1,0 +1,44 @@
+@use '../../../../../scss/global' as *;
+
+.social-gallery {
+  text-align: center;
+  padding: 2rem 1rem; // Some vertical/horizontal padding
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+
+    span {
+      color: #e67e22; // Example accent color
+    }
+  }
+
+  .gallery-grid {
+    // Example: 4 columns, 1.5rem gap
+    @include grid(4, 1.5rem);
+
+    .gallery-item {
+      position: relative;
+
+      img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover; // if you want to crop
+      }
+    }
+
+    // Adjust columns at breakpoints
+    @include respond-below(xl) {
+      @include grid(3, 1.2rem);
+    }
+
+    @include respond-below(lg) {
+      @include grid(2, 1rem);
+    }
+
+    @include respond-below(md) {
+      @include grid(1, 1rem);
+    }
+  }
+}
