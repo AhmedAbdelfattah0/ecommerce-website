@@ -4,12 +4,13 @@ import { BaseComponent } from '../../common/components/base/base.component';
 import { CommonModule } from '@angular/common';
 import { HeroComponent } from './components/hero/hero.component';
 import { SocialGalleryComponent } from './components/social-gallery/social-gallery.component';
+import { CategoriesSectionComponent } from './components/categories-section/categories-section.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  imports:[BaseComponent.materialModules,CommonModule,HeroComponent, SocialGalleryComponent, RoomsInspirationComponent]
+  imports:[BaseComponent.materialModules,CommonModule,HeroComponent, SocialGalleryComponent, RoomsInspirationComponent, CategoriesSectionComponent]
 })
 export class HomeComponent implements OnInit {
 

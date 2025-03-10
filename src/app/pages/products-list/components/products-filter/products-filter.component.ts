@@ -1,9 +1,9 @@
-import { Catigory } from './../../../../models/catigory';
+import { Category } from '../../../../models/category';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BaseComponent } from '../../../../common/components/base/base.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CatigoryService } from '../../../../services/catigries/catigory.service';
+import { CatigoryService } from '../../../../services/categories/categories.service';
 
 @Component({
   selector: 'app-products-filter',
@@ -23,7 +23,7 @@ export class ProductsFilterComponent {
   @Output() sortChanged = new EventEmitter<string>();
   @Output() viewModeChanged = new EventEmitter<'grid' | 'list'>();
 
-  catigoriesList: Catigory[] = [];
+  catigoriesList: Category[] = [];
 
   constructor( private _catigoryService:CatigoryService ){
     this._catigoryService.getCatigories().subscribe(res=>{
