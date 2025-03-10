@@ -6,7 +6,7 @@
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   gap: 2rem;
-  padding: 2rem 0 2rem 1rem;
+  padding: 2rem 0;
   background: $Light-beige;
   height: 670px;
 
@@ -22,6 +22,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 1rem;
+    padding-left: 1rem;
 
     h2 {
       font-size: 2rem;
@@ -63,6 +64,12 @@
       height: 582px;
       top: 2807px;
       left: 564px;
+      @include respond-below(md) {
+        width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+
+      }
     }
 
     .slide-info {
@@ -77,7 +84,9 @@
       height: 130px;
       display: flex;
       flex-direction: column;
-
+      @include respond-below(md){
+        left: 2rem;
+      }
       .slide-number {
         font-weight: 600;
         margin-right: 0.5rem;
@@ -111,6 +120,7 @@
     overflow: hidden;
     height: 500px; // example fixed height
     background-color: $Light-beige;
+    padding-left: 1rem;
 
     // Adjust for smaller screens
     @include respond-below(md) {
@@ -155,12 +165,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-
-      &:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
+      @include respond-below(md){
+        right: 84px;
       }
-
       .arrow-icon {
         font-size: 1.5rem;
         color: #333;
