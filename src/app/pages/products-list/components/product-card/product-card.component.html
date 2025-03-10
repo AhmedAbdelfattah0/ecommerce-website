@@ -63,7 +63,7 @@
           <mat-icon>share</mat-icon>
           <span>Share</span>
         </div>
-        <div class="action-item" [routerLink]="['details',product.id]">
+        <div class="action-item" (click)="goToItems(product.id)"  >
           <mat-icon>description</mat-icon>
           <span>View Details</span>
         </div>

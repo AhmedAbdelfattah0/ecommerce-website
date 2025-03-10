@@ -68,9 +68,9 @@ export class ProductsListComponent implements OnInit {
     // Apply sorting logic here
     // Example: sort by name or price
     if (sortData === 'priceAsc') {
-      this.products.sort((a, b) => a.originalPrice - b.originalPrice);
+      this.products.sort((a, b) => Number(a.originalPrice) - Number(b.originalPrice));
     } else if (sortData === 'priceDesc') {
-      this.products.sort((a, b) => b.originalPrice - a.originalPrice);
+      this.products.sort((a, b) => Number(b.originalPrice) - Number(a.originalPrice));
     }
     // Reset page
     this.currentPage = 1;

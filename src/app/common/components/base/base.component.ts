@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
  import { MatListModule } from '@angular/material/list';
  import {MatSelectModule} from '@angular/material/select';
+ import {LayoutModule} from '@angular/cdk/layout';
 import '@ingka/icon-webc';
 
 
@@ -21,7 +22,8 @@ export class BaseComponent implements OnDestroy {
     MatCardModule,
     MatMenuModule,
      MatListModule,
-     MatSelectModule
+     MatSelectModule,
+     LayoutModule
   ];
   ngOnDestroy(): void {
     this.ngUnSubscribe.next();

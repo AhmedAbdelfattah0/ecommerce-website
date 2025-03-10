@@ -1,1 +1,118 @@
-<p>product-details works!</p>
+<div class="breadcrumb">
+  <app-breadcrumb></app-breadcrumb>
+</div>
+<div class="product-detail">
+  <!-- Breadcrumb (optional) -->
+
+
+  <!-- Main Product Section -->
+  <div class="product-main">
+    <!-- Left: Image Gallery -->
+    <div class="product-gallery">
+      <!-- Thumbnails -->
+      <div class="thumbnail-list">
+        @for (img of product?.images; track $index) {
+        <div class="thumbnail" (click)="selectImage(img)">
+          <img [src]="img" [alt]="product?.title" />
+        </div>
+        }
+
+      </div>
+      <!-- Main Image Preview -->
+      <div class="main-image">
+        <img [src]="selectedImage" [alt]="product?.title" />
+      </div>
+    </div>
+
+    <!-- Right: Product Info -->
+    <div class="product-info">
+      <h1>{{ product?.title }}</h1>
+      <p class="price">{{ product?.originalPrice | currency:'EGP':'symbol':'1.2-2' }}</p>
+
+      <!-- Color Options -->
+      <!-- @if (product?.colors?.length) {
+        <div class="color-options" >
+          <span>Color:</span>
+          <div class="color-swatch" *ngFor="let c of product.colors" [style.background]="c"></div>
+        </div>
+       } -->
+
+
+      <!-- Buttons -->
+      <div class="product-actions">
+        <app-qty-stepper (qtyChange)="this.qty =$event"></app-qty-stepper>
+
+        <button class="add-to-cart" (click)="addToCart()">Add to Cart</button>
+        <button class="compare" (click)="compare()">Compare</button>
+      </div>
+
+      <!-- SKU / Category / Tags -->
+
+      <div class="product-meta">
+        <!-- <div class="meta-item">
+          <div class="label">SKU</div>
+          <div class="separator">:</div>
+          <div class="value">SS001</div>
+        </div> -->
+
+        <div class="meta-item">
+          <div class="label">Category</div>
+          <div class="separator">:</div>
+          <div class="value"> {{ product?.categoryName }}</div>
+        </div>
+
+        <div class="meta-item">
+          <div class="label">Tags</div>
+          <div class="separator">:</div>
+          <div class="value"> {{ product?.categoryName }}</div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- Tabs Section -->
+  <div class="product-tabs">
+    <ul class="tab-list">
+      <li [class.active]="selectedTab === 'description'" (click)="selectTab('description')">
+        Description
+      </li>
+      <li [class.active]="selectedTab === 'additionalInfo'" (click)="selectTab('additionalInfo')">
+        Additional information
+      </li>
+      <!-- <li [class.active]="selectedTab === 'reviews'" (click)="selectTab('reviews')">
+        Reviews [5]
+      </li> -->
+    </ul>
+
+    <div class="tab-content">
+      <div *ngIf="selectedTab === 'description'">
+        <p>{{ product?.description }}</p>
+      </div>
+      <div *ngIf="selectedTab === 'additionalInfo'">
+        <p>{{ product?.description }}</p>
+      </div>
+      <!-- <div *ngIf="selectedTab === 'reviews'">
+        <p>{{ product?.reviews }}</p>
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Large Image / Banner (optional) -->
+  <div class="banner">
+    @for (img of product?.images; track $index) {
+    <img [src]="img" [alt]="product?.title" />
+    }
+  </div>
+
+  <!-- Related Products -->
+  <div class="related-products">
+    <h2>Related Products</h2>
+    <!-- Reuse your existing ProductsGrid or loop over ProductCard components -->
+    <!-- Example: using a simple grid or your custom <app-products-grid> -->
+    <app-product-grid [products]="relatedProducts" [viewMode]="viewMode"></app-product-grid>
+
+    <button class="show-more">Show More</button>
+  </div>
+</div>

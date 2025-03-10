@@ -1,0 +1,15 @@
+<div class="products-hero">
+
+  <div class="products-hero__breadcrumb">
+    @for(breadcrumb of breadcrumbs; track breadcrumb.title; let last = $last;){
+    <div>
+      @if(!last) {
+      <a [routerLink]="breadcrumb.url">{{ breadcrumb.title }}</a>
+      <span> > </span>
+      } @else if(last) {
+      <span>{{ breadcrumb.title }}</span>
+      }
+    </div>
+    }
+  </div>
+</div>

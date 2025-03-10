@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Product } from '../../../../models/product';
 import { BaseComponent } from '../../../../common/components/base/base.component';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-product-card',
@@ -13,9 +13,13 @@ import { RouterModule } from '@angular/router';
 export class ProductCardComponent{
   @Input() product!: Product;
   @Input() viewMode: 'grid' | 'list' = 'grid';
-  constructor(){}
+  constructor(private router:Router){}
   addToCart(){
     console.log('Added To Cart');
 
+  }
+
+  goToItems(id:any) {
+    this.router.navigate(['../products/details',id]);
   }
 }

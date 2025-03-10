@@ -12,10 +12,10 @@
   </div>
 
   <nav class="nav-links" *ngIf="(isMobile$ | async) === false">
-    <a mat-button routerLink="/" class="nav-link">Home</a>
-    <a mat-button [routerLink]="['/products']" class="nav-link">Products</a>
-    <a mat-button routerLink="/about" class="nav-link">About</a>
-    <a mat-button routerLink="/contact" class="nav-link">Contact</a>
+    <a mat-button routerLink="/" class="nav-link"  routerLinkActive="router-link-active" >Home</a>
+    <a mat-button [routerLink]="['/products']" routerLinkActive="router-link-active" class="nav-link">Products</a>
+    <a mat-button routerLink="/about" routerLinkActive="router-link-active" class="nav-link">About</a>
+    <a mat-button routerLink="/contact" routerLinkActive="router-link-active" class="nav-link">Contact</a>
   </nav>
 
   <div class="header-actions">

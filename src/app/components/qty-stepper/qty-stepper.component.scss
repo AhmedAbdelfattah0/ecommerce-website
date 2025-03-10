@@ -1,0 +1,45 @@
+.qty-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+
+  /* Adjust overall size as needed */
+  height: 40px;
+  min-width: 100px; /* ensures enough space for 3 elements */
+
+  .qty-btn {
+    flex: 0 0 40px; /* fixed width for each button */
+    background: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #333;
+    height: 100%;
+    // &.minus {
+    //   border-right: 1px solid #ccc;
+    // }
+    // &.plus {
+    //   border-left: 1px solid #ccc;
+    // }
+
+    &:hover {
+      background: #f7f7f7;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .qty-value {
+    flex: 1;
+    text-align: center;
+    font-size: 1rem;
+    color: #333;
+    user-select: none; /* prevent text selection */
+  }
+}
