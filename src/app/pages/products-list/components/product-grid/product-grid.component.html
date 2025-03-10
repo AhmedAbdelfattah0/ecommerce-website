@@ -2,5 +2,11 @@
   @for (product of products; track $index) {
   <app-product-card [product]="product" [viewMode]="viewMode" ></app-product-card>
   }
+  @if(!products.length){
+
+   <div class="">
+    <h1> {{'No results found'}}</h1>
+   </div>
+  }
 
 </div>

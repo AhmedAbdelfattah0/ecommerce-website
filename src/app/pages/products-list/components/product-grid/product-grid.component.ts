@@ -14,5 +14,6 @@ import { FormsModule } from '@angular/forms';
 export class ProductGridComponent {
   @Input() products: Product[] = [];
    @Input() viewMode: 'grid' | 'list' = 'list';
-  constructor() { }
+  constructor() {
+}
 }

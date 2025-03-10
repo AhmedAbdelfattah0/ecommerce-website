@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 import { FeaturesComponent } from '../../components/features/features.component';
 import { ProductGridComponent } from './components/product-grid/product-grid.component';
 import { ProductsPaginationComponent } from './components/products-pagination/products-pagination.component';
- import { Product } from '../../models/product';
+import { Product } from '../../models/product';
 import { PaginationConfig } from '../../models/pagination.model';
 import { ProductsFilterComponent } from "./components/products-filter/products-filter.component";
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-products-list',
@@ -17,75 +18,87 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './products-list.component.scss'
 })
 export class ProductsListComponent implements OnInit {
-    // Sample data
-    products: Product[] = [];
-    filteredProducts: Product[] = [];
-    totalProducts: number = 0;
-    itemsPerPage: number = 16;
-    currentPage: number = 1;
-    viewMode: 'grid' | 'list' = 'grid';
-    startIndex: number = 0;
-    endIndex: number = this.itemsPerPage;
-    showProducts:boolean= true
-    constructor( private _productService:ProductService){
-      this._productService.getProducts().subscribe((res:any)=>{
-        this.products = res
-        this.filteredProducts = this.products.slice(0, this.itemsPerPage);
-        this.totalProducts = this.products.length;
+  // Sample data
+  products: Product[] = [];
+  filteredProducts: Product[] = [];
+  totalProducts: number = 0;
+  itemsPerPage: number = 16;
+  currentPage: number = 1;
+  viewMode: 'grid' | 'list' = 'grid';
+  startIndex: number = 0;
+  endIndex: number = this.itemsPerPage;
+  showProducts: boolean = true
+  constructor(private _productService: ProductService, private route: ActivatedRoute) {
+    this._productService.getProducts().subscribe((res: any) => {
+      this.products = res
+      this.filteredProducts = this.products.slice(0, this.itemsPerPage);
+      this.totalProducts = this.products.length;
+      this.route.queryParams.subscribe(res => {
+        console.log(res);
+        if (res && res.hasOwnProperty('pros'))
+          this.onFilterChanged(res['pros'])
+
       })
-    }
+    })
 
-    ngOnInit(): void {
-      // Initially, display all products
 
-    }
+  }
+
+  ngOnInit(): void {
+    // Initially, display all products
+
+  }
 
   onFilterChanged(filterData: any): void {
+    debugger
     if (filterData) {
       this.filteredProducts = this.products.filter(product => product.categoryId == filterData).slice(0, this.itemsPerPage);
       this.totalProducts = this.filteredProducts.length
       this.currentPage = 1;
-    }else{
+      return
+    } else {
       this.filteredProducts = this.products.slice(0, this.itemsPerPage);
       this.totalProducts = this.products.length
+      return
+
     }
 
   }
 
-    onSortChanged(sortData: any): void {
-      // Apply sorting logic here
-      // Example: sort by name or price
-      if (sortData === 'priceAsc') {
-        this.products.sort((a, b) => a.originalPrice - b.originalPrice);
-      } else if (sortData === 'priceDesc') {
-        this.products.sort((a, b) => b.originalPrice - a.originalPrice);
-      }
-      // Reset page
-      this.currentPage = 1;
-      this.filteredProducts = this.products.slice(0, this.itemsPerPage);
+  onSortChanged(sortData: any): void {
+    // Apply sorting logic here
+    // Example: sort by name or price
+    if (sortData === 'priceAsc') {
+      this.products.sort((a, b) => a.originalPrice - b.originalPrice);
+    } else if (sortData === 'priceDesc') {
+      this.products.sort((a, b) => b.originalPrice - a.originalPrice);
     }
+    // Reset page
+    this.currentPage = 1;
+    this.filteredProducts = this.products.slice(0, this.itemsPerPage);
+  }
 
-    onViewModeChanged(mode: any): void {
-      this.viewMode = mode;
-    }
-    itemsPerPageChanged(items: any): void {
+  onViewModeChanged(mode: any): void {
+    this.viewMode = mode;
+  }
+  itemsPerPageChanged(items: any): void {
 
-      this.currentPage = 1;
-      this.itemsPerPage = items;
-      this.filteredProducts = this.products.slice(0, this.itemsPerPage);
-      this.totalProducts = this.products.length;
-      this.onPageChanged(this.currentPage)
+    this.currentPage = 1;
+    this.itemsPerPage = items;
+    this.filteredProducts = this.products.slice(0, this.itemsPerPage);
+    this.totalProducts = this.products.length;
+    this.onPageChanged(this.currentPage)
 
-    }
+  }
 
-    onPageChanged(event: any): void {
-      this.showProducts =false;
-      this.currentPage = event;
-       this.startIndex = (this.currentPage - 1) * this.itemsPerPage;
-       this.endIndex = this.startIndex + this.itemsPerPage;
-      this.filteredProducts = this.products.slice(this.startIndex, this.endIndex);
-        setTimeout(()=>{
-          this.showProducts=true;
-        },500)
-    }
+  onPageChanged(event: any): void {
+    this.showProducts = false;
+    this.currentPage = event;
+    this.startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    this.endIndex = this.startIndex + this.itemsPerPage;
+    this.filteredProducts = this.products.slice(this.startIndex, this.endIndex);
+    setTimeout(() => {
+      this.showProducts = true;
+    }, 500)
+  }
 }

@@ -6,7 +6,7 @@
   <!-- Categories Grid -->
   <div class="categories-grid">
     @for (cat of categories; track $index) {
-      <div class="category-card"  >
+      <div class="category-card" [routerLink]="['/products']" [queryParams]="{pros: cat.id}" >
         <img [src]="cat.imgOne" [alt]="cat.title" />
         <h3>{{ cat.title }}</h3>
       </div>
