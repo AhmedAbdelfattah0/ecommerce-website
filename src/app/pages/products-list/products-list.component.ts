@@ -50,8 +50,7 @@ export class ProductsListComponent implements OnInit {
   }
 
   onFilterChanged(filterData: any): void {
-    debugger
-    if (filterData) {
+     if (filterData) {
       this.filteredProducts = this.products.filter(product => product.categoryId == filterData).slice(0, this.itemsPerPage);
       this.totalProducts = this.filteredProducts.length
       this.currentPage = 1;

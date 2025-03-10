@@ -16,8 +16,8 @@ export class ProductService {
     perPage: number,
     sort: string,
     filters: any
-  }): Observable<ProductsResponse[]> {
-    return this.http.get<ProductsResponse[]>(`${this.apiUrl}/get_products.php`, { params });
+  }): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.apiUrl}/get_products.php`, { params });
     }
 
   getProduct(id: number): Observable<Product> {

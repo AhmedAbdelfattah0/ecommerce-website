@@ -1,0 +1,27 @@
+@use '../../../../../scss/global' as *;
+
+.products-list-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  .title,
+  .see-more {
+    display: flex;
+    justify-content: center;
+  }
+
+  .see-more {
+    button {
+      width: 245px;
+      height: 48px;
+      background: $white;
+      border: solid 1px $light-brown;
+      color: $light-brown;
+    }
+
+  }
+}
