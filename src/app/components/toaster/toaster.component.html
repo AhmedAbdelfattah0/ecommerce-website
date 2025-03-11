@@ -1,0 +1,13 @@
+@if(toasterService.toasterObject()?.isVisible){
+<skapa-toast [dir]="direction" id="main-toast" [show]="toasterService.toasterObject()?.isVisible"
+  (skapa-toast-dismissed)="afterDismiss()">
+  @if(toasterService.toasterObject()?.Message){
+  <span>{{toasterService.toasterObject()?.Message}} </span>
+  }
+  {{selectedLang[toasterService.toasterObject()?.toasterType]}}
+  @if(toasterService.toasterObject()?.viewLink?.isVisible){
+
+  <span slot="action"> <a routerLink="toasterData?.viewLink?.link">{{selectedLang?.VIEW}} </a> </span>
+  }
+</skapa-toast>
+}

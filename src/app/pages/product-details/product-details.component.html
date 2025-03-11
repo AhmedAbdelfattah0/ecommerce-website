@@ -27,7 +27,7 @@
     <!-- Right: Product Info -->
     <div class="product-info">
       <h1>{{ product?.title }}</h1>
-      <p class="price">{{ product?.originalPrice | currency:'EGP':'symbol':'1.2-2' }}</p>
+      <p class="price">{{ product?.originalPrice | currency:'EGP':'symbol':'1.2-2' |  addSpaceAfterCurrency }}</p>
 
       <!-- Color Options -->
       <!-- @if (product?.colors?.length) {

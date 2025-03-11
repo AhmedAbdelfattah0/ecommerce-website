@@ -7,10 +7,12 @@ import { FormsModule } from '@angular/forms';
 import { BaseComponent } from '../../common/components/base/base.component';
 import { CartService } from '../../services/cart/cart.service';
 import { FeaturesComponent } from '../../components/features/features.component';
+import { RouterModule } from '@angular/router';
+import { AddSpaceAfterCurrencyPipe } from '../../common/pipes/add-space-after-currency';
 
 @Component({
   selector: 'app-cart',
-  imports: [HeroComponent,QtyStepperComponent,CommonModule,FormsModule, BaseComponent.materialModules,FeaturesComponent],
+  imports: [HeroComponent,QtyStepperComponent,CommonModule,FormsModule, BaseComponent.materialModules,FeaturesComponent,RouterModule,AddSpaceAfterCurrencyPipe],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
 })

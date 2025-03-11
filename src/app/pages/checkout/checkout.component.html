@@ -1,0 +1,64 @@
+<app-hero></app-hero>
+
+<div class="checkout-container">
+  <!-- Left Column: Billing Form -->
+  <div class="billing-details">
+    <h2>Billing details</h2>
+
+  <div class="form-row">
+    <label for="name">Name</label>
+    <input id="name" type="text" [(ngModel)]="name" name="name" />
+  </div>
+
+  <div class="form-row">
+    <label for="phoneNumber">Phone Number</label>
+    <input id="phoneNumber" type="text" [(ngModel)]="phoneNumber" name="phoneNumber" />
+  </div>
+
+  <div class="form-row">
+    <label for="address">Address</label>
+    <input id="address" type="text" [(ngModel)]="address" name="address" />
+  </div>
+
+  <div class="form-row">
+    <label for="state">State</label>
+    <input id="state" type="text" [(ngModel)]="state" name="state" />
+  </div>
+
+  <div class="form-row">
+    <label for="email">Email</label>
+    <input id="email" type="email" [(ngModel)]="email" name="email" />
+  </div>
+  </div>
+
+  <!-- Right Column: Order Summary -->
+  <div class="order-summary">
+    <h2>Product <span>Subtotal</span></h2>
+    <div class="order-items">
+      @for ( item of cartItems; track $index) {
+        <div class="order-item"  >
+          <span>{{ item.title }} x {{ item.qty }}</span>
+          <span>{{ (item.price * item.qty) | currency:'EGP':'symbol':'1.2-2' |  addSpaceAfterCurrency  }}</span>
+        </div>
+      }
+
+    </div>
+    <div class="totals">
+      <div class="line-item">
+        <span>Subtotal</span>
+        <span>{{ subtotal | currency:'EGP':'symbol':'1.2-2' |  addSpaceAfterCurrency  }}</span>
+      </div>
+      <div class="line-item total">
+        <span>Total</span>
+        <span>{{ total | currency:'EGP':'symbol':'1.2-2' |  addSpaceAfterCurrency  }}</span>
+      </div>
+    </div>
+
+
+
+    <button class="place-order-btn" (click)="placeOrder()">
+      Place order
+    </button>
+  </div>
+</div>
+<app-features></app-features>

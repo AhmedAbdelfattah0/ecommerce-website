@@ -60,14 +60,14 @@
     <div>
       <div class="totals-line">
         <span>Subtotal</span>
-        <span>Rs. {{ subtotal | number }}</span>
+        <span>Rs. {{ subtotal | currency:'EGP':'symbol':'1.2-2' |  addSpaceAfterCurrency  }}</span>
       </div>
       <div class="totals-line total">
         <span>Total</span>
-        <span>Rs. {{ total | number }}</span>
+        <span>Rs. {{ total | currency:'EGP':'symbol':'1.2-2' |  addSpaceAfterCurrency  }}</span>
       </div>
     </div>
-    <button [disabled]="!cartItems.length" class="checkout-btn" (click)="checkout()">Check Out</button>
+    <button [disabled]="!cartItems.length" class="checkout-btn"  [routerLink]="['/checkout']" >Check Out</button>
   </div>
 
 </div>

@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { CartService } from '../../../../services/cart/cart.service';
 import { Cart } from '../../../../models/cart';
+import { AddSpaceAfterCurrencyPipe } from '../../../../common/pipes/add-space-after-currency';
 
 @Component({
   selector: 'app-product-card',
-  imports: [BaseComponent.materialModules,CommonModule,RouterModule],
+  imports: [BaseComponent.materialModules,CommonModule,RouterModule,AddSpaceAfterCurrencyPipe],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss'
 })
