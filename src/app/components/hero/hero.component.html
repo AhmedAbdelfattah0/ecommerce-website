@@ -1,6 +1,6 @@
 <section class="products-hero">
 
-  <h1>Our Products</h1>
+  <h1>{{breadcrumbs[breadcrumbs.length-1]?.title}}</h1>
   <div class="products-hero__breadcrumb">
     @for(breadcrumb of breadcrumbs; track breadcrumb.title; let last = $last;){
       <div >

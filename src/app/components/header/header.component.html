@@ -19,7 +19,7 @@
   </nav>
 
   <div class="header-actions">
-    <button mat-icon-button class="cart-button">
+    <button mat-icon-button class="cart-button" [routerLink]="['/cart']">
       <mat-icon>shopping_cart</mat-icon>
       <span class="cart-count">{{itemsCount()}}</span>
     </button>

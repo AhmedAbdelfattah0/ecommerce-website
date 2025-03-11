@@ -3,6 +3,8 @@ import { Product } from '../../../../models/product';
 import { BaseComponent } from '../../../../common/components/base/base.component';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { CartService } from '../../../../services/cart/cart.service';
+import { Cart } from '../../../../models/cart';
 
 @Component({
   selector: 'app-product-card',
@@ -13,10 +15,20 @@ import { Router, RouterModule } from '@angular/router';
 export class ProductCardComponent{
   @Input() product!: Product;
   @Input() viewMode: 'grid' | 'list' = 'grid';
-  constructor(private router:Router){}
+  constructor(private router:Router, private _cartService:CartService){}
   addToCart(){
-    console.log('Added To Cart');
+   if (this.product) {
 
+         let productToAdd: Cart = {
+           id:this.product.id,
+           title:this.product.title,
+           image: this.product.imgOne|| this.product.imgTwo ||this.product.imgThree || this.product.imgFour || '',
+           price: Number(this.product.originalPrice),
+           qty: 1
+         };
+
+         this._cartService.addToCart(productToAdd);
+       }
   }
 
   goToItems(id:any) {
