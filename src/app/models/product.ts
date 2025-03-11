@@ -20,6 +20,7 @@ export interface Product {
   badge?:string;
   subtitle?:string;
   availability:string;
+  qty:number;
 }
 export interface Product_v2 {
   id: number;

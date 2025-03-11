@@ -14,6 +14,7 @@
     gap: 2rem;
     margin-bottom: 3.438rem;
     margin-top: 3.438rem;
+
     @include respond-below(md) {
       grid-template-columns: 1fr;
     }
@@ -25,10 +26,10 @@
       .thumbnail-list {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 3.125rem;
 
         .thumbnail {
-          width: 60px;
+          width: 83px;
           height: 60px;
           overflow: hidden;
           cursor: pointer;
@@ -60,7 +61,7 @@
       }
 
       .price {
-         font-weight: 500;
+        font-weight: 500;
         font-size: 24px;
         line-height: 100%;
         letter-spacing: 0%;
@@ -89,15 +90,17 @@
         margin-bottom: 1rem;
 
         button {
-          padding: 0.75rem 1.5rem;
-          border: none;
+          // padding: 0.75rem 1.5rem;
+          width: 215px;
+          height: 64px;
+          border: solid 1px #000;
           cursor: pointer;
-          border-radius: 4px;
+          border-radius: 15px;
         }
 
         .add-to-cart {
-          background-color: #333;
-          color: #fff;
+          color: #333;
+          background-color: #fff;
         }
 
         .compare {
@@ -108,18 +111,21 @@
       }
 
       .product-meta {
-        border-top: solid 1px #ccc ;
+        border-top: solid 1px #ccc;
         margin-top: 3rem;
         margin-bottom: 3rem;
         padding-top: 3rem;
+
         .meta-item {
           display: grid;
           grid-template-columns: auto auto 1fr;
-          column-gap: 0.5rem; /* spacing between columns */
+          column-gap: 0.5rem;
+          /* spacing between columns */
           margin-bottom: 0.3rem;
 
           .label {
-            color: #9F9F9F; /* or your preferred color */
+            color: #9F9F9F;
+            /* or your preferred color */
           }
 
           .separator {
@@ -137,6 +143,7 @@
   /* Tabs */
   .product-tabs {
     margin-bottom: 2rem;
+    margin-left: 1rem;
 
     .tab-list {
       display: flex;
@@ -157,11 +164,13 @@
     }
 
     .tab-content {
-      p {
-        font-size: 0.95rem;
-        line-height: 1.6;
-        color: #555;
+      .desc{
+        font-weight: 400;
+        font-size: 16px;
+        text-align: justify;
+        color:#9F9F9F
       }
+
     }
   }
 
@@ -171,16 +180,20 @@
     margin-top: 3.438rem;
     display: flex;
     gap: 1rem;
-    @include respond-below(md){
+    border-bottom: 1px solid #ddd;
+
+    @include respond-below(md) {
       flex-direction: column;
     }
+
     img {
       width: 605px;
       height: 348px;
 
       display: block;
-      @include respond-below(md){
-       width: 100%;
+
+      @include respond-below(md) {
+        width: 100%;
 
       }
     }
@@ -191,9 +204,14 @@
     text-align: center;
     margin-bottom: 3.438rem;
     margin-top: 3.438rem;
-    h2 {
-      margin-bottom: 1rem;
-      font-size: 1.6rem;
+
+    .title {
+      font-family: Poppins;
+      font-weight: 500;
+      font-size: 36px;
+      line-height: 100%;
+      margin-top: 55px;
+      margin-bottom: 26px;
     }
 
     /* Reuse your existing <app-products-grid> or loop <app-product-card>
@@ -203,10 +221,16 @@
     .show-more {
       margin-top: 1rem;
       padding: 0.75rem 1.5rem;
-      border: 1px solid #ccc;
+      border: 1px solid $light-brown;
+      color: $light-brown;
       background-color: #fff;
       cursor: pointer;
       border-radius: 4px;
+
+      width: 245px;
+      height: 48px;
+
+
     }
   }
 }

@@ -24,7 +24,7 @@ export class ProductService {
     return this.http.get<Product_v2>(`${this.apiUrl}/get_product-v2.php/?id=${id}`);
   }
 
-  getProductsByCategory(category: string): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.apiUrl}?category=${category}`);
+  getProductsByCategory(category: any): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.apiUrl}/get_products_by_categoryId.php/?categoryId=${category}`);
   }
 }

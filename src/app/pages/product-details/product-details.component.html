@@ -40,10 +40,10 @@
 
       <!-- Buttons -->
       <div class="product-actions">
-        <app-qty-stepper (qtyChange)="this.qty =$event"></app-qty-stepper>
+        <app-qty-stepper (qtyChange)="qty =$event" [minQty]="minQty" [qty]="minQty"></app-qty-stepper>
 
         <button class="add-to-cart" (click)="addToCart()">Add to Cart</button>
-        <button class="compare" (click)="compare()">Compare</button>
+        <!-- <button class="compare" (click)="compare()">Compare</button> -->
       </div>
 
       <!-- SKU / Category / Tags -->
@@ -87,12 +87,17 @@
     </ul>
 
     <div class="tab-content">
-      <div *ngIf="selectedTab === 'description'">
-        <p>{{ product?.description }}</p>
-      </div>
-      <div *ngIf="selectedTab === 'additionalInfo'">
-        <p>{{ product?.description }}</p>
-      </div>
+      @if (selectedTab === 'description') {
+        <div class="desc" >
+          <p >{{ product?.description }}</p>
+        </div>
+      }
+      @if (selectedTab === 'additionalInfo') {
+        <div  class="desc"  >
+          <p>{{ product?.description }}</p>
+        </div>
+      }
+
       <!-- <div *ngIf="selectedTab === 'reviews'">
         <p>{{ product?.reviews }}</p>
       </div> -->
@@ -101,18 +106,17 @@
 
   <!-- Large Image / Banner (optional) -->
   <div class="banner">
-    @for (img of product?.images; track $index) {
+    @for (img of productsDescriptionImage; track $index) {
     <img [src]="img" [alt]="product?.title" />
     }
   </div>
 
   <!-- Related Products -->
   <div class="related-products">
-    <h2>Related Products</h2>
-    <!-- Reuse your existing ProductsGrid or loop over ProductCard components -->
-    <!-- Example: using a simple grid or your custom <app-products-grid> -->
-    <app-product-grid [products]="relatedProducts" [viewMode]="viewMode"></app-product-grid>
+    <div class="title"><span>Related Products</span></div>
+    <!-- Reuse of existing ProductsGrid -->
+    <app-product-grid [products]="filteredRelatedProducts" [viewMode]="viewMode"></app-product-grid>
 
-    <button class="show-more">Show More</button>
+    <button class="show-more" (click)="onPageChanged()">Show More</button>
   </div>
 </div>

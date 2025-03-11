@@ -35,7 +35,7 @@ export class FeaturesProductsComponent {
   }
 
   filterProductsBySubCatigory(id: any) {
-     return this.products.filter(product => product.subCategoryId == id).slice(this.startIndex, this.endIndex);;
+     return this.products.filter(product => product.subCategoryId == id).slice(this.startIndex, this.endIndex);
   }
 
   filterProductsBySubCatigoryWithoutSlice(id: any) {
