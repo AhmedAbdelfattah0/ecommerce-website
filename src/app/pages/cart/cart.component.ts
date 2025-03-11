@@ -6,10 +6,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BaseComponent } from '../../common/components/base/base.component';
 import { CartService } from '../../services/cart/cart.service';
+import { FeaturesComponent } from '../../components/features/features.component';
 
 @Component({
   selector: 'app-cart',
-  imports: [HeroComponent,QtyStepperComponent,CommonModule,FormsModule, BaseComponent.materialModules],
+  imports: [HeroComponent,QtyStepperComponent,CommonModule,FormsModule, BaseComponent.materialModules,FeaturesComponent],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
 })
