@@ -38,6 +38,7 @@
       }
     }
 
+
     // Common styles for the link columns
     .footer-links,
     .footer-help,
@@ -64,6 +65,25 @@
           }
         }
       }
+    }
+    .footer-help{
+
+        .social-links {
+          li {
+            a {
+              display: flex;
+                gap: 10px;
+              mat-icon {
+                font-size: 1.2rem;
+                color: #333;
+              }
+              span {
+                font-size: 1rem;
+              }
+            }
+          }
+        }
+
     }
 
     // Newsletter signup area
@@ -109,4 +129,6 @@
       margin: 0;
     }
   }
+
 }
+

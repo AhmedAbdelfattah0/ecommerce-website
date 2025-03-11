@@ -1,0 +1,37 @@
+.whatsapp-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000; /* make sure it sits above other content */
+    background-color: #28d268; /* WhatsApp green */
+    color: #fff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+  
+    &:hover {
+      transform: scale(1.1);
+    }
+  
+    mat-icon {
+      font-size: 2rem;
+    }
+  }
+  
+  /* If you're not using Angular Material and using an image instead */
+  .whatsapp-button svg {
+    width: 100%;
+    height: auto;
+    
+  
+    //    width: 16px;
+        fill:#fff;
+ 
+    // border-radius: 50%;
+  }
