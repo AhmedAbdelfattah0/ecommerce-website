@@ -7,7 +7,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
  import { MatListModule } from '@angular/material/list';
  import {MatSelectModule} from '@angular/material/select';
+ import { MatAutocompleteModule} from '@angular/material/autocomplete';
+ import { MatInputModule} from '@angular/material/input';
  import {LayoutModule} from '@angular/cdk/layout';
+ import {MatFormFieldModule} from '@angular/material/form-field';
 import '@ingka/icon-webc';
 
 
@@ -23,7 +26,10 @@ export class BaseComponent implements OnDestroy {
     MatMenuModule,
      MatListModule,
      MatSelectModule,
-     LayoutModule
+     LayoutModule,
+     MatAutocompleteModule,
+     MatFormFieldModule,
+     MatInputModule
   ];
   ngOnDestroy(): void {
     this.ngUnSubscribe.next();

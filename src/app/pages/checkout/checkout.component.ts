@@ -1,6 +1,7 @@
+import { ToasterService } from './../../services/toatser.service';
 import { CommonModule } from '@angular/common';
 import { Component, effect, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FeaturesComponent } from '../../components/features/features.component';
 import { HeroComponent } from '../../components/hero/hero.component';
 import { CreateOrderRequest } from '../../models/ create-order';
@@ -9,6 +10,10 @@ import { OrderService } from '../../services/order/order.service';
 import { Router } from '@angular/router';
 import { CartService } from '../../services/cart/cart.service';
 import { AddSpaceAfterCurrencyPipe } from '../../common/pipes/add-space-after-currency';
+import { BaseComponent } from '../../common/components/base/base.component';
+import { map, Observable, startWith } from 'rxjs';
+import { ContriesService } from '../../services/contries/contries.service';
+import { toasterCases } from '../../common/constants/app.constants';
 
 interface CheckoutItem {
   productName: string;
@@ -19,65 +24,138 @@ interface CheckoutItem {
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
-  imports:[FormsModule,CommonModule, FeaturesComponent,HeroComponent,AddSpaceAfterCurrencyPipe],
+  imports: [FormsModule, CommonModule, FeaturesComponent, HeroComponent, BaseComponent.materialModules, ReactiveFormsModule, AddSpaceAfterCurrencyPipe],
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
-// Form fields
-name: string = '';
-phoneNumber: string = '';
-address: string = '';
-state: string = '';
-email: string = '';
-subtotal = 0;
-total = 0;
-// Example cart items
-cartItems: Cart[] = [];
+  checkoutForm!: FormGroup;
 
-constructor(private orderService: OrderService, private router:Router, private _cartService:CartService) {
-  effect(()=>{
-    this.cartItems = this._cartService.shoppingCart();
-    this.calculateTotals();
-  })
-}
+  // Sample arrays for countries & provinces
+  countries: any[] = [];
+  provinces: any[] = [];
 
-ngOnInit(): void {
-  // Initialize or fetch cart items if needed
-}
+  // Filtered options for autocomplete
+  filteredCountries$!: Observable<any[]>;
+  filteredProvinces$!: Observable<any[]>;
 
-placeOrder(): void {
-  // Build the payload according to the required JSON schema
-  const payload: CreateOrderRequest  = {
-    name: this.name,
-    phoneNumber: this.phoneNumber,
-    address: this.address,
-    state: this.state,
-    statusId: 2,           // fixed or dynamic
-    date: '0000-00-00',    // or use new Date().toISOString() if needed
-    email: this.email,
-    products: this.cartItems.map(item => ({
-      productId: item.id,
-      qty: item.qty
+  // Example cart summary data
+  subtotal = 250000;
+  total = 250000;
+  paymentMethod: 'bank' | 'cod' = 'bank';
+  cartItems: Cart[] = []
+  selectedCountry: any = null;
+
+  constructor(
+    private orderService: OrderService,
+    private router: Router,
+    private _cartService: CartService,
+    private fb: FormBuilder,
+    private _contriesService: ContriesService,
+    private _toasterService:ToasterService
+  ) {
+
+    effect(() => {
+      this.cartItems = this._cartService.shoppingCart();
+      this.calculateTotals();
+    });
+
+    this._contriesService.getContries().subscribe((res => {
+      this.countries = res;
+
+      if (this.countries.length) {
+        this.filteredCountries$ = this.checkoutForm.get('country')!.valueChanges.pipe(
+          startWith(''),
+          map(value => this._filter(value, this.countries))
+        );
+
+      }
+
+
     }))
-  };
 
-  // Call the service to create the order
-  this.orderService.createOrder(payload).subscribe({
-    next: (response:any) => {
-      // Order created successfully
-       this.router.navigate(['/home'])
-      // Possibly navigate to a confirmation page
-    },
-    error: (err:any) => {
-      console.error('Error creating order:', err);
-    }
-  });
-}
+    this.checkoutForm = this.fb.group({
+      firstName: new FormControl('',[Validators.required]),
+      lastName: new FormControl('',[Validators.required]),
+      country: new FormControl('',[Validators.required]),
+      streetAddress: new FormControl('',[Validators.required]),
+      city: new FormControl('',[Validators.required]),
+      province: new FormControl('',[Validators.required]),
+       phone: new FormControl('',[Validators.required]),
+      email: new FormControl('',[Validators.required]),
+      additionalInfo: new FormControl('')
+    });
+
+    // Setup filtered streams for country & province
+    this.filteredProvinces$ = this.checkoutForm.get('province')!.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value, this.provinces[this.selectedCountry] || []))
+    );
+
+    this.checkoutForm.get('country')!.valueChanges.subscribe(selectedCountry => {
+       this.selectedCountry = selectedCountry;
+      this.provinces = this.countries.find(contry=> contry.name.toLowerCase()  == selectedCountry.toLowerCase() )?.states
+      this.filteredProvinces$ = this.checkoutForm.get('province')!.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value, this.provinces || []))
+      );
+    });
+  }
+
+  ngOnInit(): void {
+    // Initialize or fetch cart items if needed
+  }
 
 
-calculateTotals() {
-  this.subtotal = this.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
-  // If you have shipping or taxes, add them to get total
-  this.total = this.subtotal;
-}
+  private _filter(value: string, list: any[]): any[] {
+
+    const filterValue = value.toLowerCase();
+    if (list.length)
+      return list.filter(option => option.name.toLowerCase().includes(filterValue));
+    else
+      return list
+  }
+
+
+
+
+  placeOrder(): void {
+    // Combine the first & last name
+    const name = `${this.checkoutForm.value.firstName} ${this.checkoutForm.value.lastName}`.trim();
+
+    // Merge streetAddress + city as your main address, or adapt as needed
+    const fullAddress = `${this.checkoutForm.value.streetAddress}, ${this.checkoutForm.value.city}`.trim();
+
+    // Build the final JSON schema
+    const payload = {
+      name: name,
+      phoneNumber: this.checkoutForm.value.phone,
+      address: fullAddress,
+      state: this.checkoutForm.value.province,
+      statusId: 2,
+      date: new Date(),
+      email: this.checkoutForm.value.email,
+      products:  this.cartItems.map(item=>{
+          return {
+            ...item,
+            productId:item.id
+          }
+      })
+    };
+
+     this.orderService.createOrder(payload).subscribe({
+      next:()=>{
+        this._toasterService.openToaster(toasterCases.UnDEFAULT);
+        this._cartService.shoppingCart.set([]);
+        localStorage.clear();
+        this.router.navigate(['/home']);
+      }
+    });
+  }
+
+
+  calculateTotals() {
+    this.subtotal = this.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
+    // If you have shipping or taxes, add them to get total
+    this.total = this.subtotal;
+  }
 }

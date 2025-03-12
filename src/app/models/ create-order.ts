@@ -4,7 +4,7 @@
   address: string;
   state: string;
   statusId: number;
-  date: string;
+  date: Date;
   email: string;
   products: {
     productId: number;

@@ -81,13 +81,9 @@ export class ProductDetailsComponent {
 
       this._cartService.addToCart(productToAdd);
     }
-    console.log('Added to cart:', this.product?.title);
-  }
+   }
 
-  compare() {
-    // Compare logic
-    console.log('Compare product:', this.product?.title);
-  }
+
 
 
   onPageChanged(): void {

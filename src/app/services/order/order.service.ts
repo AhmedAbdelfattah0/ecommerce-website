@@ -12,6 +12,6 @@ export class OrderService {
   constructor(private http: HttpClient) {}
 
   createOrder(payload: CreateOrderRequest): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/orders`, payload);
+    return this.http.post<any>(`${this.apiUrl}/create_order.php`, payload);
   }
 }

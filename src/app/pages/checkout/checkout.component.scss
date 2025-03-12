@@ -1,16 +1,16 @@
+@use 'sass:math';
 @use '../../../scss/global' as *;
 
 .checkout-container {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 2rem;
+  // Create a two-column grid with a 2rem gap
+  @include grid(2, 2rem);
   max-width: 1200px;
   margin: 2rem auto;
   padding: 0 1rem;
 
-  // Single column on smaller screens
-  @include respond-below(md) {
-    grid-template-columns: 1fr;
+  // On screens below the 'md' breakpoint, collapse to a single column
+  @include respond-below('md') {
+    @include grid(1, 1rem);
   }
 
   .billing-details {
@@ -21,45 +21,28 @@
     h2 {
       margin-bottom: 1rem;
       font-size: 1.5rem;
+      color: #333;
     }
 
-    form {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+    .billing-form {
+      // Optional: use container mixin if you want inner centering
+      @include container;
+      // One input per row
+      @include grid(1, $base-spacing);
 
-      // Make single column for narrower screens
-      @include respond-below(sm) {
-        grid-template-columns: 1fr;
+      // Optionally adjust gap on larger screens
+      @include respond-above('md') {
+        gap: math.div($base-spacing, 2);
       }
 
-      .form-row {
-        display: flex;
-        flex-direction: column;
-
-        label {
-          font-size: 0.9rem;
-          margin-bottom: 0.3rem;
-          color: #333;
-        }
-
-        input,
-        select,
-        textarea {
-          padding: 0.5rem;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          font-size: 0.95rem;
-        }
-
-        textarea {
-          resize: vertical;
-        }
+      // Each Material field takes full width
+      mat-form-field {
+        width: 100%;
       }
 
-      // If some fields should span full width, you can use nth-child or add a class
-      .form-row:nth-child(odd) {
-        // example styling
+      // Use .full-width if any field needs to span more than one column (here, grid has 1 column so it's redundant)
+      .full-width {
+        grid-column: span 1;
       }
     }
   }
@@ -68,12 +51,14 @@
     background-color: #fff;
     padding: 1rem;
     border-radius: 4px;
+    height: fit-content;
 
     h2 {
       margin-bottom: 1rem;
       font-size: 1.5rem;
-      display: flex;
+      @include flex-center(row);
       justify-content: space-between;
+      color: #333;
 
       span {
         font-size: 1rem;
@@ -84,69 +69,49 @@
 
     .order-items {
       margin-bottom: 1rem;
-
       .order-item {
-        display: flex;
+        @include flex-center(row);
         justify-content: space-between;
         margin-bottom: 0.5rem;
-        span {
-          font-size: 0.95rem;
-        }
+        color: #555;
       }
     }
 
-    .totals {
-      margin-bottom: 1rem;
-      .line-item {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 0.3rem;
-        font-size: 0.95rem;
-
-        &.total {
-          font-weight: 600;
-          margin-top: 0.5rem;
-        }
+    .line-item {
+      @include flex-center(row);
+      justify-content: space-between;
+      margin-bottom: 0.3rem;
+      font-size: 0.95rem;
+      color: #333;
+      padding-top: 1rem;
+      border-top: 1px solid $light-gray;
+      &.total {
+        font-weight: 600;
+        margin-top: 1rem;
       }
     }
 
-    .payment-methods {
-      margin-bottom: 1rem;
-
-      label {
-        display: flex;
-        align-items: center;
-        gap: 0.3rem;
-        cursor: pointer;
-        font-size: 0.95rem;
-        margin-top: 0.5rem;
-
-        input[type='radio'] {
-          accent-color: #333; /* for modern browsers */
-        }
-      }
-
-      p {
-        font-size: 0.85rem;
-        color: #666;
-        margin: 0.3rem 0 0.5rem 1.5rem; /* indent the explanation */
-      }
-    }
-
-    .place-order-btn {
+    .place-order-btn-container{
+      display: flex;
       width: 100%;
-      background-color: #333;
-      color: #fff;
-      border: none;
-      padding: 0.75rem;
-      font-size: 1rem;
-      cursor: pointer;
-      border-radius: 4px;
-      text-align: center;
-
-      &:hover {
-        background-color: #555;
+      justify-content: center;
+      .place-order-btn {
+        margin-top: 1rem;
+         text-align: center;
+        font-size: 1rem;
+        width: 318px;
+        height: 64px;
+        top: 1118px;
+        left: 883px;
+        border-width: 1px solid #000;
+        border-radius: 15px;
+        background: $white;
+        color: #000;
       }
     }
+
   }
+}
+input[aria-expanded="true"] + mat-autocomplete:after {
+  content: "\f0d8";
 }

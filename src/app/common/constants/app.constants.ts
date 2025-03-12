@@ -10,6 +10,7 @@ export const toasterCases = {
   UnDEFAULT: {
     toasterType: 'ORDER_SUCCESS',
     isVisible: true,
+    Message:'Order Created Successfuly',
     viewLink: {
       link: '',
       isVisible: false,

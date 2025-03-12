@@ -52,8 +52,5 @@ export class CartComponent implements OnInit {
     this.calculateTotals();
   }
 
-  checkout() {
-    console.log('Proceeding to checkout...');
-    // Your checkout logic
-  }
+   
 }

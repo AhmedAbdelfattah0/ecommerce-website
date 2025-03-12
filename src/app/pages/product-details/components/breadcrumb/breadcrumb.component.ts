@@ -16,7 +16,6 @@ export class BreadcrumbComponent {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
 
       this.breadcrumbs = [...this.buildBreadcrumb(this.activatedRoute.root)];
-      console.log('Breadcrumbs:', this.breadcrumbs);
 
   });
   }

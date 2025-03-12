@@ -3,3 +3,9 @@
 // #main-toast {
 //     font-family: $font-stack-ikea;
 // }
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}

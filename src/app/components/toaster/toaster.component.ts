@@ -2,6 +2,7 @@
 import { Component, OnInit, OnDestroy, CUSTOM_ELEMENTS_SCHEMA, signal, effect, computed } from '@angular/core';
 import { ToasterService } from '../../services/toatser.service';
 import { toasterCases } from '../../common/constants/app.constants';
+import '@ingka/toast-webc';
 
 @Component({
     selector: 'app-toaster',
@@ -21,8 +22,7 @@ export class ToasterComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-
-  }
+   }
   afterDismiss() {
     this.toasterService.toasterObject.set(toasterCases.DEFAULT)
   }

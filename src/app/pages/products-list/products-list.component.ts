@@ -34,8 +34,7 @@ export class ProductsListComponent implements OnInit {
       this.filteredProducts = this.products.slice(0, this.itemsPerPage);
       this.totalProducts = this.products.length;
       this.route.queryParams.subscribe(res => {
-        console.log(res);
-        if (res && res.hasOwnProperty('pros'))
+         if (res && res.hasOwnProperty('pros'))
           this.onFilterChanged(res['pros'])
 
       })

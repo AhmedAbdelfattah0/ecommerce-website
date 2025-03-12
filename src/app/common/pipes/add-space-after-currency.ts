@@ -5,11 +5,14 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class AddSpaceAfterCurrencyPipe implements PipeTransform {
   transform(value: string | null): string {
-    if (!value) {
-      return ''; // or handle null appropriately
-    }
-    // This regex assumes the output starts with a currency symbol followed immediately by a digit.
-    // It inserts a space between them.
-    return  value.replace(/(\D)(?=\d)/, '$1 ');;
+    if (!value) return '';
+
+    // This regex splits the string into two parts:
+    // 1. The currency symbol(s) (any non-digit characters at the beginning)
+    // 2. The number (starting with the first digit and everything after)
+    return value.replace(/^([^0-9]+)([0-9].*)$/, (_, symbol, number) => {
+      // Trim any extra spaces from the symbol and add exactly one space between the symbol and number.
+      return symbol.trim() + ' ' + number;
+    });
   }
 }

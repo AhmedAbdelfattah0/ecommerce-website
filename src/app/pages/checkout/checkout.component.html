@@ -1,64 +1,110 @@
 <app-hero></app-hero>
-
 <div class="checkout-container">
-  <!-- Left Column: Billing Form -->
+  <!-- Left Column: Billing details form -->
   <div class="billing-details">
     <h2>Billing details</h2>
+    <form [formGroup]="checkoutForm" class="billing-form">
+      <!-- Row 1: First Name, Last Name -->
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" />
+      </mat-form-field>
 
-  <div class="form-row">
-    <label for="name">Name</label>
-    <input id="name" type="text" [(ngModel)]="name" name="name" />
-  </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" />
+      </mat-form-field>
 
-  <div class="form-row">
-    <label for="phoneNumber">Phone Number</label>
-    <input id="phoneNumber" type="text" [(ngModel)]="phoneNumber" name="phoneNumber" />
-  </div>
 
-  <div class="form-row">
-    <label for="address">Address</label>
-    <input id="address" type="text" [(ngModel)]="address" name="address" />
-  </div>
 
-  <div class="form-row">
-    <label for="state">State</label>
-    <input id="state" type="text" [(ngModel)]="state" name="state" />
-  </div>
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>Country / Region</mat-label>
+        <input type="text" placeholder="Pick one" aria-label="Number" matInput formControlName="country"
+          [matAutocomplete]="autoCountry">
+          <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+        <mat-autocomplete autoActiveFirstOption #autoCountry="matAutocomplete">
+          @for (option of filteredCountries$ | async; track option) {
+          <mat-option [value]="option.name">{{option.name}}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+      <!-- Row 6: Province (Autocomplete) -->
 
-  <div class="form-row">
-    <label for="email">Email</label>
-    <input id="email" type="email" [(ngModel)]="email" name="email" />
-  </div>
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>State</mat-label>
+        <input type="text" placeholder="Pick one" aria-label="State" matInput formControlName="province"
+          [matAutocomplete]="autoProvince">
+          <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+        <mat-autocomplete autoActiveFirstOption #autoProvince="matAutocomplete">
+          @for (option of filteredProvinces$ | async; track option) {
+          <mat-option [value]="option.name">{{option.name}}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+      <!-- Row 4: Street Address -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Street Address</mat-label>
+        <input matInput formControlName="streetAddress" placeholder="House number and street name" />
+      </mat-form-field>
+
+      <!-- Row 5: Town/City -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Town / City</mat-label>
+        <input matInput formControlName="city" />
+      </mat-form-field>
+
+
+
+
+      <!-- Row 8: Phone -->
+      <mat-form-field appearance="outline">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone" />
+      </mat-form-field>
+
+      <!-- Row 9: Email address -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email address</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+
+      <!-- Row 10: Additional Info -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Additional Information</mat-label>
+        <textarea matInput formControlName="additionalInfo"></textarea>
+      </mat-form-field>
+    </form>
   </div>
 
   <!-- Right Column: Order Summary -->
   <div class="order-summary">
-    <h2>Product <span>Subtotal</span></h2>
+    <h2>
+      Product
+      <span>Subtotal</span>
+    </h2>
     <div class="order-items">
-      @for ( item of cartItems; track $index) {
-        <div class="order-item"  >
-          <span>{{ item.title }} x {{ item.qty }}</span>
-          <span>{{ (item.price * item.qty) | currency:'EGP':'symbol':'1.2-2' |  addSpaceAfterCurrency  }}</span>
-        </div>
+      @for (item of cartItems; track $index) {
+      <div class="order-item">
+        <span>{{item.title}} x {{item.qty}}</span>
+        <span>{{item.price * item.qty | currency:'EGP':'symbol':'1.2-2' | addSpaceAfterCurrency }} </span>
+      </div>
       }
 
     </div>
-    <div class="totals">
-      <div class="line-item">
-        <span>Subtotal</span>
-        <span>{{ subtotal | currency:'EGP':'symbol':'1.2-2' |  addSpaceAfterCurrency  }}</span>
-      </div>
-      <div class="line-item total">
-        <span>Total</span>
-        <span>{{ total | currency:'EGP':'symbol':'1.2-2' |  addSpaceAfterCurrency  }}</span>
-      </div>
+    <div class="line-item">
+      <span>Subtotal</span>
+      <span> {{ subtotal | currency:'EGP':'symbol':'1.2-2' | addSpaceAfterCurrency  }}</span>
+    </div>
+    <div class="line-item total">
+      <span>Total</span>
+      <span> {{ total | currency:'EGP':'symbol':'1.2-2' | addSpaceAfterCurrency }}</span>
     </div>
 
-
-
-    <button class="place-order-btn" (click)="placeOrder()">
-      Place order
-    </button>
+    <div class="place-order-btn-container">
+      <button    class="place-order-btn" (click)="placeOrder()">
+        Place order
+      </button>
+    </div>
   </div>
 </div>
 <app-features></app-features>
