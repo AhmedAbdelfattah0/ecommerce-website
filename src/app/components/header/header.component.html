@@ -12,7 +12,7 @@
   </div>
 
   <nav class="nav-links" *ngIf="(isMobile$ | async) === false">
-    <a mat-button routerLink="/" class="nav-link"  routerLinkActive="router-link-active" >Home</a>
+    <a mat-button [routerLink]="['/home']" class="nav-link"  routerLinkActive="router-link-active"  [routerLinkActiveOptions]="{ exact: true }" >Home</a>
     <a mat-button [routerLink]="['/products']" routerLinkActive="router-link-active" class="nav-link">Products</a>
     <!-- <a mat-button routerLink="/about" routerLinkActive="router-link-active" class="nav-link">About</a>
     <a mat-button routerLink="/contact" routerLinkActive="router-link-active" class="nav-link">Contact</a> -->

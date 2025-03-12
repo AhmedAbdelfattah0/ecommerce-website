@@ -3,7 +3,8 @@ import { AfterContentInit, ChangeDetectorRef, Component, NgZone, OnInit } from '
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter } from 'rxjs';
 import { Breadcrumb } from '../../models/Breadcrumb';
- @Component({
+
+@Component({
   selector: 'app-hero',
   imports: [CommonModule, RouterModule],
   templateUrl: './hero.component.html',
@@ -12,31 +13,31 @@ import { Breadcrumb } from '../../models/Breadcrumb';
 export class HeroComponent implements AfterContentInit {
   breadcrumbs: Breadcrumb[] = [];
 
-  constructor(private zone: NgZone,private router: Router, private activatedRoute: ActivatedRoute,  private cdr: ChangeDetectorRef) {
+  constructor(
+    private zone: NgZone,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private cdr: ChangeDetectorRef
+  ) {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
-      this.breadcrumbs = [...this.buildBreadcrumb(this.activatedRoute.root)];
-  });
+      this.breadcrumbs = this.buildBreadcrumb(this.activatedRoute.root);
+    });
   }
 
-  ngAfterContentInit () {
-
-  }
+  ngAfterContentInit() {}
 
   private buildBreadcrumb(
     route: ActivatedRoute,
     url: string = '',
-    breadcrumbs: Array<{ title: string; url: string }> = []
-  ): Array<{ title: string; url: string }> {
-    // If we’re at the root and breadcrumbs are empty, add Home
-    if (breadcrumbs.length === 0) {
-      breadcrumbs.push({
-        title: 'Home',
-        url: '/home'
-      });
+    breadcrumbs: Breadcrumb[] = []
+  ): Breadcrumb[] {
+    const children: ActivatedRoute[] = route.children;
+
+    // Add "Home" only if it's not already there
+    if (breadcrumbs.length === 0 && !breadcrumbs.some(b => b.url === '/home')) {
+      breadcrumbs.push({ title: 'Home', url: '/home' });
     }
 
-    // Get child routes
-    const children: ActivatedRoute[] = route.children;
     if (children.length === 0) {
       return breadcrumbs;
     }
@@ -46,17 +47,19 @@ export class HeroComponent implements AfterContentInit {
       const nextUrl = routeURL ? `${url}/${routeURL}` : url;
 
       if (child.snapshot.data && child.snapshot.data['title']) {
-        breadcrumbs.push({
-          title: child.snapshot.data['title'],
-          url: nextUrl
-        });
+        // Ensure we don't duplicate breadcrumbs for the same URL
+        if (!breadcrumbs.some(b => b.url === nextUrl)) {
+          breadcrumbs.push({
+            title: child.snapshot.data['title'],
+            url: nextUrl
+          });
+        }
       }
 
-      // Recursively process further children
+      // Recursively build breadcrumbs
       this.buildBreadcrumb(child, nextUrl, breadcrumbs);
     });
 
     return breadcrumbs;
   }
-
 }
