@@ -53,22 +53,25 @@
     </ng-template>
   </div>
   <!-- Cart Totals Section -->
-  <div class="cart-totals">
-    <div>
-      <h2>Cart Totals</h2>
-    </div>
-    <div>
-      <div class="totals-line">
-        <span>Subtotal</span>
-        <span>Rs. {{ subtotal | currency:'EGP':'symbol':'1.2-2' |  addSpaceAfterCurrency  }}</span>
+  @if(cartItems.length){
+    <div class="cart-totals">
+      <div>
+        <h2>Cart Totals</h2>
       </div>
-      <div class="totals-line total">
-        <span>Total</span>
-        <span>Rs. {{ total | currency:'EGP':'symbol':'1.2-2' |  addSpaceAfterCurrency  }}</span>
+      <div>
+        <div class="totals-line">
+          <span>Subtotal</span>
+          <span>Rs. {{ subtotal | currency:'EGP':'symbol':'1.2-2' |  addSpaceAfterCurrency  }}</span>
+        </div>
+        <div class="totals-line total">
+          <span>Total</span>
+          <span>Rs. {{ total | currency:'EGP':'symbol':'1.2-2' |  addSpaceAfterCurrency  }}</span>
+        </div>
       </div>
+      <button [disabled]="!cartItems.length" class="checkout-btn"  [routerLink]="['/checkout']" >Check Out</button>
     </div>
-    <button [disabled]="!cartItems.length" class="checkout-btn"  [routerLink]="['/checkout']" >Check Out</button>
-  </div>
+  }
+
 
 </div>
 <app-features></app-features>

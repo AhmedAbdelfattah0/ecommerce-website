@@ -103,10 +103,18 @@
         height: 64px;
         top: 1118px;
         left: 883px;
-        border-width: 1px solid #000;
+        border: 1px solid #000;
         border-radius: 15px;
         background: $white;
         color: #000;
+        cursor: pointer;
+        &:hover{
+          border: 1px solid $light-brown;
+          color: $light-brown;
+        }
+        &:disabled{
+          cursor: not-allowed;
+        }
       }
     }
 

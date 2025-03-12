@@ -101,7 +101,7 @@
     </div>
 
     <div class="place-order-btn-container">
-      <button    class="place-order-btn" (click)="placeOrder()">
+      <button [disabled]="checkoutForm.invalid"   class="place-order-btn" (click)="placeOrder()">
         Place order
       </button>
     </div>
