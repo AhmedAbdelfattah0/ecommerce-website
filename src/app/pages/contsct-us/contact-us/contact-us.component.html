@@ -1,0 +1,77 @@
+<app-hero></app-hero>
+<div class="contact-container">
+  <div class="contact-info">
+    <h2>Get In Touch With Us</h2>
+    <p>For More Information About Our Product & Services. Please Feel Free To Drop Us An Email.</p>
+
+    <div class="info-item">
+      <mat-icon>place</mat-icon>
+      <div>
+        <strong>Address</strong>
+      </div>
+
+
+    </div>
+
+    <div class="info-item">
+
+      <div class="info-details">
+        <div>
+          <strong>Factory</strong>
+          <p>Damietta Dam Road Hangar Logar Furniture</p>
+        </div>
+        <div>
+          <strong>Damietta Store</strong>
+          <p> Damietta Exhibition,
+            Port Said Road, behind Al-Baqari Cars</p>
+        </div>
+        <div>
+          <strong>Cairo Store</strong>
+          <p> Fifth Settlement Lotus Exhibition,
+            in front of Platinum Club, next to Skyline School</p>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+
+    <div class="info-item">
+      <mat-icon>phone</mat-icon>
+      <div>
+        <strong>Phone</strong>
+        <p>Mobile: <a href="tel:201023351915"> +(2)010-2335-1915</a> </p>
+      </div>
+    </div>
+
+    <div class="info-item">
+      <mat-icon>schedule</mat-icon>
+      <div>
+        <strong>Working Time</strong>
+        <p>Monday-Friday: 9:00 - 22:00<br>Saturday-Sunday: 9:00 - 21:00</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-form">
+    <form [formGroup]="contactForm" (ngSubmit)="submitForm()">
+      <label>Your name</label>
+      <input formControlName="name" type="text" placeholder="Abc" required  />
+
+      <label>Email address</label>
+      <input formControlName="email" type="email" placeholder="Abc@def.com" required />
+      <label>Phone number</label>
+      <input formControlName="phone" type="tel" placeholder="01xxxxxxxxx" />
+
+
+      <label>Message</label>
+      <textarea formControlName="message" placeholder="Hi! I'd like to ask about" rows="7" required></textarea>
+
+      <button type="submit" [disabled]="!contactForm.valid">Submit</button>
+    </form>
+  </div>
+</div>
+<app-features></app-features>

@@ -15,5 +15,16 @@ export const toasterCases = {
       link: '',
       isVisible: false,
     },
-  }
+  },
+
+  MESSAGE_SENT: {
+    toasterType: 'MESSAGE_SENT',
+    isVisible: true,
+    Message:'Thanks for reaching out we will get back to you sone',
+    viewLink: {
+      link: '',
+      isVisible: false,
+    },
+
+}
 }

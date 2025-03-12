@@ -14,24 +14,24 @@
     text-decoration: none;
     // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease;
-  
+
     &:hover {
       transform: scale(1.1);
     }
-  
+
     mat-icon {
       font-size: 2rem;
     }
   }
-  
+
   /* If you're not using Angular Material and using an image instead */
   .whatsapp-button svg {
     width: 100%;
     height: auto;
-    
-  
+
+
     //    width: 16px;
         fill:#fff;
- 
+
     // border-radius: 50%;
   }

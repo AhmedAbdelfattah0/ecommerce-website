@@ -20,7 +20,7 @@ export class MobileMenuComponent {
     { path: '/', label: 'Home', icon: 'home' },
     { path: '/products', label: 'Products', icon: 'category' },
     // { path: '/about', label: 'About', icon: 'info' },
-    // { path: '/contact', label: 'Contact', icon: 'mail' }
+    { path: '/contact', label: 'Contact', icon: 'mail' }
   ];
   constructor(private router: Router) { }
 
