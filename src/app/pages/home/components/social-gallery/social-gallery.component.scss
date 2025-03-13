@@ -28,8 +28,8 @@
     .sub-grid {
       display: grid;
       gap: 1rem; /* Matches the gap above for consistency */
-      width: 100%;  
-      aspect-ratio: 16/9; 
+      // width: 100%;  
+      // aspect-ratio: 16/9; 
     }
 
     .gallery-img {
@@ -37,7 +37,7 @@
       max-width: 100% !important;      /* 'max-w-full' */
       border-radius: 0.5rem; /* 'rounded-lg' ~ 0.5rem or 8px */
       display: block;       /* ensures the image doesn't add extra space at bottom */
-      object-fit: cover
+      object-fit: cover;
     }
   }
    
