@@ -13,14 +13,14 @@
       <div class="thumbnail-list">
         @for (img of product?.images; track $index) {
         <div class="thumbnail" (click)="selectImage(img)">
-          <img [src]="img" [alt]="product?.title" />
+          <img [src]="img" fetchpriority="high" [alt]="product?.title" />
         </div>
         }
 
       </div>
       <!-- Main Image Preview -->
       <div class="main-image">
-        <img [src]="selectedImage" [alt]="product?.title" />
+        <img [src]="selectedImage" fetchpriority="high" [alt]="product?.title" />
       </div>
     </div>
 
@@ -107,7 +107,7 @@
   <!-- Large Image / Banner (optional) -->
   <div class="banner">
     @for (img of productsDescriptionImage; track $index) {
-    <img [src]="img" [alt]="product?.title" />
+    <img [src]="img" fetchpriority="high" [alt]="product?.title" />
     }
   </div>
 
