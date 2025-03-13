@@ -15,30 +15,58 @@
       color: #e67e22;
     }
   }
+  // .gallery-container {
+  //   display: grid;
+  //   grid-template-columns: repeat(2, 1fr);
+  //   gap: 1rem; /* Tailwind 'gap-4' is typically 1rem */
+
+  //   /* Medium breakpoint (Tailwind 'md:' ~ 768px) => 4 columns */
+  //   @media (min-width: 768px) {
+  //     grid-template-columns: repeat(4, 1fr);
+  //   }
+
+  //   .sub-grid {
+  //     display: grid;
+  //     gap: 1rem; /* Matches the gap above for consistency */
+  //     // width: 100%;  
+  //     // aspect-ratio: 16/9; 
+  //   }
+
+  //   .gallery-img {
+  //     height: auto !important;         /* 'h-auto' */
+  //     max-width: 100% !important;      /* 'max-w-full' */
+  //     border-radius: 0.5rem; /* 'rounded-lg' ~ 0.5rem or 8px */
+  //     display: block;       /* ensures the image doesn't add extra space at bottom */
+  //     // object-fit: cover;
+  //   }
+  // }
   .gallery-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem; /* Tailwind 'gap-4' is typically 1rem */
+    gap: 1rem;
 
-    /* Medium breakpoint (Tailwind 'md:' ~ 768px) => 4 columns */
     @media (min-width: 768px) {
       grid-template-columns: repeat(4, 1fr);
     }
 
     .sub-grid {
       display: grid;
-      gap: 1rem; /* Matches the gap above for consistency */
-      // width: 100%;  
-      // aspect-ratio: 16/9; 
+      gap: 1rem;
+      // Add container constraints
+      > div {
+        position: relative;
+        width: 100%;
+        padding-bottom: 75%; // 3:4 aspect ratio (adjust based on your images)
+      }
     }
 
     .gallery-img {
-      height: auto !important;         /* 'h-auto' */
-      max-width: 100% !important;      /* 'max-w-full' */
-      border-radius: 0.5rem; /* 'rounded-lg' ~ 0.5rem or 8px */
-      display: block;       /* ensures the image doesn't add extra space at bottom */
-      // object-fit: cover;
+      position: absolute;
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100%;
+      object-fit: cover;
+      border-radius: 0.5rem;
     }
   }
-   
 }
