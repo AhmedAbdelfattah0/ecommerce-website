@@ -9,7 +9,8 @@
     <button class="explore-btn">Explore More</button>
   </div>
   <div class="hero-img">
-    <img src="bedroom1.png" alt="">
+    <img ngSrc="bedroom1.png" width="404px"
+    height="582px" fetchpriority="high" alt="">
     <div class="slide-info">
       <span class="slide-number">1 __ Bed Room</span>
       <span class="slide-title">Inner Peace</span>
@@ -29,7 +30,7 @@
       <!-- Slides -->
       @for (slide of slides; track $index; let i = $index){
          <div class="slide" >
-        <img [src]="slide.image" [alt]="slide.alt" />
+        <img [src]="slide.image" fetchpriority="high" [alt]="slide.alt" />
       </div>
       }
 

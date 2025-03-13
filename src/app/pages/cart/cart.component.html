@@ -28,12 +28,12 @@
             }
             <span>{{ item.title }}</span>
           </td>
-          <td>Rs. {{ item.price | number }}</td>
+          <td> {{ item.price | currency:'EGP':'symbol':'1.2-2' | addSpaceAfterCurrency}}</td>
           <td>
             <!-- Example: Using a simple +/- stepper or your custom QtyStepper -->
             <app-qty-stepper [qty]="item.qty" (qtyChange)="onQtyChange(item, $event)"></app-qty-stepper>
           </td>
-          <td>Rs. {{ (item.price * item.qty) | number }}</td>
+          <td> {{ (item.price * item.qty) | currency:'EGP':'symbol':'1.2-2' | addSpaceAfterCurrency}}</td>
           <td>
             <button  class="remove-btn" (click)="removeItem(item.id)">
               <mat-icon>delete</mat-icon> <!-- or any icon library -->
@@ -61,11 +61,11 @@
       <div>
         <div class="totals-line">
           <span>Subtotal</span>
-          <span>Rs. {{ subtotal | currency:'EGP':'symbol':'1.2-2' |  addSpaceAfterCurrency  }}</span>
+          <span> {{ subtotal | currency:'EGP':'symbol':'1.2-2' |  addSpaceAfterCurrency  }}</span>
         </div>
         <div class="totals-line total">
           <span>Total</span>
-          <span>Rs. {{ total | currency:'EGP':'symbol':'1.2-2' |  addSpaceAfterCurrency  }}</span>
+          <span> {{ total | currency:'EGP':'symbol':'1.2-2' |  addSpaceAfterCurrency  }}</span>
         </div>
       </div>
       <button [disabled]="!cartItems.length" class="checkout-btn"  [routerLink]="['/checkout']" >Check Out</button>

@@ -14,11 +14,9 @@ export class HeroComponent implements AfterContentInit {
   breadcrumbs: Breadcrumb[] = [];
 
   constructor(
-    private zone: NgZone,
-    private router: Router,
+     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private cdr: ChangeDetectorRef
-  ) {
+   ) {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
       this.breadcrumbs = this.buildBreadcrumb(this.activatedRoute.root);
     });
