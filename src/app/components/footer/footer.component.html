@@ -2,7 +2,7 @@
   <div class="footer-top">
     <div class="footer-column brand-addresses">
       <div class="brand-logo">
-        <img ngSrc="https://lugarstore.com/uploads/LOGO1-lugar.svg" fetchpriority="low" width="94px" height="auto" alt="">
+        <img ngSrc="https://lugarstore.com/uploads/LOGO1-lugar.svg" fetchpriority="low" width="94" height="auto" alt="">
 
       </div>
 
@@ -12,10 +12,10 @@
     <div class="footer-column footer-links">
       <h3>Links</h3>
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Shop</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a [routerLink]="['/home']" routerLinkActive="router-link-active" >Home</a></li>
+        <li><a [routerLink]="['/products']" routerLinkActive="router-link-active" >Products</a></li>
+        <!-- <li><a [routerLink]="['/routePath']" routerLinkActive="router-link-active" >About</a></li> -->
+        <li><a [routerLink]="['/contact']" routerLinkActive="router-link-active" >Contact</a></li>
       </ul>
     </div>
 
@@ -26,25 +26,25 @@
         <li>
           <a href="https://www.facebook.com/lugarinv?mibextid=ZbWKwL">
 
-            <img ngSrc="https://lugarstore.com/uploads/facebook-brands.svg" fetchpriority="low" width=" 16px" height="16px" alt="">
+            <img ngSrc="https://lugarstore.com/uploads/facebook-brands.svg" fetchpriority="low" width="16" height="16" alt="">
             <span>Facebook</span>
           </a>
         </li>
         <li>
           <a href="https://wa.me/201023351915">
-            <img ngSrc="https://lugarstore.com/uploads/whatsapp-icon.svg" fetchpriority="low" width=" 16px" height="16px" alt="">
+            <img ngSrc="https://lugarstore.com/uploads/whatsapp-icon.svg" fetchpriority="low" width="16" height="16" alt="">
             <span>Whatsapp</span>
           </a>
         </li>
         <li>
           <a href="https://www.instagram.com/lugar_furniture">
-            <img ngSrc="https://lugarstore.com/uploads/instagram-brands.svg" fetchpriority="low" width=" 16px" height="16px" alt="">
+            <img ngSrc="https://lugarstore.com/uploads/instagram-brands.svg" fetchpriority="low" width="16" height="16" alt="">
             <span>Instagram</span>
           </a>
         </li>
         <li>
           <a href="https://www.tiktok.com/@lugarfurnitureinv?_t=8sj2O0ysXQo&_r=1">
-            <img ngSrc="https://lugarstore.com/uploads/tiktok-brands.svg"  fetchpriority="low" width=" 16px" height="16px" alt="">
+            <img ngSrc="https://lugarstore.com/uploads/tiktok-brands.svg"  fetchpriority="low" width="16" height="16" alt="">
 
             <span>Tiktok</span>
           </a>
