@@ -5,7 +5,12 @@
   position: relative;
   overflow: hidden;
   padding: 120px 0;
-  background: url('https://lugarstore.com/uploads/2025-03-13_12-04-00_67d2c9b0a83b8.webp') center/cover;
+  &.loaded{
+    transition: background-image 0.3s ease;
+  background-image: url('https://lugarstore.com/uploads/2025-03-13_12-04-00_67d2c9b0a83b8.webp');
+
+  }
+  // transition: background-image 0.3s ease;
   &__container {
     @include container;
     position: relative;
