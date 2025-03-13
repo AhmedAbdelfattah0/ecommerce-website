@@ -7,7 +7,8 @@
   <div class="categories-grid">
     @for (cat of categories; track $index) {
       <div class="category-card" [routerLink]="['/products']" [queryParams]="{pros: cat.id}" >
-        <img [src]="cat.imgOne"  [alt]="cat.title" fetchpriority="high"/>
+        <img [ngSrc]="cat.imgOne"  [alt]="cat.title"   width="381"
+        height="480" priority />
         <h3>{{ cat.title }}</h3>
       </div>
     }

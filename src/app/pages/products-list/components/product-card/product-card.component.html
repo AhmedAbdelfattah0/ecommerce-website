@@ -5,9 +5,10 @@
   <div class="image-container">
     <img
       class="product-image"
-      [src]="product.imgOne"
+      [ngSrc]="product.imgOne"
       [alt]="product.title"
       fetchpriority="high"
+      width="301" height="301"
     />
     <!-- Discount Badge -->
      @if(product.discount>0){

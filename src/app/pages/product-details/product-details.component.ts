@@ -10,10 +10,11 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
 import { CartService } from '../../services/cart/cart.service';
 import { Cart } from '../../models/cart';
 import { AddSpaceAfterCurrencyPipe } from '../../common/pipes/add-space-after-currency';
+import { BaseComponent } from '../../common/components/base/base.component';
 
 @Component({
   selector: 'app-product-details',
-  imports: [ProductGridComponent, CommonModule, FormsModule, QtyStepperComponent, BreadcrumbComponent,AddSpaceAfterCurrencyPipe],
+  imports: [ProductGridComponent, CommonModule, FormsModule, QtyStepperComponent, BreadcrumbComponent,AddSpaceAfterCurrencyPipe, BaseComponent.materialModules],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss'
 })

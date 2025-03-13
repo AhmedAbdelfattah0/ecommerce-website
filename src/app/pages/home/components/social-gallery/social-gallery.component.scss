@@ -28,8 +28,8 @@
   //   .sub-grid {
   //     display: grid;
   //     gap: 1rem; /* Matches the gap above for consistency */
-  //     // width: 100%;  
-  //     // aspect-ratio: 16/9; 
+  //     // width: 100%;
+  //     // aspect-ratio: 16/9;
   //   }
 
   //   .gallery-img {
@@ -40,33 +40,49 @@
   //     // object-fit: cover;
   //   }
   // }
-  .gallery-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+  // .gallery-container {
+  //   display: grid;
+  //   grid-template-columns: repeat(2, 1fr);
+  //   gap: 1rem;
 
-    @media (min-width: 768px) {
-      grid-template-columns: repeat(4, 1fr);
+  //   @media (min-width: 768px) {
+  //     grid-template-columns: repeat(4, 1fr);
+  //   }
+
+  //   .sub-grid {
+  //     display: grid;
+  //     gap: 1rem;
+  //     // Add container constraints
+  //     > div {
+  //       position: relative;
+  //       width: 100%;
+  //       padding-bottom: 75%; // 3:4 aspect ratio (adjust based on your images)
+  //     }
+  //   }
+
+  //   .gallery-img {
+  //     position: absolute;
+  //     width: 100% !important;
+  //     height: 100% !important;
+  //     max-width: 100%;
+  //     object-fit: cover;
+  //     border-radius: 0.5rem;
+  //   }
+  // }
+
+  .gallery-container{
+    @include grid(4);
+    @include respond-below(md){
+    @include grid(2);
+
     }
-
-    .sub-grid {
-      display: grid;
-      gap: 1rem;
-      // Add container constraints
-      > div {
-        position: relative;
-        width: 100%;
-        padding-bottom: 75%; // 3:4 aspect ratio (adjust based on your images)
+    .sub-grid{
+      @include grid(1);
+      img{
+        max-width: 100% !important;
+         height: auto !important;
+        // width: auto !important;
       }
-    }
-
-    .gallery-img {
-      position: absolute;
-      width: 100% !important;
-      height: 100% !important;
-      max-width: 100%;
-      object-fit: cover;
-      border-radius: 0.5rem;
     }
   }
 }

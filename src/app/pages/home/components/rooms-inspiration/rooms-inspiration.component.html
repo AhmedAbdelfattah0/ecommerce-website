@@ -30,7 +30,7 @@
       <!-- Slides -->
       @for (slide of slides; track $index; let i = $index){
          <div class="slide" >
-        <img [src]="slide.image" fetchpriority="high" [alt]="slide.alt" />
+        <img [ngSrc]="slide.image" fetchpriority="high" fill [alt]="slide.alt" />
       </div>
       }
 
