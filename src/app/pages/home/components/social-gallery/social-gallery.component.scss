@@ -31,8 +31,8 @@
     }
 
     .gallery-img {
-      height: auto;         /* 'h-auto' */
-      max-width: 100%;      /* 'max-w-full' */
+      height: auto !important;         /* 'h-auto' */
+      max-width: 100% !important;      /* 'max-w-full' */
       border-radius: 0.5rem; /* 'rounded-lg' ~ 0.5rem or 8px */
       display: block;       /* ensures the image doesn't add extra space at bottom */
     }
