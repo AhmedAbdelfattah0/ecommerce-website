@@ -8,7 +8,7 @@
   <!-- Mobile Menu Toggle -->
 
   <div class="logo">
-    <a routerLink="/"><img ngSrc="https://lugarstore.com/uploads/LOGO1-lugar.svg" width="94px" height="auto" fetchpriority="low" alt=""></a>
+    <a routerLink="/"><img ngSrc="https://lugarstore.com/uploads/LOGO1-lugar.svg" width="94" [style.height]="'auto'" fetchpriority="low" alt=""></a>
   </div>
 
   <nav class="nav-links" *ngIf="(isMobile$ | async) === false">
