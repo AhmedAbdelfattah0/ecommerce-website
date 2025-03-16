@@ -13,17 +13,26 @@
 
   <nav class="nav-links" *ngIf="(isMobile$ | async) === false">
     <a mat-button [routerLink]="['/home']" class="nav-link"  routerLinkActive="router-link-active"  [routerLinkActiveOptions]="{ exact: true }" >Home</a>
-    <a mat-button [routerLink]="['/products']" routerLinkActive="router-link-active" class="nav-link">Products</a>
-    <a mat-button routerLink="/contact" routerLinkActive="router-link-active" class="nav-link">Contact</a> 
+    <a mat-button [routerLink]="['/products']" routerLinkActive="router-link-active" class="nav-link">Products </a>
+    <a mat-button [routerLink]="['/deals']" routerLinkActive="router-link-active" class="nav-link">Hot Deals <mat-icon class="local_fire">local_fire_department</mat-icon></a>
+    <a mat-button routerLink="/contact" routerLinkActive="router-link-active" class="nav-link">Contact</a>
     <!-- <a mat-button routerLink="/about" routerLinkActive="router-link-active" class="nav-link">About</a>
     -->
   </nav>
 
   <div class="header-actions">
+
+
+    <button mat-icon-button class="cart-button" [routerLink]="['/favorites']">
+      <mat-icon>favorite</mat-icon>
+      <!-- <span class="cart-count">{{itemsCount()}}</span> -->
+    </button>
+
     <button mat-icon-button class="cart-button" [routerLink]="['/cart']">
       <mat-icon>shopping_cart</mat-icon>
       <span class="cart-count">{{itemsCount()}}</span>
     </button>
+
   </div>
 
 

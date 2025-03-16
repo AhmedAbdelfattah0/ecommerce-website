@@ -115,6 +115,13 @@
         mat-icon {
           font-size: 1.1rem;
         }
+        &:hover{
+          color: $light-brown;
+
+          mat-icon{
+            color: $light-brown;
+          }
+        }
       }
     }
   }

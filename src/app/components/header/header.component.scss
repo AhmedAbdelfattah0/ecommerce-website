@@ -36,7 +36,9 @@
     .nav-link {
       color: $primary-color;
       font-weight: 500;
-
+      .local_fire{
+        color:red;
+      }
       &:hover {
         color: $accent-color;
       }

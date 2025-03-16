@@ -12,7 +12,7 @@
     />
     <!-- Discount Badge -->
      @if(product.discount>0){
-      <div class="discount-badge"  >
+      <div class="discount-badge"  [ngStyle]="(product.subCategoryId == 1 || product.subCategoryId == 5) ? {'left': '8px'} : {'right': '8px'}">
         <span>-{{ product.discount }}%</span>
       </div>
      }
@@ -61,16 +61,19 @@
 
       <div class="hover-actions">
         <!-- You can use icon-only buttons or include text. Shown here with icon + text. -->
-        <div class="action-item">
-          <mat-icon>share</mat-icon>
-          <span>Share</span>
-        </div>
+         @if (navigate?.share) {
+          <div class="action-item" (click)="shareProduct()">
+            <mat-icon>share</mat-icon>
+            <span>Share</span>
+          </div>
+         }
+
         <div class="action-item" (click)="goToItems(product.id)"  >
           <mat-icon>description</mat-icon>
           <span>View Details</span>
         </div>
-        <div class="action-item">
-          <mat-icon>favorite_border</mat-icon>
+        <div class="action-item" (click)="addToWishlist()">
+          <mat-icon  [ngStyle]="isInWishlist() ? {'color': 'red'} : {}">favorite_border</mat-icon>
           <span>Like</span>
         </div>
       </div>

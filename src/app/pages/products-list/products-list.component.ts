@@ -45,7 +45,7 @@ export class ProductsListComponent implements OnInit {
 
   ngOnInit(): void {
     // Initially, display all products
-
+    window.scrollTo(0, 0);
   }
 
   onFilterChanged(filterData: any): void {

@@ -35,6 +35,7 @@ export class ProductDetailsComponent {
   filteredRelatedProducts: Product[] = [];
   minQty=1;
   constructor(private _productService: ProductService, private route: ActivatedRoute, private _cartService:CartService) {
+    window.scrollTo(0, 0);
     this.route.paramMap.subscribe({
       next: (value: any) => {
         if (value && value.hasOwnProperty('params') && value['params']) {

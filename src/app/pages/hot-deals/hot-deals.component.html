@@ -1,0 +1,34 @@
+<app-hero></app-hero>
+<!-- Filter & Sorting Section -->
+<app-products-filter
+(filterChanged)="onFilterChanged($event)"
+(sortChanged)="onSortChanged($event)"
+(itemsPerPageChanged)="itemsPerPageChanged($event)"
+(viewModeChanged)="onViewModeChanged($event)"
+[startIndex]="startIndex"
+[endIndex]="endIndex"
+[totalItems]="totalProducts"
+></app-products-filter>
+
+<div class="products-list-wrapper">
+
+  @if(showProducts){
+ <!-- Products Grid -->
+ <app-product-grid
+ [products]="filteredProducts"
+ [viewMode]="viewMode"
+></app-product-grid>
+  }
+
+
+  <!-- Pagination -->
+  <app-products-pagination
+    [totalItems]="totalProducts"
+    [itemsPerPage]="itemsPerPage"
+    (pageChanged)="onPageChanged($event)"
+  ></app-products-pagination>
+
+</div>
+<!-- Features -->
+<app-features></app-features>
+

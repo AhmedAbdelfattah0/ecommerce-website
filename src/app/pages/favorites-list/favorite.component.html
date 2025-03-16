@@ -1,0 +1,77 @@
+<app-hero></app-hero>
+
+
+<div class="cart-container">
+
+  <!-- Cart Items Section -->
+  <div class="cart-items">
+    <!-- *ngIf="cartItems.length > 0; else emptyCart" -->
+    @if(cartItems.length){
+  <div class="table-responsive">
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+          <th></th> <!-- For remove icon -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cartItems">
+          <td class="product-col">
+            <!-- Optional image on the left -->
+            @if (item.image) {
+
+            <img [ngSrc]="item.image" fetchpriority="high" [alt]="item.title" width="60" height="60" />
+            }
+            <span>{{ item.title }}</span>
+          </td>
+          <td> {{ item.price | currency:'EGP':'symbol':'1.2-2' | addSpaceAfterCurrency}}</td>
+          <td>
+            <!-- Example: Using a simple +/- stepper or your custom QtyStepper -->
+            <app-qty-stepper [qty]="item.qty" (qtyChange)="onQtyChange(item, $event)"></app-qty-stepper>
+          </td>
+          <td> {{ (item.price * item.qty) | currency:'EGP':'symbol':'1.2-2' | addSpaceAfterCurrency}}</td>
+          <td>
+            <button  class="remove-btn" (click)="removeItem(item.id)">
+              <mat-icon>delete</mat-icon> <!-- or any icon library -->
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+    }@else{
+    <ng-template [ngTemplateOutlet]="emptyCart"></ng-template>
+    }
+
+    <ng-template #emptyCart>
+      <p>Your cart is empty.</p>
+    </ng-template>
+  </div>
+  <!-- Cart Totals Section -->
+  @if(cartItems.length){
+    <div class="cart-totals">
+      <div>
+        <h2>Cart Totals</h2>
+      </div>
+      <div>
+        <div class="totals-line">
+          <span>Subtotal</span>
+          <span> {{ subtotal | currency:'EGP':'symbol':'1.2-2' |  addSpaceAfterCurrency  }}</span>
+        </div>
+        <div class="totals-line total">
+          <span>Total</span>
+          <span> {{ total | currency:'EGP':'symbol':'1.2-2' |  addSpaceAfterCurrency  }}</span>
+        </div>
+      </div>
+      <button [disabled]="!cartItems.length" class="checkout-btn"  (click)="addAllToCart()">Add all to cart</button>
+    </div>
+  }
+
+
+</div>
+<app-features></app-features>

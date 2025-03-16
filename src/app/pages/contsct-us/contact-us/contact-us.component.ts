@@ -18,6 +18,7 @@ export class ContactUsComponent {
   contactForm: FormGroup;
 
   constructor(private fb: FormBuilder, private _contactUsService: ContactUsService, private _toasterService:ToasterService) {
+    window.scrollTo(0, 0);
     this.contactForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],

@@ -19,7 +19,7 @@ export class MobileMenuComponent {
   menuItems = [
     { path: '/', label: 'Home', icon: 'home' },
     { path: '/products', label: 'Products', icon: 'category' },
-    // { path: '/about', label: 'About', icon: 'info' },
+    { path: '/deals', label: 'Hot deals', icon: 'local_fire_department' },
     { path: '/contact', label: 'Contact', icon: 'mail' }
   ];
   constructor(private router: Router) { }
