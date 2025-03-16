@@ -10,7 +10,7 @@ export interface Product {
   imgFour: string;
   videoLink: string;
   categoryId: string;
-  subCategoryId: string;
+  subCategoryId: number;
   // stock: number;
   rating: number;
   isNew?: boolean;

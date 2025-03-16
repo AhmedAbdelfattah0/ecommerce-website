@@ -53,7 +53,7 @@ describe('ProductCardComponent', () => {
     imgFour: 'img4.jpg',
     videoLink: 'video.mp4',
     categoryId: 'cat1',
-    subCategoryId: 'subcat1',
+    subCategoryId: 1,
     // stock: 10,
     rating: 4.5,
     isNew: true,
