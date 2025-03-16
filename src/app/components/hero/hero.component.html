@@ -1,6 +1,8 @@
 <section class="products-hero">
+@if (breadcrumbs.length) {
+  <h1>{{breadcrumbs[breadcrumbs.length-1].title}}</h1>
 
-  <h1>{{breadcrumbs[breadcrumbs.length-1]?.title}}</h1>
+}
   <div class="products-hero__breadcrumb">
     @for(breadcrumb of breadcrumbs; track breadcrumb.title; let last = $last;){
       <div >

@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
@@ -6,7 +7,7 @@ import { Breadcrumb } from '../../models/Breadcrumb';
 
 @Component({
   selector: 'app-hero',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss'
 })
@@ -16,6 +17,7 @@ export class HeroComponent implements AfterContentInit {
   constructor(
      private router: Router,
     private activatedRoute: ActivatedRoute,
+
    ) {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
       this.breadcrumbs = this.buildBreadcrumb(this.activatedRoute.root);
