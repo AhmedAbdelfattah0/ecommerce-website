@@ -1,0 +1,34 @@
+name: Deploy Angular to Hostinger
+
+on:
+  push:
+    branches:
+      - main # Change this if your main branch is different
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18 # Use the version that matches your Angular project
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Angular Project
+        run: npm run build -- --configuration=production
+
+      - name: Deploy to Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4
+        with:
+          server: ${{ secrets.FTPHOST }}
+          username: ${{ secrets.FTPUSERNAME }}
+          password: ${{ secrets.FTPPASSWORD }}
+          local-dir: dist/ecommerce-website/browser/ # Replace with your actual Angular project name
+          server-dir: /public_html/qa-store # Change if your Hostinger root directory is different
