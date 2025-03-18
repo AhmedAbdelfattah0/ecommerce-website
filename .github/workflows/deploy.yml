@@ -32,5 +32,5 @@ jobs:
           username: ${{ secrets.FTPUSERNAME }}
           password: ${{ secrets.FTPPASSWORD }}
           local-dir: dist/ecommerce-website/browser/ # Replace with your actual Angular project name
-          server-dir: /public_html/qa-store # Change if your Hostinger root directory is different
+          server-dir: /public_html/qa-store/ # Change if your Hostinger root directory is different
           dangerous-clean-slate: true
