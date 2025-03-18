@@ -17,7 +17,6 @@ interface Slide {
 })
 export class RoomsInspirationComponent {
   currentIndex = 0;
-
   slides: Slide[] = [
     {
       image: 'bedroom1.png',
@@ -45,7 +44,7 @@ export class RoomsInspirationComponent {
     // Add more slides as needed
   ];
 
-
+  selectedSlide = this.slides[0]
   // Each slide is 75% width, plus a small gap, so the partial next slide is visible.
   slideWidth = 75; // percentage
   slideGap = 5;    // percentage (gap between slides)
@@ -54,8 +53,11 @@ export class RoomsInspirationComponent {
   nextSlide() {
     if (this.currentIndex < this.slides.length - 1) {
       this.currentIndex++;
+      this.selectedSlide=this.slides[this.currentIndex]
     }else{
       this.currentIndex = 0
+      this.selectedSlide=this.slides[this.currentIndex]
+
     }
   }
 

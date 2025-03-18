@@ -9,11 +9,11 @@
     <button class="explore-btn">Explore More</button>
   </div>
   <div class="hero-img">
-    <img ngSrc="bedroom1.png" width="404"
+    <img [ngSrc]="selectedSlide.image" width="404"
     height="582" fetchpriority="high" alt="">
     <div class="slide-info">
-      <span class="slide-number">1 __ Bed Room</span>
-      <span class="slide-title">Inner Peace</span>
+      <span class="slide-number">{{currentIndex+1}} __ {{selectedSlide.title}}</span>
+      <span class="slide-title"> {{ selectedSlide.subtitle}}</span>
       <span class="slide-subtitle"> </span>
       <button class="arrow-btn next-arrow" (click)="nextSlide()">
         <mat-icon>arrow_forward</mat-icon>
