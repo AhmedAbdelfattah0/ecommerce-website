@@ -1,4 +1,4 @@
-name: Deploy Angular to Hostinger
+name: Deploy Angular to Hostinger via Git
 
 on:
   push:
@@ -8,8 +8,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: prod
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -17,7 +15,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18 # Use the version that matches your Angular project
+          node-version: 18
 
       - name: Install Dependencies
         run: npm install
@@ -25,14 +23,17 @@ jobs:
       - name: Build Angular Project
         run: npm run build -- --configuration=production
 
-      # - name: Deploy to Hostinger via FTP
-      #   uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-      - name: Debug DNS Resolution
-        run: nslookup ${{ secrets.FTPHOST }} 
-        # with:
-        #   server: ${{ secrets.FTPHOST }}
-        #   username: ${{ secrets.FTPUSERNAME }}
-        #   password: ${{ secrets.FTPPASSWORD }}
-        #   local-dir: dist/ecommerce-website/browser/ # Replace with your actual Angular project name
-        #   server-dir: /public_html/qa-store/ # Change if your Hostinger root directory is different
-        #   dangerous-clean-slate: true
+      - name: Setup SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets._HOSTINGER_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.HOSTINGER_GIT_URL }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to Hostinger via Git
+        run: |
+          git config --global user.email "your-email@example.com"
+          git config --global user.name "GitHub Actions"
+          git clone --bare ssh://${{ secrets.HOSTINGER_GIT_URL }} hostinger-repo
+          cd hostinger-repo
+          git push --mirror ssh://${{ secrets.HOSTINGER_GIT_URL }}
