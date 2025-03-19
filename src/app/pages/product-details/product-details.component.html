@@ -116,7 +116,9 @@
     <div class="title"><span>Related Products</span></div>
     <!-- Reuse of existing ProductsGrid -->
     <app-product-grid [products]="filteredRelatedProducts" [viewMode]="viewMode"></app-product-grid>
+    @if(filteredRelatedProducts.length && filteredRelatedProducts.length>itemsPerPage){
 
-    <button class="show-more" (click)="onPageChanged()">Show More</button>
+      <button class="show-more"  (click)="onPageChanged()">Show More</button>
+    }
   </div>
 </div>

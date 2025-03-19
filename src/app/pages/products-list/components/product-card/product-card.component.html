@@ -37,9 +37,9 @@
     <p class="product-subtitle">{{ product.titleAr }}</p>
 
     <div class="price">
-      <span class="current-price">{{product.discountedPrice?product.discountedPrice: product.originalPrice|
+      <span class="current-price">{{+product.discountedPrice >0?product.discountedPrice: product.originalPrice|
         currency:'EGP':'symbol':'1.2-2' | addSpaceAfterCurrency }}</span>
-     @if (product.discountedPrice) {
+     @if (product.discountedPrice && +product.discountedPrice >0  ) {
       <span class="old-price"  >
         {{ product.originalPrice | currency:'EGP':'symbol':'1.2-2' |  addSpaceAfterCurrency  }}
       </span>
