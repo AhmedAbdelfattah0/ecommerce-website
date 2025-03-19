@@ -1,3 +1,4 @@
+
 name: Deploy Angular to Hostinger via Git
 
 on:
@@ -12,28 +13,31 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 18
 
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Build Angular Project
-        run: npm run build -- --configuration=production
-
-      - name: Setup SSH Key
+      # - name: Install Dependencies
+      #   run: npm install
+      - name: Test SSH Connection
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.HOSTINGER_SSH_HOST }} >> ~/.ssh/known_hosts
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.HOSTINGER_SSH_USER }}@${{ secrets.HOSTINGER_SSH_HOST }} "echo SSH Connection Successful" || echo "SSH Connection Failed"
 
-      - name: Deploy to Hostinger via Git
-        run: |
-          git config --global user.email "ahmed.m.abdelfttah@gmail.com"
-          git config --global user.name "GitHub Actions"
-          git clone --bare ssh://${{ secrets.HOSTINGER_GIT_URL }} hostinger-repo
-          cd hostinger-repo
-          git push --mirror ssh://${{ secrets.HOSTINGER_GIT_URL }}
+      # - name: Build Angular Project
+      #   run: npm run build -- --configuration=production
+
+      # - name: Setup SSH Key
+      #   run: |
+      #     mkdir -p ~/.ssh
+      #     echo "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/id_rsa
+      #     chmod 600 ~/.ssh/id_rsa
+      #     ssh-keyscan -H ${{ secrets.HOSTINGER_SSH_HOST }} >> ~/.ssh/known_hosts
+
+      # - name: Deploy to Hostinger via Git
+      #   run: |
+      #     git config --global user.email "ahmed.m.abdelfttah@gmail.com"
+      #     git config --global user.name "GitHub Actions"
+      #     git clone --bare ssh://${{ secrets.HOSTINGER_GIT_URL }} hostinger-repo
+      #     cd hostinger-repo
+      #     git push --mirror ssh://${{ secrets.HOSTINGER_GIT_URL }}
