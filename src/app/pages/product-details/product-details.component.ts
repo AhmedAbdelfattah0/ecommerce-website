@@ -92,7 +92,7 @@ export class ProductDetailsComponent {
     this.currentPage = this.currentPage + 1;
     let startIndex = (this.currentPage - 1) * this.itemsPerPage;
     this.endIndex = startIndex + this.itemsPerPage;
-    this.filteredRelatedProducts = this.relatedProducts.slice(this.startIndex,this.endIndex)
+    this.filteredRelatedProducts = this.relatedProducts.slice(this.startIndex,this.endIndex).filter(product=> product.id !== this.product?.id)
 
   }
 
@@ -101,7 +101,7 @@ export class ProductDetailsComponent {
   getProductsByCatigoryId(categoryId:any) {
     this._productService.getProductsByCategory(categoryId).subscribe(res => {
       this.relatedProducts = res
-      this.filteredRelatedProducts = this.relatedProducts.slice(this.startIndex,this.endIndex)
+      this.filteredRelatedProducts = this.relatedProducts.slice(this.startIndex,this.endIndex).filter(product=> product.id !== this.product?.id)
     });
   }
 }
