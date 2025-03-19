@@ -32,7 +32,7 @@ jobs:
 
       - name: Deploy to Hostinger via Git
         run: |
-          git config --global user.email "your-email@example.com"
+          git config --global user.email "ahmed.m.abdelfttah@gmail.com"
           git config --global user.name "GitHub Actions"
           git clone --bare ssh://${{ secrets.HOSTINGER_GIT_URL }} hostinger-repo
           cd hostinger-repo
