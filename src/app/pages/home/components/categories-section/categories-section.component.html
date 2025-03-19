@@ -1,12 +1,12 @@
 <div class="browse-range">
   <!-- Heading & Subheading -->
   <h2>Browse The Range</h2>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  <p>Find the perfect pieces to complete every room in your home.</p>
 
   <!-- Categories Grid -->
   <div class="categories-grid">
     @for (cat of categories; track $index) {
-      <div class="category-card" [routerLink]="['/products']" [queryParams]="{pros: cat.id}" >
+      <div class="category-card" data-aos="fade-up" [routerLink]="['/products']" [queryParams]="{pros: cat.id}" >
         <img [ngSrc]="cat.imgOne"  [alt]="cat.title"   width="381"
         height="480" priority />
         <h3>{{ cat.title }}</h3>

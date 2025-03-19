@@ -1,19 +1,28 @@
 <div class="rooms-inspiration">
   <!-- Left Content -->
   <div class="hero-content">
-    <h2>50+ Beautiful rooms inspiration</h2>
-    <p>
+    <h2  data-aos="fade-down"
+    data-aos-easing="linear"
+    data-aos-duration="1500">50+ Beautiful rooms inspiration</h2>
+    <p data-aos="fade-right"
+    data-aos-offset="300"
+    data-aos-easing="ease-in-sine">
       Our designer already made a lot of beautiful prototype of rooms
       that inspire you
     </p>
-    <button class="explore-btn">Explore More</button>
+    <button class="explore-btn" data-aos="fade-left" data-aos-easing="linear"
+    data-aos-duration="1500">Explore More</button>
   </div>
   <div class="hero-img">
     <img [ngSrc]="selectedSlide.image" width="404"
-    height="582" fetchpriority="high" alt="">
+    height="582" fetchpriority="high" alt="" data-aos="flip-left">
     <div class="slide-info">
-      <span class="slide-number">{{currentIndex+1}} __ {{selectedSlide.title}}</span>
-      <span class="slide-title"> {{ selectedSlide.subtitle}}</span>
+      <span class="slide-number" data-aos="fade-down"
+      data-aos-easing="linear"
+      data-aos-duration="1500">{{currentIndex+1}} __ {{selectedSlide.title}}</span>
+      <span class="slide-title"data-aos="fade-left"
+      data-aos-easing="linear"
+      data-aos-duration="1500"> {{ selectedSlide.subtitle}}</span>
       <span class="slide-subtitle"> </span>
       <button class="arrow-btn next-arrow" (click)="nextSlide()">
         <mat-icon>arrow_forward</mat-icon>
