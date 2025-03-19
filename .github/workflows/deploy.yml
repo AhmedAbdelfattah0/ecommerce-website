@@ -28,7 +28,7 @@ jobs:
       # - name: Deploy to Hostinger via FTP
       #   uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       - name: Debug DNS Resolution
-        run: nslookup ${{ secrets.FTPHOST }}
+        run: nslookup ${{ secrets.FTPHOST }} 
         # with:
         #   server: ${{ secrets.FTPHOST }}
         #   username: ${{ secrets.FTPUSERNAME }}
