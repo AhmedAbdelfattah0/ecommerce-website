@@ -27,10 +27,12 @@ jobs:
 
       - name: Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTPHOST }}
-          username: ${{ secrets.FTPUSERNAME }}
-          password: ${{ secrets.FTPPASSWORD }}
-          local-dir: dist/ecommerce-website/browser/ # Replace with your actual Angular project name
-          server-dir: /public_html/qa-store/ # Change if your Hostinger root directory is different
-          dangerous-clean-slate: true
+      - name: Debug DNS Resolution
+        run: nslookup ${{ secrets.FTPHOST }}
+        # with:
+        #   server: ${{ secrets.FTPHOST }}
+        #   username: ${{ secrets.FTPUSERNAME }}
+        #   password: ${{ secrets.FTPPASSWORD }}
+        #   local-dir: dist/ecommerce-website/browser/ # Replace with your actual Angular project name
+        #   server-dir: /public_html/qa-store/ # Change if your Hostinger root directory is different
+        #   dangerous-clean-slate: true
