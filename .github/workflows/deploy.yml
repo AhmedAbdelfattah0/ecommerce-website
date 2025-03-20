@@ -6,6 +6,7 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment: prod  # ← Environment name here
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,5 +28,5 @@ jobs:
           server: ${{ secrets.FTPHOST }}
           username: ${{ secrets.FTPUSERNAME }}
           password: ${{ secrets.FTPPASSWORD }}
-          local-dir: ./dist/ecommerce-website/browser/  # ← Change to your Angular dist folder
+          local-dir: ./dist/ecommerce-website/browser/
           server-dir: /public_html/qa-store
