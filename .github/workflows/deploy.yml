@@ -45,3 +45,7 @@ jobs:
 
         env:
           FTP_SECURE: false  # Explicitly disable FTPS
+
+      - name: Verify FTP Deployment
+        run: |
+          curl -u ${{ secrets.FTPUSERNAME }}:${{ secrets.FTPPASSWORD }} ftp://${{ secrets.FTPHOST }}/public_html/qa-store/
