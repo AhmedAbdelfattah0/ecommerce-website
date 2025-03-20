@@ -29,4 +29,4 @@ jobs:
           username: ${{ secrets.FTPUSERNAME }}
           password: ${{ secrets.FTPPASSWORD }}
           local-dir: ./dist/ecommerce-website/browser/
-          server-dir: /public_html/qa-store
+          server-dir: /public_html/qa-store/
