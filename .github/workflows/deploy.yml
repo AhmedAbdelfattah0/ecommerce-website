@@ -25,7 +25,8 @@ jobs:
 
       - name: Verify build output
         run: ls -la ./dist/ecommerce-website/browser/
-
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
       # Step to Delete Old Files Except .htaccess
       - name: Clean up old files on server (excluding .htaccess)
         run: |
