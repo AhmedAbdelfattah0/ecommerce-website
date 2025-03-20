@@ -29,13 +29,13 @@ jobs:
       # Step to Delete Old Files Except .htaccess
       - name: Clean up old files on server (excluding .htaccess)
         run: |
-          sudo apt-get install lftp -y
-          lftp -e "set ftp:ssl-allow no;
-                   open ${{ secrets.FTPHOST }};
-                   user ${{ secrets.FTPUSERNAME }} ${{ secrets.FTPPASSWORD }};
-                   cd /public_html/qa-store/;
-                   find . -mindepth 1 ! -name '.htaccess' -delete;
-                   bye"
+          sudo apt-get install -y lftp
+          lftp -u "${{ secrets.FTPUSERNAME }}","${{ secrets.FTPPASSWORD }}" ${{ secrets.FTPHOST }} <<EOF
+          set ftp:ssl-allow no
+          cd /public_html/qa-store/
+          find . -mindepth 1 ! -name ".htaccess" -exec rm -rf {} +
+          bye
+          EOF
         shell: bash
 
       - name: Deploy via FTP
