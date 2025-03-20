@@ -36,12 +36,12 @@ jobs:
           server: ${{ secrets.FTPHOST }}
           username: ${{ secrets.FTPUSERNAME }}
           password: ${{ secrets.FTPPASSWORD }}
-          dangerous-clean-slate: true
           local-dir: ./dist/ecommerce-website/browser/
           server-dir: /public_html/qa-store/
-          # exclude: |
-          #   **/.htaccess
-          #   **/.gitkeep
+          dangerous-clean-slate: true
+          exclude: |
+            **/.htaccess
+            **/.gitkeep
           log-level: verbose
         env:
           FTP_SECURE: false  # Explicitly disable FTPS
