@@ -30,10 +30,10 @@ jobs:
       - name: Clean up old files on server (excluding .htaccess)
         run: |
           sudo apt-get install -y lftp
-          lftp -u "${{ secrets.FTPUSERNAME }}","${{ secrets.FTPPASSWORD }}" ${{ secrets.FTPHOST }} <<EOF
+          lftp -d -u "${{ secrets.FTPUSERNAME }}","${{ secrets.FTPPASSWORD }}" ${{ secrets.FTPHOST }} <<EOF
           set ftp:ssl-allow no
           cd /public_html/qa-store/
-          find . -mindepth 1 ! -name ".htaccess" -exec rm -rf {} +
+          glob -a rm -rf [!.]*    # Deletes everything except .htaccess
           bye
           EOF
         shell: bash
