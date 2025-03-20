@@ -29,11 +29,10 @@ jobs:
       # Step to Delete Old Files Except .htaccess
       - name: Clean up old files on server (excluding .htaccess)
         run: |
-          sudo apt-get install -y lftp
-          lftp -d -u "${{ secrets.FTPUSERNAME }}","${{ secrets.FTPPASSWORD }}" ${{ secrets.FTPHOST }} <<EOF
+          lftp -u "${{ secrets.FTPUSERNAME }}","${{ secrets.FTPPASSWORD }}" ${{ secrets.FTPHOST }} <<EOF
           set ftp:ssl-allow no
           cd /public_html/qa-store/
-          glob -a rm -rf [!.]*    # Deletes everything except .htaccess
+          rm -f .ftp-deploy-sync-state.json
           bye
           EOF
         shell: bash
@@ -48,3 +47,4 @@ jobs:
           server-dir: /public_html/qa-store/
           exclude: |
             **/.htaccess
+            # **/.ftp-deploy-sync-state.json  # Exclude sync state so it won't cache
