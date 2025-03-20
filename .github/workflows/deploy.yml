@@ -1,4 +1,5 @@
 name: Deploy Angular to Hostinger (FTP)
+
 on:
   push:
     branches: [master]
@@ -20,17 +21,24 @@ jobs:
         run: npm ci
 
       - name: Build Angular project
-        run: |
-          npm run build -- --configuration=production
-          echo "Build completed at: $(date)"
+        run: npm run build -- --configuration=production
 
-      - name: Verify build artifacts
-        run: |
-          echo "Local build contents:"
-          ls -la ./dist/ecommerce-website/browser/
-          [ -f ./dist/ecommerce-website/browser/index.html ] || exit 1
+      - name: Verify build output
+        run: ls -la ./dist/ecommerce-website/browser/
 
-      - name: FTP Deployment
+      # Step to Delete Old Files Except .htaccess
+      - name: Clean up old files on server (excluding .htaccess)
+        run: |
+          sudo apt-get install lftp -y
+          lftp -e "set ftp:ssl-allow no;
+                   open ${{ secrets.FTPHOST }};
+                   user ${{ secrets.FTPUSERNAME }} ${{ secrets.FTPPASSWORD }};
+                   cd /public_html/qa-store/;
+                   find . -mindepth 1 ! -name '.htaccess' -delete;
+                   bye"
+        shell: bash
+
+      - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
           server: ${{ secrets.FTPHOST }}
@@ -38,10 +46,5 @@ jobs:
           password: ${{ secrets.FTPPASSWORD }}
           local-dir: ./dist/ecommerce-website/browser/
           server-dir: /public_html/qa-store/
-          dangerous-clean-slate: true
           exclude: |
             **/.htaccess
-            **/.gitkeep
-          log-level: verbose
-        env:
-          FTP_SECURE: false  # Explicitly disable FTPS
