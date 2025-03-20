@@ -20,12 +20,17 @@ jobs:
         run: npm ci
 
       - name: Build Angular project
-        run: npm run build -- --configuration=production
+        run: |
+          npm run build -- --configuration=production
+          echo "Build completed at: $(date)"
 
-      - name: Verify build output
-        run: ls -la ./dist/ecommerce-website/browser/
+      - name: Verify build artifacts
+        run: |
+          echo "Local build contents:"
+          ls -la ./dist/ecommerce-website/browser/
+          [ -f ./dist/ecommerce-website/browser/index.html ] || exit 1
 
-      - name: Deploy via FTP
+      - name: FTP Deployment
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
           server: ${{ secrets.FTPHOST }}
@@ -36,4 +41,7 @@ jobs:
           dangerous-clean-slate: true
           exclude: |
             **/.htaccess
+            **/.gitkeep
 
+        env:
+          FTP_SECURE: false  # Explicitly disable FTPS
