@@ -22,13 +22,14 @@ export class FeaturesProductsComponent {
   startIndex: number = 0;
   endIndex: number = this.itemsPerPage;
 
-  constructor(private _suCategoriesService: SuCategoriesService, private _productService: ProductService) {
+  constructor(private _suCategoriesService: SuCategoriesService, public _productService: ProductService) {
     this._suCategoriesService.getSubCatigories().subscribe(res => {
       this.subCategoriesList = res
     })
 
     this._productService.getProducts().subscribe(res => {
       this.products = res;
+      this._productService.isProductsLoading.set(false)
     })
 
 

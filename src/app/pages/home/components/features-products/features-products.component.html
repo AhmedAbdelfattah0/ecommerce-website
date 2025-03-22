@@ -5,7 +5,7 @@
         <h2> {{item.title}} </h2>
       </div>
       <!-- Products Grid -->
-      <app-product-grid [viewMode]="viewMode"  [products]="filterProductsBySubCatigory(item.id)"></app-product-grid>
+      <app-product-grid [viewMode]="viewMode"  [products]="filterProductsBySubCatigory(item.id)" [isProductsLoading]="_productService.isProductsLoading()"></app-product-grid>
       @if(filterProductsBySubCatigoryWithoutSlice(item.id).length > itemsPerPage){
         <div class="see-more">
           <button (click)="onPageChanged(item.id)">Show More </button>

@@ -1,5 +1,5 @@
 import { ProductService } from '../../services/product/product.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { HeroComponent } from '../../components/hero/hero.component';
 import { CommonModule } from '@angular/common';
 import { FeaturesComponent } from '../../components/features/features.component';
@@ -28,18 +28,9 @@ export class ProductsListComponent implements OnInit {
   startIndex: number = 0;
   endIndex: number = this.itemsPerPage;
   showProducts: boolean = true
-  constructor(private _productService: ProductService, private route: ActivatedRoute) {
-    this._productService.getProducts().subscribe((res: any) => {
-      this.products = res
-      this.filteredProducts = this.products.slice(0, this.itemsPerPage);
-      this.totalProducts = this.products.length;
-      this.route.queryParams.subscribe(res => {
-         if (res && res.hasOwnProperty('pros'))
-          this.onFilterChanged(res['pros'])
+  constructor(public _productService: ProductService, private route: ActivatedRoute) {
 
-      })
-    })
-
+    this.fetchProducts()
 
   }
 
@@ -49,7 +40,7 @@ export class ProductsListComponent implements OnInit {
   }
 
   onFilterChanged(filterData: any): void {
-     if (filterData) {
+    if (filterData) {
       this.filteredProducts = this.products.filter(product => product.categoryId == filterData).slice(0, this.itemsPerPage);
       this.totalProducts = this.filteredProducts.length
       this.currentPage = 1;
@@ -61,6 +52,22 @@ export class ProductsListComponent implements OnInit {
 
     }
 
+  }
+
+  fetchProducts() {
+     this._productService.getProducts().subscribe((res: any) => {
+
+      this.products = res
+      this.filteredProducts = this.products.slice(0, this.itemsPerPage);
+      this.totalProducts = this.products.length;
+      this._productService.isProductsLoading.set(false);
+
+      this.route.queryParams.subscribe(res => {
+        if (res && res.hasOwnProperty('pros'))
+          this.onFilterChanged(res['pros'])
+
+      })
+    })
   }
 
   onSortChanged(sortData: any): void {

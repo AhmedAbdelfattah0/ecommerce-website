@@ -17,6 +17,7 @@
  <app-product-grid
  [products]="filteredProducts"
  [viewMode]="viewMode"
+ [isProductsLoading]="_productService.isProductsLoading()"
 ></app-product-grid>
   }
 

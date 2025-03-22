@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Product, Product_v2, ProductsResponse } from '../../models/product';
@@ -8,6 +8,7 @@ import { Product, Product_v2, ProductsResponse } from '../../models/product';
 })
 export class ProductService {
   private apiUrl = '/products'; // Replace with your actual API endpoint
+  isProductsLoading = signal(false);
 
   constructor(private http: HttpClient) { }
 
@@ -17,6 +18,7 @@ export class ProductService {
     sort: string,
     filters: any
   }): Observable<Product[]> {
+    this.isProductsLoading.set(true)
     return this.http.get<Product[]>(`${this.apiUrl}/get_products.php`, { params });
   }
 
@@ -31,7 +33,7 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.apiUrl}/get_discounted_products.php`, { params });
   }
 
-  
+
   getProduct(id: number): Observable<Product_v2> {
     return this.http.get<Product_v2>(`${this.apiUrl}/get_product-v2.php/?id=${id}`);
   }

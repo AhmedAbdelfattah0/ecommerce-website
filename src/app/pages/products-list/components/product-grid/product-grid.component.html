@@ -1,12 +1,20 @@
 <div class="products-grid" [ngClass]="viewMode">
   @for (product of products; track $index) {
-  <app-product-card [product]="product" [viewMode]="viewMode" ></app-product-card>
+  <app-product-card [product]="product" [viewMode]="viewMode"></app-product-card>
   }
-  @if(!products.length){
+  @if(!products.length && !isProductsLoading){
 
-   <div class="">
+  <div class="">
     <h1> {{'No results found'}}</h1>
-   </div>
+  </div>
+  }
+
+  @if(!products.length && isProductsLoading){
+  @for (product of [1,2,3,4,5,6,7,8]; track $index) {
+
+    <app-product-card-skeleton></app-product-card-skeleton>
+   }
+
   }
 
 </div>
