@@ -1,5 +1,7 @@
+import { ToasterService } from './../toatser.service';
 import { Injectable, signal } from '@angular/core';
 import { Cart } from '../../models/cart';
+import { toasterCases } from '../../common/constants/app.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +10,7 @@ export class CartService {
   shoppingCart = signal<Cart[]>(this.loadCartFromLocalStorage());
   wishlist = signal<Cart[]>(this.loadWishlistFromLocalStorage());
 
-  constructor() { }
+  constructor( private _toasterService:ToasterService) { }
 
   addToCart(item: Cart) {
     const currentCart = this.shoppingCart();
@@ -23,6 +25,7 @@ export class CartService {
 
     this.shoppingCart.set(currentCart);
     this.saveCartToLocalStorage(currentCart);
+    this._toasterService.openToaster(toasterCases.)
   }
 
   updateQty(itemId: number, qty: number) {

@@ -10,7 +10,7 @@ export const toasterCases = {
   UnDEFAULT: {
     toasterType: 'ORDER_SUCCESS',
     isVisible: true,
-    Message:'Order Created Successfuly',
+    Message: 'Order Created Successfuly',
     viewLink: {
       link: '',
       isVisible: false,
@@ -20,11 +20,22 @@ export const toasterCases = {
   MESSAGE_SENT: {
     toasterType: 'MESSAGE_SENT',
     isVisible: true,
-    Message:'Thanks for reaching out we will get back to you sone',
+    Message: 'Thanks for reaching out we will get back to you sone',
     viewLink: {
       link: '',
       isVisible: false,
     },
 
-}
+  },
+
+  ADDED_TO_CART: {
+    toasterType: 'ADDED_TO_CART',
+    isVisible: true,
+    Message: 'Product added to your cart successful',
+    viewLink: {
+      link: '',
+      isVisible: false,
+    },
+
+  }
 }
