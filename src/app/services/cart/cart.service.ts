@@ -25,7 +25,7 @@ export class CartService {
 
     this.shoppingCart.set(currentCart);
     this.saveCartToLocalStorage(currentCart);
-    this._toasterService.openToaster(toasterCases.)
+    this._toasterService.openToaster(toasterCases.ADDED_TO_CART)
   }
 
   updateQty(itemId: number, qty: number) {
