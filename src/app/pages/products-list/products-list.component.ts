@@ -10,6 +10,7 @@ import { PaginationConfig } from '../../models/pagination.model';
 import { ProductsFilterComponent } from "./components/products-filter/products-filter.component";
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { SeoService } from '../../services/seo/seo.service';
 
 @Component({
   selector: 'app-products-list',
@@ -28,47 +29,84 @@ export class ProductsListComponent implements OnInit {
   viewMode: 'grid' | 'list' = 'grid';
   startIndex: number = 0;
   endIndex: number = this.itemsPerPage;
-  showProducts: boolean = true
-  constructor(public _productService: ProductService, private route: ActivatedRoute) {
+  showProducts: boolean = true;
+  currentCategory: string | null = null;
 
-    this.fetchProducts()
-
+  constructor(
+    public _productService: ProductService,
+    private route: ActivatedRoute,
+    private seoService: SeoService
+  ) {
+    this.fetchProducts();
   }
 
   ngOnInit(): void {
     // Initially, display all products
     window.scrollTo(0, 0);
+    this.updateSeoMetadata();
+  }
+
+  /**
+   * Update SEO metadata based on current page and filters
+   */
+  private updateSeoMetadata(category?: string): void {
+    let title = 'Our Furniture Collection';
+    let description = 'Browse our extensive collection of high-quality furniture. From sofas to dining tables, find the perfect piece for your home.';
+    let keywords = 'furniture, sofas, tables, chairs, bedroom furniture, living room furniture, dining room';
+
+    if (category) {
+      title = `${category} Furniture Collection`;
+      description = `Browse our extensive collection of ${category.toLowerCase()} furniture. Find the perfect ${category.toLowerCase()} piece for your home.`;
+      keywords = `${category.toLowerCase()} furniture, ${category.toLowerCase()}, furniture, home decor`;
+    }
+
+    if (this.currentPage > 1) {
+      title += ` - Page ${this.currentPage}`;
+      description = `Page ${this.currentPage} of our furniture collection. ${description}`;
+    }
+
+    this.seoService.updateMetaTags({
+      title,
+      description,
+      keywords,
+      url: window.location.href
+    });
   }
 
   onFilterChanged(filterData: any): void {
     if (filterData) {
       this.filteredProducts = this.products.filter(product => product.categoryId == filterData).slice(0, this.itemsPerPage);
-      this.totalProducts = this.filteredProducts.length
+      this.totalProducts = this.filteredProducts.length;
       this.currentPage = 1;
-      return
+
+      // Find category name for SEO
+      const categoryItem = this.filteredProducts.find(item => item.categoryId === filterData);
+      if (categoryItem) {
+        this.currentCategory = categoryItem.categoryName;
+        this.updateSeoMetadata(this.currentCategory);
+      }
+      return;
     } else {
       this.filteredProducts = this.products.slice(0, this.itemsPerPage);
-      this.totalProducts = this.products.length
-      return
-
+      this.totalProducts = this.products.length;
+      this.currentCategory = null;
+      this.updateSeoMetadata();
+      return;
     }
-
   }
 
   fetchProducts() {
-     this._productService.getProducts().subscribe((res: any) => {
-
-      this.products = res
+    this._productService.getProducts().subscribe((res: any) => {
+      this.products = res;
       this.filteredProducts = this.products.slice(0, this.itemsPerPage);
       this.totalProducts = this.products.length;
       this._productService.isProductsLoading.set(false);
 
       this.route.queryParams.subscribe(res => {
         if (res && res.hasOwnProperty('pros'))
-          this.onFilterChanged(res['pros'])
-
-      })
-    })
+          this.onFilterChanged(res['pros']);
+      });
+    });
   }
 
   onSortChanged(sortData: any): void {
@@ -87,14 +125,13 @@ export class ProductsListComponent implements OnInit {
   onViewModeChanged(mode: any): void {
     this.viewMode = mode;
   }
-  itemsPerPageChanged(items: any): void {
 
+  itemsPerPageChanged(items: any): void {
     this.currentPage = 1;
     this.itemsPerPage = items;
     this.filteredProducts = this.products.slice(0, this.itemsPerPage);
     this.totalProducts = this.products.length;
-    this.onPageChanged(this.currentPage)
-
+    this.onPageChanged(this.currentPage);
   }
 
   onPageChanged(event: any): void {
@@ -103,8 +140,11 @@ export class ProductsListComponent implements OnInit {
     this.startIndex = (this.currentPage - 1) * this.itemsPerPage;
     this.endIndex = this.startIndex + this.itemsPerPage;
     this.filteredProducts = this.products.slice(this.startIndex, this.endIndex);
+    // Update SEO for pagination
+    this.updateSeoMetadata(this.currentCategory || undefined);
+
     setTimeout(() => {
       this.showProducts = true;
-    }, 500)
+    }, 500);
   }
 }

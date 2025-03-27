@@ -21,6 +21,7 @@ export interface Product {
   subtitle?:string;
   availability:string;
   qty:number;
+  categoryName:string;
 }
 export interface Product_v2 {
   id: number;
