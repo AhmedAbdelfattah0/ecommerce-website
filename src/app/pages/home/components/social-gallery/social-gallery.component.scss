@@ -1,3 +1,5 @@
+@use 'sass:color';
+@use 'sass:math';
 @use '../../../../../scss/global' as *;
 
 .collage-section {
@@ -13,6 +15,11 @@
 
     span {
       color: #e67e22;
+      transition: color 0.3s ease;
+
+      &:hover {
+          color: color.adjust(#e67e22, $lightness: -10%);
+      }
     }
   }
 
@@ -21,16 +28,49 @@
 
     @include respond-below(md) {
       @include grid(2);
-
     }
 
     .sub-grid {
       @include grid(1);
 
+      div {
+        overflow: hidden;
+        border-radius: 8px;
+        // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+          transform: translateY(-5px);
+          // box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+
+          img {
+            // Using a CSS-only transform to avoid Sass color function conflict
+            transform: scaleX(1.5) scaleY(1.5);
+            max-width: 100% !important;
+            height: auto !important;
+            transition: transform 0.5s ease;
+            object-fit: cover;
+          }
+        }
+      }
+
+      .gallery-item {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+
+        &.animate {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
       img {
         max-width: 100% !important;
         height: auto !important;
-       }
+        transition: transform 0.5s ease;
+        object-fit: cover;
+      }
     }
   }
 }

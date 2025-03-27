@@ -5,10 +5,11 @@ import { SubCategory } from '../../../../models/sub-category';
 import { Product } from '../../../../models/product';
 import { ProductGridComponent } from '../../../products-list/components/product-grid/product-grid.component';
 import { FormsModule } from '@angular/forms';
+import { AppearAnimateDirective } from '../../../../shared/directives/appear-animate.directive';
 
 @Component({
   selector: 'app-features-products',
-  imports: [ProductGridComponent, FormsModule],
+  imports: [ProductGridComponent, FormsModule,AppearAnimateDirective],
   templateUrl: './features-products.component.html',
   styleUrl: './features-products.component.scss'
 })

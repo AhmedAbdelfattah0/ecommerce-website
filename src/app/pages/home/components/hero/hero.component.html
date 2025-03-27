@@ -1,19 +1,20 @@
 <section class="hero" #backgroundElement>
+  <div class="hero-background">
+    <img
+      ngSrc="https://lugarstore.com/uploads/2025-03-13_12-04-00_67d2c9b0a83b8.webp"
+      priority
+      width="1920"
+      height="1080"
+      alt="Hero background"
+      class="hero-background-image"
+    />
+  </div>
   <div class="hero__container">
     <div class="hero__content">
-      <h4 class="hero__subtitle" data-aos="fade-right"
-      data-aos-offset="300"
-      data-aos-easing="ease-in-sine">New Arrival</h4>
-      <h1 class="hero__title" data-aos="fade-left"
-      data-aos-anchor="#example-anchor"
-      data-aos-offset="500"
-      data-aos-duration="500">Discover Our<br>New Collection</h1>
-      <p class="hero__description"  data-aos="fade-zoom-in"
-      data-aos-easing="ease-in-back"
-      data-aos-delay="300"
-      data-aos-offset="0">Elevate your space with our newest arrivals — crafted for comfort, designed for style.</p>
-      <button data-aos="fade-up"
-      data-aos-anchor-placement="top-bottom" mat-raised-button class="hero__cta" [routerLink]="['/products']" >BUY NOW</button>
+      <h4 class="hero__subtitle" [@fadeInRight]>New Arrival</h4>
+      <h1 class="hero__title" [@fadeInLeft]>Discover Our<br>New Collection</h1>
+      <p class="hero__description" [@zoomIn]>Elevate your space with our newest arrivals — crafted for comfort, designed for style.</p>
+      <button [@fadeInUp] mat-raised-button class="hero__cta" [routerLink]="['/products']">BUY NOW</button>
     </div>
     <!-- <div class="hero__decoration">643443</div> -->
   </div>

@@ -9,15 +9,16 @@ import { ProductCardSkeletonComponent } from '../product-card-skeleton/product-c
 
 @Component({
   selector: 'app-product-grid',
-  imports: [BaseComponent.materialModules,ProductCardComponent,ProductCardSkeletonComponent,CommonModule,FormsModule],
+  standalone: true,
+  imports: [BaseComponent.materialModules, ProductCardComponent, ProductCardSkeletonComponent, CommonModule, FormsModule],
   templateUrl: './product-grid.component.html',
   styleUrl: './product-grid.component.scss',
- })
-export class ProductGridComponent  {
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
+export class ProductGridComponent {
   @Input() products: Product[] = [];
-   @Input() viewMode: 'grid' | 'list' = 'list';
-   @Input() isProductsLoading : boolean = false;
-  constructor() {
-}
+  @Input() viewMode: 'grid' | 'list' = 'list';
+  @Input() isProductsLoading: boolean = false;
 
+  constructor() {}
 }

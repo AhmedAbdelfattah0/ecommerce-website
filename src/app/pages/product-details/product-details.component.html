@@ -13,14 +13,14 @@
       <div class="thumbnail-list">
         @for (img of product?.images; track $index) {
         <div class="thumbnail" (click)="selectImage(img)">
-          <img [ngSrc]="img"  width="83" height="60" fetchpriority="high" [alt]="product?.title" />
+          <img [ngSrc]="img"  width="83" height="60" priority="low" [alt]="product?.title" />
         </div>
         }
 
       </div>
       <!-- Main Image Preview -->
       <div class="main-image">
-        <img [ngSrc]="selectedImage?selectedImage:'bedroom2.png'" fetchpriority="high" width="469" height="308" [alt]="product?.title" />
+        <img [ngSrc]="selectedImage?selectedImage:'bedroom2.png'" priority="low" width="469" height="308" [alt]="product?.title" />
       </div>
     </div>
 
@@ -107,7 +107,7 @@
   <!-- Large Image / Banner (optional) -->
   <div class="banner">
     @for (img of productsDescriptionImage; track $index) {
-    <img [ngSrc]="img" width="605" height="348" fetchpriority="high" [alt]="product?.title" />
+    <img [ngSrc]="img" width="605" height="348" priority="low" [alt]="product?.title" />
     }
   </div>
 

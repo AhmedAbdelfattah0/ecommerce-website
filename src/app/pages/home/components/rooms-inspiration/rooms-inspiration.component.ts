@@ -1,19 +1,23 @@
 import { Component } from '@angular/core';
 import { BaseComponent } from '../../../../common/components/base/base.component';
+import { NgOptimizedImage } from '@angular/common';
+import { fadeInUp, fadeInRight, fadeInLeft, flipLeft } from '../../../../shared/animations';
 
 interface Slide {
   image: string;
   number: string;      // e.g. "01 —"
   title: string;       // e.g. "Bed Room"
   subtitle: string;
-  alt:string;   // e.g. "Inner Peace"
+  alt: string;   // e.g. "Inner Peace"
 }
 
 @Component({
   selector: 'app-rooms-inspiration',
-  imports:[BaseComponent.materialModules],
+  imports: [BaseComponent.materialModules, NgOptimizedImage],
   templateUrl: './rooms-inspiration.component.html',
-  styleUrls: ['./rooms-inspiration.component.scss']
+  styleUrls: ['./rooms-inspiration.component.scss'],
+  animations: [fadeInUp, fadeInRight, fadeInLeft, flipLeft],
+  standalone: true
 })
 export class RoomsInspirationComponent {
   currentIndex = 0;
@@ -23,28 +27,26 @@ export class RoomsInspirationComponent {
       number: '01 —',
       title: 'Bed Room',
       subtitle: 'Inner Peace',
-      alt:"Bed Room",
+      alt: "Bed Room",
     },
     {
       image: 'bedroom2.png',
       number: '02 —',
       title: 'Living Room',
       subtitle: 'Modern Minimalist',
-      alt:"Living Room",
-
+      alt: "Living Room",
     },
     {
       image: 'bedroom3.png',
       number: '03 —',
       title: 'Kids Room',
       subtitle: 'Colorful Joy',
-      alt:"Kids Room",
-
+      alt: "Kids Room",
     }
     // Add more slides as needed
   ];
 
-  selectedSlide = this.slides[0]
+  selectedSlide = this.slides[0];
   // Each slide is 75% width, plus a small gap, so the partial next slide is visible.
   slideWidth = 75; // percentage
   slideGap = 5;    // percentage (gap between slides)
@@ -53,11 +55,10 @@ export class RoomsInspirationComponent {
   nextSlide() {
     if (this.currentIndex < this.slides.length - 1) {
       this.currentIndex++;
-      this.selectedSlide=this.slides[this.currentIndex]
-    }else{
-      this.currentIndex = 0
-      this.selectedSlide=this.slides[this.currentIndex]
-
+      this.selectedSlide = this.slides[this.currentIndex];
+    } else {
+      this.currentIndex = 0;
+      this.selectedSlide = this.slides[this.currentIndex];
     }
   }
 

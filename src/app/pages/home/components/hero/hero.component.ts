@@ -1,24 +1,17 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { NgOptimizedImage } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { fadeInRight, fadeInLeft, fadeInUp, zoomIn } from '../../../../shared/animations';
 
 @Component({
   selector: 'app-hero',
-  imports: [RouterModule],
+  standalone: true,
+  imports: [RouterModule, NgOptimizedImage, MatButtonModule],
   templateUrl: './hero.component.html',
-  styleUrl: './hero.component.scss'
+  styleUrl: './hero.component.scss',
+  animations: [fadeInRight, fadeInLeft, fadeInUp, zoomIn]
 })
-export class HeroComponent implements AfterViewInit{
-  @ViewChild('backgroundElement') backgroundElement!: ElementRef;
-
-  ngAfterViewInit() {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('loaded');
-        }
-      });
-    });
-
-    observer.observe(this.backgroundElement.nativeElement);
-  }
+export class HeroComponent {
+  // The hero now uses NgOptimizedImage for better performance
 }

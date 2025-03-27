@@ -1,0 +1,148 @@
+// Base animation properties
+.animate-item {
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: opacity, transform;
+
+  &.animate {
+    opacity: 1;
+  }
+}
+
+// Fade up animation
+.fade-up {
+  @extend .animate-item;
+  transform: translateY(30px);
+
+  &.animate {
+    transform: translateY(0);
+  }
+}
+
+// Fade in animation
+.fade-in {
+  @extend .animate-item;
+}
+
+// Fade right animation
+.fade-right {
+  @extend .animate-item;
+  transform: translateX(-30px);
+
+  &.animate {
+    transform: translateX(0);
+  }
+}
+
+// Fade left animation
+.fade-left {
+  @extend .animate-item;
+  transform: translateX(30px);
+
+  &.animate {
+    transform: translateX(0);
+  }
+}
+
+// Zoom in animation
+.zoom-in {
+  @extend .animate-item;
+  transform: scaleX(0.9) scaleY(0.9);
+
+  &.animate {
+    transform: scaleX(1) scaleY(1);
+  }
+}
+
+// Flip left animation
+.flip-left {
+  @extend .animate-item;
+  transform: rotateY(-90deg);
+
+  &.animate {
+    transform: rotateY(0);
+  }
+}
+
+// Flip up animation
+.flip-up {
+  @extend .animate-item;
+  transform: rotateX(-90deg);
+  transform-origin: top;
+
+  &.animate {
+    transform: rotateX(0);
+  }
+}
+
+// Bounce animation
+.bounce {
+  @extend .animate-item;
+  transform: scaleX(0.3) scaleY(0.3);
+
+  &.animate {
+    animation: bounce-keyframes 0.5s;
+  }
+}
+
+// Slide-in from bottom
+.slide-up {
+  @extend .animate-item;
+  transform: translateY(100%);
+
+  &.animate {
+    transform: translateY(0);
+  }
+}
+
+// Scale with fade animation
+.scale-fade {
+  @extend .animate-item;
+  transform: scaleX(0.7) scaleY(0.7);
+
+  &.animate {
+    transform: scaleX(1) scaleY(1);
+  }
+}
+
+// Rotate animation
+.rotate-in {
+  @extend .animate-item;
+  transform: rotate(-45deg);
+
+  &.animate {
+    transform: rotate(0);
+  }
+}
+
+// Delayed animations
+@for $i from 1 through 10 {
+  .delay-#{$i}00 {
+    transition-delay: #{$i * 100}ms !important;
+  }
+}
+
+// Duration variations
+.duration-fast {
+  transition-duration: 0.4s !important;
+}
+
+.duration-slow {
+  transition-duration: 0.8s !important;
+}
+
+@keyframes bounce-keyframes {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.3) scaleY(0.3);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scaleX(1.1) scaleY(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1) scaleY(1);
+  }
+}

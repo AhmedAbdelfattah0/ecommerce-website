@@ -1,11 +1,11 @@
-@for (item of subCategoriesList; track $index) {
+@for (item of subCategoriesList; track $index; let i = $index) {
   @if(filterProductsBySubCatigory(item.id).length){
     <div class="products-list-wrapper" >
-      <div class="title">
-        <h2> {{item.title}} </h2>
+      <div class="title" >
+        <h2 appAppearAnimate> {{item.title}} </h2>
       </div>
       <!-- Products Grid -->
-      <app-product-grid [viewMode]="viewMode"  [products]="filterProductsBySubCatigory(item.id)" [isProductsLoading]="_productService.isProductsLoading()"></app-product-grid>
+      <app-product-grid [viewMode]="viewMode"  class="fade-up" appAppearAnimate [animationDelay]="i * 100" [products]="filterProductsBySubCatigory(item.id)" [isProductsLoading]="_productService.isProductsLoading()"></app-product-grid>
       @if(filterProductsBySubCatigoryWithoutSlice(item.id).length > itemsPerPage){
         <div class="see-more">
           <button (click)="onPageChanged(item.id)">Show More </button>

@@ -24,7 +24,7 @@
             <!-- Optional image on the left -->
             @if (item.image) {
 
-            <img [ngSrc]="item.image" fetchpriority="high" [alt]="item.title" width="60" height="60" />
+            <img [ngSrc]="item.image" priority="low" [alt]="item.title" width="60" height="60" />
             }
             <span>{{ item.title }}</span>
           </td>

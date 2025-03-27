@@ -1,0 +1,236 @@
+@use 'sass:math';
+@use 'sass:color';
+@use '../../../../../scss/global' as *;
+
+.banner-carousel-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: $base-spacing * 3;
+}
+
+.banner-carousel {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+.slides-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 33.7%; // 2.97:1 aspect ratio
+
+  @include respond-below(md) {
+    padding-bottom: 56.25%; // 16:9 aspect ratio for tablets
+  }
+
+  @include respond-below(sm) {
+    padding-bottom: 75%; // 4:3 aspect ratio for mobile
+  }
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.banner-content {
+  position: absolute;
+  left: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 500px;
+  color: $white;
+  text-shadow: 0 2px 4px rgba($black, 0.5);
+
+  @include respond-below(md) {
+    left: 5%;
+    max-width: 90%;
+  }
+
+  h2 {
+    font-family: $font-family-secondary;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: $base-spacing;
+
+    @include respond-below(lg) {
+      font-size: 2.5rem;
+    }
+
+    @include respond-below(md) {
+      font-size: 2rem;
+    }
+
+    @include respond-below(sm) {
+      font-size: 1.5rem;
+      margin-bottom: $base-spacing * 0.5;
+    }
+  }
+
+  p {
+    font-size: 1.2rem;
+    margin-bottom: $base-spacing * 1.5;
+
+    @include respond-below(md) {
+      font-size: 1rem;
+      margin-bottom: $base-spacing;
+    }
+
+    @include respond-below(sm) {
+      font-size: 0.875rem;
+    }
+  }
+}
+
+.banner-cta {
+  display: inline-block;
+  padding: $base-spacing * 0.75 $base-spacing * 1.5;
+  background-color: $light-brown;
+  color: $white;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: $transition-base;
+
+  &:hover {
+    background-color: color.adjust($light-brown, $lightness: -10%);
+    transform: translateY(-2px);
+  }
+
+  @include respond-below(sm) {
+    padding: $base-spacing * 0.5 $base-spacing;
+    font-size: 0.875rem;
+  }
+}
+
+.carousel-controls {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 $base-spacing;
+  pointer-events: none;
+  z-index: 10;
+
+  @include respond-below(sm) {
+    padding: 0 $base-spacing * 0.5;
+  }
+}
+
+.carousel-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: rgba($white, 0.7);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: $transition-base;
+  pointer-events: auto;
+
+  &:hover {
+    background-color: $white;
+    transform: translateY(-2px);
+  }
+
+  @include respond-below(md) {
+    width: 40px;
+    height: 40px;
+  }
+
+  @include respond-below(sm) {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.arrow-icon {
+  font-size: 1.5rem;
+  color: $primary-color;
+
+  @include respond-below(sm) {
+    font-size: 1rem;
+  }
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: $base-spacing;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: $base-spacing * 0.5;
+  z-index: 10;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba($white, 0.5);
+  border: none;
+  cursor: pointer;
+  transition: $transition-base;
+
+  &:hover, &.active {
+    background-color: $white;
+    transform: translateY(-2px);
+  }
+
+  @include respond-below(sm) {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+.loading-container, .error-container, .empty-container {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $light-gray;
+
+  @include respond-below(md) {
+    height: 200px;
+  }
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba($primary-color, 0.2);
+  border-top-color: $primary-color;
+  border-radius: 50%;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

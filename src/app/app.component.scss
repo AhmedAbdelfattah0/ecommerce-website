@@ -3,10 +3,10 @@
     bottom: 20px;
     right: 20px;
     z-index: 1000; /* make sure it sits above other content */
-    background-color: #28d268; /* WhatsApp green */
+
     color: #fff;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: auto;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -25,13 +25,9 @@
   }
 
   /* If you're not using Angular Material and using an image instead */
-  .whatsapp-button svg {
+  .whatsapp-button img {
     width: 100%;
     height: auto;
 
 
-    //    width: 16px;
-        fill:#fff;
-
-    // border-radius: 50%;
   }

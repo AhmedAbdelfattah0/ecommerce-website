@@ -1,82 +1,55 @@
+<div class="product-card" [class.list-view]="viewMode === 'list'" [@flipLeft]>
+  <div class="image-container" (mouseenter)="showOverlay()" (mouseleave)="hideOverlay()">
+    <img class="product-image" [src]="product.imgOne || 'assets/images/placeholder.png'" [alt]="product.title" />
 
-<div class="product-card"  [class.list-view]="viewMode === 'list'" data-aos="flip-left"
-[class.grid-view]="viewMode === 'grid'">
-  <!-- Image & Discount Badge -->
-  <div class="image-container">
-    <img
-      class="product-image"
-      [ngSrc]="product.imgOne"
-      [alt]="product.title"
-      fetchpriority="high"
-      width="301" height="301"
-    />
-    <!-- Discount Badge -->
-     @if(product.discount>0){
-      <div class="discount-badge"  [ngStyle]="(product.subCategoryId == 1 || product.subCategoryId == 5) ? {'left': '8px'} : {'right': '8px'}">
-        <span>-{{ product.discount }}%</span>
-      </div>
-     }
-     @if(product.subCategoryId == 1){
-      <div class="new-badge"  >
-        <span>New</span>
-      </div>
-     }
-     @if(product.subCategoryId == 5){
-      <div class="top-badge"  >
-        <span>Top</span>
-      </div>
-     }
-
-
-
-  </div>
-
-  <!-- Product Info -->
-  <div class="product-info">
-    <h3 class="product-name">{{ product.title }}</h3>
-    <p class="product-subtitle">{{ product.titleAr }}</p>
-
-    <div class="price">
-      <span class="current-price">{{+product.discountedPrice >0?product.discountedPrice: product.originalPrice|
-        currency:'EGP':'symbol':'1.2-2' | addSpaceAfterCurrency }}</span>
-     @if (product.discountedPrice && +product.discountedPrice >0  ) {
-      <span class="old-price"  >
-        {{ product.originalPrice | currency:'EGP':'symbol':'1.2-2' |  addSpaceAfterCurrency  }}
-      </span>
-     }
-
+    <!-- Badges -->
+    <div class="discount-badge" *ngIf="product.discount > 0" [@bounceIn]>
+      -{{product.discount}}%
     </div>
-  </div>
+    <div class="new-badge" *ngIf="product.subCategoryId == 1" [@bounceIn]>
+      New
+    </div>
+    <div class="top-badge" *ngIf="product.subCategoryId == 5" [@bounceIn]>
+      Top
+    </div>
 
-    <!-- Hover Overlay -->
-    <div class="hover-overlay" >
-      <button
-        mat-raised-button
-        color="primary"
-        class="add-to-cart"
-        (click)="addToCart()"
-      >
+    <!-- Hover overlay -->
+    <div class="hover-overlay" [@overlayAnimation]="overlayState">
+      <button class="add-to-cart"
+              [@buttonHover]="buttonState"
+              (mouseenter)="setButtonHover('hovered')"
+              (mouseleave)="setButtonHover('normal')"
+              (click)="addToCart()">
         Add to cart
       </button>
 
       <div class="hover-actions">
-        <!-- You can use icon-only buttons or include text. Shown here with icon + text. -->
-         @if (navigate?.share) {
-          <div class="action-item" (click)="shareProduct()">
-            <mat-icon>share</mat-icon>
-            <span>Share</span>
-          </div>
-         }
-
-        <div class="action-item" (click)="goToItems(product.id)"  >
-          <mat-icon>description</mat-icon>
-          <span>View Details</span>
+        <div class="action-item" [@actionAnimation] (click)="shareProduct()">
+          <mat-icon>share</mat-icon>
+          <span>Share</span>
         </div>
-        <div class="action-item" (click)="addToWishlist()">
+
+        <div class="action-item" [@actionAnimation] [routerLink]="['/products/details', product.id]">
+          <mat-icon>visibility</mat-icon>
+          <span>Details</span>
+        </div>
+
+        <div class="action-item" [@actionAnimation] (click)="addToWishlist()">
           <mat-icon  [ngStyle]="isInWishlist() ? {'color': 'red'} : {}">favorite_border</mat-icon>
-          <span>Like</span>
+          <span>Save</span>
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="product-info">
+    <h3 class="product-name">{{product.title}}</h3>
+    <p class="product-subtitle" *ngIf="product.subtitle">{{product.subtitle}}</p>
+
+    <div class="price">
+      <span class="current-price">{{product.discountedPrice | currency:'EGP' | addSpaceAfterCurrency}}</span>
+      <span class="old-price" *ngIf="product.discount > 0">{{product.originalPrice | currency:'EGP' | addSpaceAfterCurrency}}</span>
+    </div>
+  </div>
 </div>
 

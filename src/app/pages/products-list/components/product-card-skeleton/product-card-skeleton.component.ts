@@ -11,7 +11,7 @@ import '@ingka/skeleton-webc';
 
 @Component({
   selector: 'app-product-card-skeleton',
-  imports: [BaseComponent.materialModules, CommonModule, RouterModule, AddSpaceAfterCurrencyPipe, FormsModule],
+  imports: [BaseComponent.materialModules, CommonModule, RouterModule, FormsModule],
   templateUrl: './product-card-skeleton.component.html',
   styleUrl: './product-card-skeleton.component.scss',
   schemas:[CUSTOM_ELEMENTS_SCHEMA]

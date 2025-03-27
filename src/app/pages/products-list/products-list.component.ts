@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-products-list',
+  standalone: true,
   imports: [HeroComponent, CommonModule, FeaturesComponent, ProductGridComponent, ProductsPaginationComponent, ProductsFilterComponent, FormsModule],
   templateUrl: './products-list.component.html',
   styleUrl: './products-list.component.scss'
