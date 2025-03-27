@@ -3,16 +3,30 @@
 .site-footer {
   background-color: $white;
   padding: 2rem 0;
-  // position: fixed;
   bottom: 0;
-   width: 100%;
-   box-shadow: 0 2px 10px #D9D9D9;
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, transparent, $light-brown, transparent);
+    opacity: 0.7;
+  }
+
   // ========================
   // TOP SECTION
   // ========================
   .footer-top {
     @include container; // e.g., max-width, margin: 0 auto;
     @include grid(4, 2rem); // 4 columns, 2rem gap
+    padding: 1rem 2rem;
 
     // For medium screens and below, reduce columns
     @include respond-below(md) {
@@ -29,7 +43,27 @@
       h2 {
         font-size: 1.5rem;
         margin-bottom: 1rem;
+        position: relative;
+        display: inline-block;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -5px;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: $light-brown;
+          transform: scaleX(0.7);
+          transform-origin: left;
+          transition: transform 0.3s ease;
+        }
+
+        &:hover::after {
+          transform: scaleX(1);
+        }
       }
+
       address {
         font-style: normal; // remove italic if desired
         line-height: 1.6;
@@ -37,6 +71,22 @@
       }
     }
 
+    .brand-logo {
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scaleX(1.05) scaleY(1.05);
+      }
+
+      img {
+        transition: filter 0.3s ease;
+
+        &:hover {
+          filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+        }
+      }
+    }
 
     // Common styles for the link columns
     .footer-links,
@@ -46,6 +96,21 @@
         margin-bottom: 1rem;
         font-weight: 600;
         font-size: 1.1rem;
+        position: relative;
+        display: inline-block;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -5px;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: $light-brown;
+          transform: scaleX(0.7);
+          transform-origin: left;
+          transition: transform 0.3s ease;
+        }
       }
 
       ul {
@@ -54,35 +119,77 @@
         margin: 0;
 
         li {
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.8rem;
+          transition: transform 0.3s ease;
+
           a {
             text-decoration: none;
             color: #333;
+            transition: all 0.3s ease;
+            padding: 0.3rem 0.5rem 0.3rem 0;
+            display: inline-block;
+            position: relative;
+
+            &::before {
+              content: '•';
+              position: absolute;
+              left: -10px;
+              opacity: 0;
+              transition: opacity 0.3s ease, transform 0.3s ease;
+              transform: translateX(-5px);
+              color: $light-brown;
+            }
+
             &:hover {
-              text-decoration: underline;
+              color: $light-brown;
+
+              &::before {
+                opacity: 1;
+                transform: translateX(0);
+              }
             }
           }
         }
       }
     }
-    .footer-help{
 
-        .social-links {
-          li {
-            a {
-              display: flex;
-                gap: 10px;
+    .footer-help {
+      .social-links {
+        li {
+          margin-bottom: 1rem;
+
+          a {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+
+            img {
+              transition: transform 0.3s ease;
+            }
+
+            span {
+              font-size: 1rem;
+              transition: color 0.3s ease;
+            }
+
+            &:hover {
+              img {
+                transform: rotate(10deg);
+              }
 
               span {
-                font-size: 1rem;
+                color: $light-brown;
               }
             }
           }
         }
-
+      }
     }
 
-    // Newsletter signup area
+    // Address blocks
     .footer-newsletter {
       .newsletter-input {
         @include flex-center(row); // e.g., display: flex; align-items: center
@@ -93,6 +200,13 @@
           padding: 0.5rem;
           border: 1px solid #ccc;
           font-size: 0.9rem;
+          transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+          &:focus {
+            border-color: $light-brown;
+            box-shadow: 0 0 0 2px rgba(184, 142, 47, 0.2);
+            outline: none;
+          }
         }
 
         button {
@@ -102,9 +216,38 @@
           padding: 0.5rem 1rem;
           cursor: pointer;
           font-size: 0.9rem;
+          transition: background-color 0.3s ease, transform 0.3s ease;
 
           &:hover {
-            background-color: #555;
+            background-color: $light-brown;
+            transform: translateY(-2px);
+          }
+        }
+      }
+
+      .addresses {
+        .address-block {
+          margin-bottom: 1.2rem;
+          padding: 0.8rem;
+          border-left: 2px solid transparent;
+          transition: border-left-color 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+
+          &:hover {
+            border-left-color: $light-brown;
+            transform: translateX(5px);
+            background-color: rgba(249, 241, 231, 0.5);
+          }
+
+          h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+          }
+
+          p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
           }
         }
       }
@@ -118,13 +261,39 @@
     @include container;
     margin-top: 2rem;
     text-align: center;
+    padding-bottom: 1rem;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 20%;
+      right: 20%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #ddd, transparent);
+    }
 
     p {
       font-size: 0.9rem;
       color: #999;
       margin: 0;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $light-brown;
+      }
     }
   }
+}
 
+// Animation for social media icons on hover
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
 }
 

@@ -1,65 +1,87 @@
-<footer class="site-footer">
-  <div class="footer-top">
+<footer class="site-footer" [@footerAnimation]>
+  <div class="footer-top" [@columnAnimation]>
     <div class="footer-column brand-addresses">
-      <div class="brand-logo">
-        <img ngSrc="https://lugarstore.com/uploads/LOGO1-lugar.svg" priority="low" width="94" height="94"  alt="">
-
+      <div class="brand-logo" [@logoAnimation]>
+        <img ngSrc="https://lugarstore.com/uploads/LOGO1-lugar.svg" priority="low" width="94" height="94" alt="Lugar Logo">
       </div>
-
     </div>
 
     <!-- Column 2: Links -->
     <div class="footer-column footer-links">
       <h3>Links</h3>
-      <ul>
-        <li><a [routerLink]="['/home']" routerLinkActive="router-link-active" >Home</a></li>
-        <li><a [routerLink]="['/products']" routerLinkActive="router-link-active" >Products</a></li>
-        <!-- <li><a [routerLink]="['/routePath']" routerLinkActive="router-link-active" >About</a></li> -->
-        <li><a [routerLink]="['/contact']" routerLinkActive="router-link-active" >Contact</a></li>
+      <ul [@linksAnimation]>
+        <li>
+          <a [routerLink]="['/home']"
+             routerLinkActive="router-link-active"
+             [@linkHover]="linkHoverStates['home']"
+             (mouseenter)="setLinkHover('home', true)"
+             (mouseleave)="setLinkHover('home', false)">Home</a>
+        </li>
+        <li>
+          <a [routerLink]="['/products']"
+             routerLinkActive="router-link-active"
+             [@linkHover]="linkHoverStates['products']"
+             (mouseenter)="setLinkHover('products', true)"
+             (mouseleave)="setLinkHover('products', false)">Products</a>
+        </li>
+        <li>
+          <a [routerLink]="['/contact']"
+             routerLinkActive="router-link-active"
+             [@linkHover]="linkHoverStates['contact']"
+             (mouseenter)="setLinkHover('contact', true)"
+             (mouseleave)="setLinkHover('contact', false)">Contact</a>
+        </li>
       </ul>
     </div>
 
     <!-- Column 3: Help -->
-    <div class=" footer-help">
+    <div class="footer-help">
       <h3>Follow Us</h3>
-      <ul class="social-links">
+      <ul class="social-links" [@socialAnimation]>
         <li>
-          <a href="https://www.facebook.com/lugarinv?mibextid=ZbWKwL">
-
-            <img ngSrc="https://lugarstore.com/uploads/facebook-brands.svg" priority="low" width="16" height="16" alt="">
+          <a href="https://www.facebook.com/lugarinv?mibextid=ZbWKwL"
+             [@socialHover]="socialHoverStates['facebook']"
+             (mouseenter)="setSocialHover('facebook', true)"
+             (mouseleave)="setSocialHover('facebook', false)">
+            <img ngSrc="https://lugarstore.com/uploads/facebook-brands.svg" priority="low" width="16" height="16" alt="Facebook">
             <span>Facebook</span>
           </a>
         </li>
         <li>
-          <a href="https://wa.me/201023351915">
-            <img ngSrc="https://lugarstore.com/uploads/whatsapp-icon.svg" priority="low" width="16" height="16" alt="">
+          <a href="https://wa.me/201023351915"
+             [@socialHover]="socialHoverStates['whatsapp']"
+             (mouseenter)="setSocialHover('whatsapp', true)"
+             (mouseleave)="setSocialHover('whatsapp', false)">
+            <img ngSrc="https://lugarstore.com/uploads/whatsapp-icon.svg" priority="low" width="16" height="16" alt="WhatsApp">
             <span>Whatsapp</span>
           </a>
         </li>
         <li>
-          <a href="https://www.instagram.com/lugar_furniture">
-            <img ngSrc="https://lugarstore.com/uploads/instagram-brands.svg" priority="low" width="16" height="16" alt="">
+          <a href="https://www.instagram.com/lugar_furniture"
+             [@socialHover]="socialHoverStates['instagram']"
+             (mouseenter)="setSocialHover('instagram', true)"
+             (mouseleave)="setSocialHover('instagram', false)">
+            <img ngSrc="https://lugarstore.com/uploads/instagram-brands.svg" priority="low" width="16" height="16" alt="Instagram">
             <span>Instagram</span>
           </a>
         </li>
         <li>
-          <a href="https://www.tiktok.com/@lugarfurnitureinv?_t=8sj2O0ysXQo&_r=1">
-            <img ngSrc="https://lugarstore.com/uploads/tiktok-brands.svg"  priority="low" width="16" height="16" alt="">
-
+          <a href="https://www.tiktok.com/@lugarfurnitureinv?_t=8sj2O0ysXQo&_r=1"
+             [@socialHover]="socialHoverStates['tiktok']"
+             (mouseenter)="setSocialHover('tiktok', true)"
+             (mouseleave)="setSocialHover('tiktok', false)">
+            <img ngSrc="https://lugarstore.com/uploads/tiktok-brands.svg" priority="low" width="16" height="16" alt="TikTok">
             <span>Tiktok</span>
           </a>
         </li>
       </ul>
-
-      <!-- Column 3: Social Media -->
-
     </div>
 
     <!-- Column 4: Newsletter -->
     <div class="footer-column footer-newsletter">
       <h3>Address</h3>
       <div class="newsletter-signup">
-        <div class="addresses">
+        <div class="addresses" [@addressAnimation]>
           <div class="address-block">
             <h3>Factory</h3>
             <p>Damietta Dam <br />Road Hangar Logar Furniture</p>
@@ -79,6 +101,6 @@
 
   <!-- Bottom row -->
   <div class="footer-bottom">
-    <p>2025 Lugarstore. All rights reserved</p>
+    <p [@copyrightAnimation]>2025 Lugarstore. All rights reserved</p>
   </div>
 </footer>
