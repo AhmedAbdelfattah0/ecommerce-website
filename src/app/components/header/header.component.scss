@@ -41,34 +41,76 @@
 
     @include respond-above(md) {
       @include flex-center(row);
-      gap: 2rem;
+      gap: 2.5rem;
     }
 
     .nav-link {
       color: $primary-color;
       font-weight: 500;
       position: relative;
-      padding-bottom: 5px;
-      transition: color 0.3s ease, transform 0.3s ease;
+      padding: 0.5rem 0;
+      font-size: 1rem;
+      text-decoration: none;
+      overflow: hidden;
+
+      // Main link transition
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+      span {
+        position: relative;
+        display: inline-block;
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
 
       .local_fire {
         color: red;
-        transition: transform 0.3s ease;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        margin-left: 4px;
+      }
+
+      // Line animation on hover
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: $light-brown;
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
       }
 
       &:hover {
-        color: $accent-color;
-        transform: translateY(-2px);
+        color: $light-brown;
+
+        span {
+          transform: translateY(-4px);
+        }
+
+        &::after {
+          transform: scaleX(1);
+          transform-origin: left;
+        }
 
         .local_fire {
-          transform: scaleX(1.2) scaleY(1.2) rotate(10deg);
+          transform: rotate(10deg) scaleX(1.3) scaleY(1.3);
           animation: flame 1s ease-in-out infinite alternate;
         }
       }
-    }
 
-    .router-link-active {
-      color: $light-brown;
+      // Active state styling
+      &.router-link-active {
+        color: $light-brown;
+        font-weight: 600;
+
+        &::after {
+          transform: scaleX(1);
+          background-color: $light-brown;
+          height: 2px;
+        }
+      }
     }
   }
 
@@ -78,11 +120,13 @@
 
     .cart-button {
       position: relative;
-      transition: transform 0.3s ease;
+      transition: all 0.3s ease;
+
+      mat-icon {
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease;
+      }
 
       &:hover {
-        transform: translateY(-2px);
-
         mat-icon {
           color: $light-brown;
         }
@@ -97,8 +141,11 @@
         border-radius: 50%;
         padding: 2px 8px;
         font-size: 0.75rem;
-        transition: transform 0.3s ease, background-color 0.3s ease;
-        will-change: transform, background-color;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+        &:hover {
+          transform: scaleX(1.1) scaleY(1.1);
+        }
       }
     }
 
@@ -110,7 +157,7 @@
   }
 }
 
-// Scroll behavior - add this class with JavaScript when scrolling down
+// Scroll behavior
 .header-scrolled {
   padding: 1rem 2rem !important;
   box-shadow: 0 6px 25px rgba($black, 0.12) !important;
@@ -124,12 +171,15 @@
 
 @keyframes flame {
   0% {
-    transform: scaleX(1) scaleY(1) rotate(0deg);
+    transform: scaleX(1.1) scaleY(1.1) rotate(0deg);
+    color: #ff5722;
   }
   50% {
-    transform: scaleX(1.2) scaleY(1.2) rotate(5deg);
+    transform: scaleX(1.3) scaleY(1.3) rotate(5deg);
+    color: #ff9800;
   }
   100% {
-    transform: scaleX(1.1) scaleY(1.1) rotate(-5deg);
+    transform: scaleX(1.2) scaleY(1.2) rotate(-5deg);
+    color: #ff5722;
   }
 }

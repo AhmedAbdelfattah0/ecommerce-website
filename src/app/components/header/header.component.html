@@ -13,35 +13,34 @@
   </div>
 
   <nav class="nav-links" *ngIf="(isMobile$ | async) === false" [@navLinksAnimation]>
-    <a mat-button [routerLink]="['/home']" class="nav-link" routerLinkActive="router-link-active"
-       [routerLinkActiveOptions]="{ exact: true }"
-       [@activeRouteAnimation]="(router.isActive('/home', true)) ? 'active' : 'inactive'">
-      Home
+    <a [routerLink]="['/home']" class="nav-link" routerLinkActive="router-link-active"
+       [routerLinkActiveOptions]="{ exact: true }">
+      <span>Home</span>
     </a>
-    <a mat-button [routerLink]="['/products']" routerLinkActive="router-link-active" class="nav-link"
-       [@activeRouteAnimation]="(router.isActive('/products', false)) ? 'active' : 'inactive'">
-      Products
+    <a [routerLink]="['/products']" routerLinkActive="router-link-active" class="nav-link">
+      <span>Products</span>
     </a>
-    <a mat-button [routerLink]="['/deals']" routerLinkActive="router-link-active" class="nav-link"
-       [@activeRouteAnimation]="(router.isActive('/deals', false)) ? 'active' : 'inactive'">
-      Hot Deals <mat-icon class="local_fire">local_fire_department</mat-icon>
+    <a [routerLink]="['/deals']" routerLinkActive="router-link-active" class="nav-link">
+      <span>Hot Deals</span> <mat-icon class="local_fire">local_fire_department</mat-icon>
     </a>
-    <a mat-button routerLink="/contact" routerLinkActive="router-link-active" class="nav-link"
-       [@activeRouteAnimation]="(router.isActive('/contact', false)) ? 'active' : 'inactive'">
-      Contact
+    <a routerLink="/contact" routerLinkActive="router-link-active" class="nav-link">
+      <span>Contact</span>
     </a>
     <!-- <a mat-button routerLink="/about" routerLinkActive="router-link-active" class="nav-link">About</a>
     -->
   </nav>
 
   <div class="header-actions" [@actionsAnimation]>
-    <button mat-icon-button class="cart-button" [routerLink]="['/favorites']">
-      <mat-icon>favorite</mat-icon>
-      <!-- <span class="cart-count">{{itemsCount()}}</span> -->
+    <button mat-icon-button class="cart-button" [routerLink]="['/favorites']"
+            (mouseenter)="onFavoriteMouseEnter()"
+            (mouseleave)="onFavoriteMouseLeave()">
+      <mat-icon [@iconHover]="favoriteHover">favorite</mat-icon>
     </button>
 
-    <button mat-icon-button class="cart-button" [routerLink]="['/cart']">
-      <mat-icon>shopping_cart</mat-icon>
+    <button mat-icon-button class="cart-button" [routerLink]="['/cart']"
+            (mouseenter)="onCartMouseEnter()"
+            (mouseleave)="onCartMouseLeave()">
+      <mat-icon [@iconHover]="cartHover">shopping_cart</mat-icon>
       <span class="cart-count" [@cartCountAnimation]="itemsCount()">{{itemsCount()}}</span>
     </button>
 

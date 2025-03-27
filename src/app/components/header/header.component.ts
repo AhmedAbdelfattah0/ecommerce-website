@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { CartService } from '../../services/cart/cart.service';
-import { trigger, state, style, animate, transition, query, stagger, animateChild, group } from '@angular/animations';
+import { trigger, state, style, animate, transition, query, stagger, animateChild, group, keyframes } from '@angular/animations';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +20,7 @@ import { trigger, state, style, animate, transition, query, stagger, animateChil
     trigger('headerAnimation', [
       transition(':enter', [
         style({ transform: 'translateY(-100%)' }),
-        animate('400ms ease-out', style({ transform: 'translateY(0)' }))
+        animate('400ms cubic-bezier(0.175, 0.885, 0.32, 1.275)', style({ transform: 'translateY(0)' }))
       ])
     ]),
 
@@ -28,7 +28,8 @@ import { trigger, state, style, animate, transition, query, stagger, animateChil
     trigger('logoAnimation', [
       transition(':enter', [
         style({ opacity: 0, transform: 'scale(0.8)' }),
-        animate('500ms 200ms ease-out', style({ opacity: 1, transform: 'scale(1)' }))
+        animate('500ms 100ms cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+          style({ opacity: 1, transform: 'scale(1)' }))
       ])
     ]),
 
@@ -36,9 +37,10 @@ import { trigger, state, style, animate, transition, query, stagger, animateChil
     trigger('navLinksAnimation', [
       transition(':enter', [
         query('.nav-link', [
-          style({ opacity: 0, transform: 'translateY(-20px)' }),
-          stagger(100, [
-            animate('400ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+          style({ opacity: 0, transform: 'translateY(-15px)' }),
+          stagger(80, [
+            animate('400ms cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+              style({ opacity: 1, transform: 'translateY(0)' }))
           ])
         ], { optional: true })
       ])
@@ -48,34 +50,38 @@ import { trigger, state, style, animate, transition, query, stagger, animateChil
     trigger('actionsAnimation', [
       transition(':enter', [
         query('button', [
-          style({ opacity: 0, transform: 'scale(0)' }),
-          stagger(150, [
-            animate('300ms ease-out', style({ opacity: 1, transform: 'scale(1)' }))
+          style({ opacity: 0, transform: 'translateX(20px)' }),
+          stagger(100, [
+            animate('400ms cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+              style({ opacity: 1, transform: 'translateX(0)' }))
           ])
         ], { optional: true })
       ])
     ]),
 
-    // Animation for hover on cart count
+    // Enhanced animation for cart count changes
     trigger('cartCountAnimation', [
       transition(':increment, :decrement', [
-        style({ transform: 'scale(1.5)', backgroundColor: '#E97171' }),
-        animate('300ms', style({ transform: 'scale(1)', backgroundColor: '*' }))
+        animate('400ms cubic-bezier(0.175, 0.885, 0.32, 1.275)', keyframes([
+          style({ transform: 'scale(1)', offset: 0 }),
+          style({ transform: 'scale(1.5)', backgroundColor: '#E97171', offset: 0.3 }),
+          style({ transform: 'scale(1)', backgroundColor: '*', offset: 1.0 })
+        ]))
       ])
     ]),
 
-    // Animation for active route indicator
-    trigger('activeRouteAnimation', [
-      state('active', style({
-        borderBottom: '2px solid #B88E2F',
-        fontWeight: 'bold'
+    // Hover animation for icons
+    trigger('iconHover', [
+      state('default', style({
+        transform: 'scale(1)'
       })),
-      state('inactive', style({
-        borderBottom: 'none',
-        fontWeight: 'normal'
+      state('hovered', style({
+        transform: 'scale(1.2)',
+        color: '#B88E2F'
       })),
-      transition('inactive => active', animate('200ms ease-in')),
-      transition('active => inactive', animate('200ms ease-out'))
+      transition('default <=> hovered', [
+        animate('300ms cubic-bezier(0.175, 0.885, 0.32, 1.275)')
+      ])
     ])
   ]
 })
@@ -87,6 +93,10 @@ export class HeaderComponent implements OnInit {
   previousCount = 0;
   isScrolled: boolean = false;
 
+  // Track hover states for icons
+  favoriteHover = 'default';
+  cartHover = 'default';
+
   constructor(
     private responsiveService: ResponsiveService,
     private _cartService: CartService,
@@ -94,6 +104,7 @@ export class HeaderComponent implements OnInit {
     private renderer: Renderer2,
     private el: ElementRef
   ) { }
+
   ngOnInit(): void {
     this.isMobile$ = this.responsiveService.isMobile$;
     this.previousCount = this.itemsCount();
@@ -120,5 +131,22 @@ export class HeaderComponent implements OnInit {
     qty = this._cartService.shoppingCart().reduce((total, obj) => Number(obj?.qty) + total, 0);
     this.previousCount = qty;
     return qty;
+  }
+
+  // Methods to handle icon hover states
+  onFavoriteMouseEnter() {
+    this.favoriteHover = 'hovered';
+  }
+
+  onFavoriteMouseLeave() {
+    this.favoriteHover = 'default';
+  }
+
+  onCartMouseEnter() {
+    this.cartHover = 'hovered';
+  }
+
+  onCartMouseLeave() {
+    this.cartHover = 'default';
   }
 }
