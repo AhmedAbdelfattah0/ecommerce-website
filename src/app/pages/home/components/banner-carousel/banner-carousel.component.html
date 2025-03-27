@@ -13,7 +13,16 @@
         @for (banner of banners; track banner.id; let i = $index) {
           @if (i === currentIndex()) {
             <div class="slide" [@fadeAnimation]="'in'" [@slideAnimation]="currentIndex()">
-              <img [ngSrc]="banner.image_url" [width]="1599" [height]="539" [priority]="i === 0" [alt]="banner.title || 'Banner image'" class="banner-image" />
+              <img
+                [ngSrc]="banner.image_url"
+                width="1599"
+                height="539"
+
+                [priority]="i === 0"
+                [alt]="banner.title || 'Banner image'"
+                class="banner-image"
+                fetchPriority="high"
+              />
               @if (banner.title || banner.subtitle) {
                 <div class="banner-content">
                   @if (banner.title) {
