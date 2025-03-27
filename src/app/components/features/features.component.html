@@ -1,38 +1,47 @@
-<div>
-  <div class="features-wrapper">
-    <div class="feature-item">
-      <!-- Using Material Icon -->
-       <div class="trophy"></div>
-       <div class="feature-text">
+<div [@featuresAnimation]>
+  <div class="features-wrapper" [@featureItemsAnimation]>
+    <div class="feature-item"
+         [@featureHover]="featureHoverStates[0]"
+         (mouseenter)="setHoverState(0, true)"
+         (mouseleave)="setHoverState(0, false)">
+      <div class="trophy" [@iconAnimation]></div>
+      <div class="feature-text" [@textAnimation]>
         <h4>High Quality</h4>
         <p>crafted from top materials</p>
       </div>
     </div>
 
-    <div class="feature-item">
-      <div class="Warranty"></div>
-      <div class="feature-text">
+    <div class="feature-item"
+         [@featureHover]="featureHoverStates[1]"
+         (mouseenter)="setHoverState(1, true)"
+         (mouseleave)="setHoverState(1, false)">
+      <div class="Warranty" [@iconAnimation]></div>
+      <div class="feature-text" [@textAnimation]>
         <h4>Warranty Protection</h4>
         <p>Over 2 years</p>
       </div>
     </div>
 
-    <div class="feature-item">
-      <div class="free-shipping"></div>
-      <div class="feature-text">
+    <div class="feature-item"
+         [@featureHover]="featureHoverStates[2]"
+         (mouseenter)="setHoverState(2, true)"
+         (mouseleave)="setHoverState(2, false)">
+      <div class="free-shipping" [@iconAnimation]></div>
+      <div class="feature-text" [@textAnimation]>
         <h4>Free Shipping</h4>
         <p>Order over Rp 1.000.000</p>
       </div>
     </div>
 
-    <div class="feature-item">
-      <div class="support"></div>
-
-      <div class="feature-text">
+    <div class="feature-item"
+         [@featureHover]="featureHoverStates[3]"
+         (mouseenter)="setHoverState(3, true)"
+         (mouseleave)="setHoverState(3, false)">
+      <div class="support" [@iconAnimation]></div>
+      <div class="feature-text" [@textAnimation]>
         <h4>24 / 7 Support</h4>
         <p>Dedicated support</p>
       </div>
     </div>
   </div>
-
 </div>

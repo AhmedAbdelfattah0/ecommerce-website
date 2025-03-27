@@ -1,28 +1,40 @@
- <mat-toolbar  class="header-container">
-
+<mat-toolbar class="header-container" [@headerAnimation] #matToolbar>
 
   <!-- Mobile Menu -->
   <!-- Mobile Menu Trigger -->
 
-  <app-mobile-menu *ngIf="(isMobile$ | async) === true"  [isMobile]="(isMobile$ | async)|| false"></app-mobile-menu>
+  <app-mobile-menu *ngIf="(isMobile$ | async) === true" [isMobile]="(isMobile$ | async)|| false"></app-mobile-menu>
   <!-- Mobile Menu Toggle -->
 
-  <div class="logo">
-    <a routerLink="/"><img ngSrc="https://lugarstore.com/uploads/LOGO1-lugar.svg" width="94"  height="94" priority="low" alt=""></a>
+  <div class="logo" [@logoAnimation]>
+    <a routerLink="/">
+      <img ngSrc="https://lugarstore.com/uploads/LOGO1-lugar.svg" width="94" height="94" priority="low" alt="Lugar Logo">
+    </a>
   </div>
 
-  <nav class="nav-links" *ngIf="(isMobile$ | async) === false">
-    <a mat-button [routerLink]="['/home']" class="nav-link"  routerLinkActive="router-link-active"  [routerLinkActiveOptions]="{ exact: true }" >Home</a>
-    <a mat-button [routerLink]="['/products']" routerLinkActive="router-link-active" class="nav-link">Products </a>
-    <a mat-button [routerLink]="['/deals']" routerLinkActive="router-link-active" class="nav-link">Hot Deals <mat-icon class="local_fire">local_fire_department</mat-icon></a>
-    <a mat-button routerLink="/contact" routerLinkActive="router-link-active" class="nav-link">Contact</a>
+  <nav class="nav-links" *ngIf="(isMobile$ | async) === false" [@navLinksAnimation]>
+    <a mat-button [routerLink]="['/home']" class="nav-link" routerLinkActive="router-link-active"
+       [routerLinkActiveOptions]="{ exact: true }"
+       [@activeRouteAnimation]="(router.isActive('/home', true)) ? 'active' : 'inactive'">
+      Home
+    </a>
+    <a mat-button [routerLink]="['/products']" routerLinkActive="router-link-active" class="nav-link"
+       [@activeRouteAnimation]="(router.isActive('/products', false)) ? 'active' : 'inactive'">
+      Products
+    </a>
+    <a mat-button [routerLink]="['/deals']" routerLinkActive="router-link-active" class="nav-link"
+       [@activeRouteAnimation]="(router.isActive('/deals', false)) ? 'active' : 'inactive'">
+      Hot Deals <mat-icon class="local_fire">local_fire_department</mat-icon>
+    </a>
+    <a mat-button routerLink="/contact" routerLinkActive="router-link-active" class="nav-link"
+       [@activeRouteAnimation]="(router.isActive('/contact', false)) ? 'active' : 'inactive'">
+      Contact
+    </a>
     <!-- <a mat-button routerLink="/about" routerLinkActive="router-link-active" class="nav-link">About</a>
     -->
   </nav>
 
-  <div class="header-actions">
-
-
+  <div class="header-actions" [@actionsAnimation]>
     <button mat-icon-button class="cart-button" [routerLink]="['/favorites']">
       <mat-icon>favorite</mat-icon>
       <!-- <span class="cart-count">{{itemsCount()}}</span> -->
@@ -30,11 +42,9 @@
 
     <button mat-icon-button class="cart-button" [routerLink]="['/cart']">
       <mat-icon>shopping_cart</mat-icon>
-      <span class="cart-count">{{itemsCount()}}</span>
+      <span class="cart-count" [@cartCountAnimation]="itemsCount()">{{itemsCount()}}</span>
     </button>
 
   </div>
-
-
 
 </mat-toolbar>

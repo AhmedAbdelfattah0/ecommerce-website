@@ -9,54 +9,164 @@
   background-color: $Light-beige;
   height: 270px;
   width: 100%;
-  @include respond-below(sm){
+  padding: 1rem;
+  position: relative;
+  overflow: hidden;
+
+  @include respond-below(sm) {
     height: 100%;
+    padding: 2rem 1rem;
   }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, transparent, $light-brown, transparent);
+    opacity: 0.7;
+  }
+
   .feature-item {
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    // border: 1px solid #eee;
-    padding: 1rem;
+    padding: 1.2rem;
     flex: 1 1 220px;
     max-width: 250px;
     background-color: $Light-beige;
+    border-radius: 8px;
+    position: relative;
+    transition: all 0.3s ease-out;
+    will-change: transform;
+    overflow: hidden;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: $light-brown;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover::after {
+      transform: scaleX(1);
+    }
+
+    // Icon base styles
+    .trophy, .support, .free-shipping, .Warranty {
+      height: 60px;
+      width: 60px;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      transition: transform 0.4s ease;
+      border-radius: 50%;
+      padding: 0.8rem;
+    }
 
     .trophy {
-      background: url(../../../assets/trophy.svg) center/cover;
-      height: 60px;
-      width: 60px;
+      background-image: url(../../../assets/trophy.svg);
+      &:hover {
+        transform: rotate(10deg);
+      }
     }
+
     .support {
-      background: url(../../../assets/support.svg) center/cover;
+      background-image: url(../../../assets/support.svg);
       height: 67px;
       width: 60px;
+      &:hover {
+        transform: scaleX(1.1) scaleY(1.1);
+      }
     }
+
     .free-shipping {
-      background: url(../../../assets/free-shipping.svg) center/cover;
-      height: 60px;
-      width: 60px;
+      background-image: url(../../../assets/free-shipping.svg);
+      &:hover {
+        transform: translateY(-5px);
+      }
     }
+
     .Warranty {
-      background: url(../../../assets/Warranty-Protection.svg) center/cover;
+      background-image: url(../../../assets/Warranty-Protection.svg);
       height: 60px;
       width: 67px;
+      &:hover {
+        transform: rotate(-10deg);
+      }
     }
 
-
-
     .feature-text {
+      transition: transform 0.3s ease;
+
       h4 {
         margin: 0 0 0.2rem;
         font-size: 1rem;
         color: #333;
+        font-weight: 600;
+        transition: color 0.3s ease;
       }
 
       p {
         margin: 0;
         font-size: 0.85rem;
         color: #666;
+        transition: color 0.3s ease;
       }
     }
+
+    &:hover {
+      .feature-text {
+        h4 {
+          color: $light-brown;
+        }
+
+        p {
+          color: #444;
+        }
+      }
+    }
+  }
+}
+
+// Media query for larger screens
+@include respond-above(md) {
+  .features-wrapper {
+    padding: 1.5rem 3rem;
+
+    .feature-item {
+      padding: 1.5rem;
+
+      .feature-text {
+        h4 {
+          font-size: 1.1rem;
+        }
+
+        p {
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}
+
+// Animation keyframes for pulse effect that can be applied to icons
+@keyframes pulse {
+  0% {
+    transform: scaleX(1) scaleY(1);
+  }
+  50% {
+    transform: scaleX(1.05) scaleY(1.05);
+  }
+  100% {
+    transform: scaleX(1) scaleY(1);
   }
 }
