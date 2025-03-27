@@ -1,20 +1,17 @@
 <app-hero></app-hero>
 <div class="contact-container">
-  <div class="contact-info">
+  <div class="contact-info" @infoItemAnimation>
     <h2>Get In Touch With Us</h2>
     <p>For More Information About Our Product & Services. Please Feel Free To Drop Us An Email.</p>
 
-    <div class="info-item">
+    <div class="info-item" @infoItemAnimation>
       <mat-icon>place</mat-icon>
       <div>
         <strong>Address</strong>
       </div>
-
-
     </div>
 
-    <div class="info-item">
-
+    <div class="info-item" @infoItemAnimation>
       <div class="info-details">
         <div>
           <strong>Factory</strong>
@@ -31,15 +28,9 @@
             in front of Platinum Club, next to Skyline School</p>
         </div>
       </div>
-
     </div>
 
-
-
-
-
-
-    <div class="info-item">
+    <div class="info-item" @infoItemAnimation>
       <mat-icon>phone</mat-icon>
       <div>
         <strong>Phone</strong>
@@ -47,7 +38,7 @@
       </div>
     </div>
 
-    <div class="info-item">
+    <div class="info-item" @infoItemAnimation>
       <mat-icon>schedule</mat-icon>
       <div>
         <strong>Working Time</strong>
@@ -56,21 +47,28 @@
     </div>
   </div>
 
-  <div class="contact-form">
-    <form [formGroup]="contactForm" (ngSubmit)="submitForm()">
+  <div class="contact-form" @formAnimation>
+    <form [formGroup]="contactForm" (ngSubmit)="submitForm()" [@formFieldsAnimation]="formFieldsState">
       <label>Your name</label>
-      <input formControlName="name" type="text" placeholder="Abc" required  />
+      <input formControlName="name" type="text" placeholder="Abc" required class="animated-field" />
 
       <label>Email address</label>
-      <input formControlName="email" type="email" placeholder="Abc@def.com" required />
-      <label>Phone number</label>
-      <input formControlName="phone" type="tel" placeholder="01xxxxxxxxx" />
+      <input formControlName="email" type="email" placeholder="Abc@def.com" required class="animated-field" />
 
+      <label>Phone number</label>
+      <input formControlName="phone" type="tel" placeholder="01xxxxxxxxx" class="animated-field" />
 
       <label>Message</label>
-      <textarea formControlName="message" placeholder="Hi! I'd like to ask about" rows="7" required></textarea>
+      <textarea formControlName="message" placeholder="Hi! I'd like to ask about" rows="7" required class="animated-field"></textarea>
 
-      <button type="submit" [disabled]="!contactForm.valid">Submit</button>
+      <button
+        type="submit"
+        [disabled]="!contactForm.valid"
+        [@buttonHover]="buttonState"
+        (mouseenter)="onButtonMouseEnter()"
+        (mouseleave)="onButtonMouseLeave()">
+        Submit
+      </button>
     </form>
   </div>
 </div>

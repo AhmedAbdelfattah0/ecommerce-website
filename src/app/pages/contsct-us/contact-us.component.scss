@@ -1,0 +1,284 @@
+@use '../../../scss/global' as *;
+@use "sass:color";
+
+.contact-container {
+  display: flex;
+  gap: 40px;
+  max-width: 900px;
+  margin: 5rem auto;
+  padding: 40px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.contact-info {
+  flex: 1;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 50%;
+    height: 2px;
+    background: $light-brown;
+    transition: width 0.3s ease;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+}
+
+p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(184, 142, 47, 0.05);
+    transform: translateX(5px);
+  }
+
+  .info-details{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 44px;
+
+    div {
+      margin-bottom: 12px;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateX(8px);
+      }
+    }
+  }
+
+  mat-icon {
+    font-size: 24px;
+    color: $light-brown;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+
+  &:hover mat-icon {
+    transform: scaleX(1.2) scaleY(1.2);
+    color: color.adjust($light-brown, $lightness: -10%);
+  }
+
+  strong {
+    display: block;
+    font-weight: bold;
+    color: #333;
+    transition: color 0.3s ease;
+  }
+
+  &:hover strong {
+    color: $light-brown;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: $light-brown;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: color.adjust($light-brown, $lightness: -15%);
+      text-decoration: underline;
+    }
+  }
+}
+
+.contact-form {
+  flex: 1;
+  padding: 20px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  margin-bottom: 5px;
+
+  &:hover {
+    color: $light-brown;
+  }
+}
+
+input, textarea {
+  width: 100%;
+  height: 75px;
+  border: solid 1px #9F9F9F;
+  border-radius: 10px;
+  padding: 1rem;
+  transition: all 0.3s ease;
+
+  &:focus {
+    border-color: $light-brown;
+    box-shadow: 0 0 0 2px rgba(184, 142, 47, 0.2);
+    outline: none;
+  }
+
+  &:hover {
+    border-color: #666;
+  }
+
+  @include respond-below(md){
+    width: 100%;
+  }
+}
+
+textarea {
+  min-height: 120px;
+}
+
+.animated-field {
+  transform-origin: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:focus {
+    transform: scaleX(1.01) scaleY(1.01);
+  }
+}
+
+button {
+  width: 237px;
+  height: 55px;
+  border-width: 1px;
+  border-radius: 5px;
+  background-color: $light-brown;
+  color: $white;
+  cursor: pointer;
+  margin-top: 10px;
+  align-self: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: left 0.7s ease;
+  }
+
+  &:hover {
+    background-color: color.adjust($light-brown, $lightness: -5%);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    &::before {
+      left: 100%;
+    }
+  }
+
+  &:disabled {
+    background-color: $light-gray;
+    color: #000;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+
+    &::before {
+      display: none;
+    }
+  }
+}
+
+/* Responsive */
+@include respond-below(md){
+  .contact-container {
+    flex-direction: column;
+    padding: 20px;
+    margin: 2rem auto;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+/* Animation keyframes */
+@keyframes pulse {
+  0% {
+    transform: scaleX(1) scaleY(1);
+  }
+  50% {
+    transform: scaleX(1.05) scaleY(1.05);
+  }
+  100% {
+    transform: scaleX(1) scaleY(1);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

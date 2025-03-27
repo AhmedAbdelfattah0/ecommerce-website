@@ -4,7 +4,7 @@ import { ProductsListComponent } from './pages/products-list/products-list.compo
 import { Routes } from '@angular/router';
 import { CartComponent } from './pages/cart/cart.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
-import { ContactUsComponent } from './pages/contsct-us/contact-us/contact-us.component';
+import { ContactUsComponent } from './pages/contsct-us/contact-us.component';
 import { HotDealsComponent } from './pages/hot-deals/hot-deals.component';
 import { FavoriteComponent } from './pages/favorites-list/favorite.component';
 
