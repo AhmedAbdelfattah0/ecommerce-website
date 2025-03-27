@@ -7,6 +7,8 @@
   max-width: 1200px;
   margin: 2rem auto;
   padding: 0 1rem;
+  min-height: 60vh;
+  position: relative;
 
   // On screens below the 'md' breakpoint, collapse to a single column
   @include respond-below('md') {
@@ -15,13 +17,41 @@
 
   .billing-details {
     background-color: #fff;
-    padding: 1rem;
-    border-radius: 4px;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    will-change: transform, box-shadow;
+
+    &:hover {
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
 
     h2 {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       font-size: 1.5rem;
       color: #333;
+      position: relative;
+      display: inline-block;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 60%;
+        height: 2px;
+        background: $light-brown;
+        transform: scaleX(0.7);
+        transform-origin: left;
+        transition: transform 0.3s ease, width 0.3s ease;
+      }
+
+      &:hover::after {
+        transform: scaleX(1);
+        width: 100%;
+      }
     }
 
     .billing-form {
@@ -38,6 +68,11 @@
       // Each Material field takes full width
       mat-form-field {
         width: 100%;
+        transition: transform 0.3s ease;
+
+        &:focus-within {
+          transform: translateY(-2px);
+        }
       }
 
       // Use .full-width if any field needs to span more than one column (here, grid has 1 column so it's redundant)
@@ -49,16 +84,35 @@
 
   .order-summary {
     background-color: #fff;
-    padding: 1rem;
-    border-radius: 4px;
+    padding: 1.5rem;
+    border-radius: 8px;
     height: fit-content;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    will-change: transform, box-shadow;
+
+    &:hover {
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
 
     h2 {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       font-size: 1.5rem;
       @include flex-center(row);
       justify-content: space-between;
       color: #333;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(to right, $light-brown, transparent);
+      }
 
       span {
         font-size: 1rem;
@@ -68,26 +122,42 @@
     }
 
     .order-items {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       .order-item {
         @include flex-center(row);
         justify-content: space-between;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.8rem;
         color: #555;
+        padding: 0.5rem 0.8rem;
+        border-radius: 6px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+
+        &:hover {
+          background-color: rgba(249, 241, 231, 0.5);
+          transform: translateX(5px);
+        }
       }
     }
 
     .line-item {
       @include flex-center(row);
       justify-content: space-between;
-      margin-bottom: 0.3rem;
-      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
       color: #333;
-      padding-top: 1rem;
+      padding: 1rem 0.5rem 0.5rem;
       border-top: 1px solid $light-gray;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateX(5px);
+      }
+
       &.total {
         font-weight: 600;
         margin-top: 1rem;
+        color: $light-brown;
+        font-size: 1.1rem;
       }
     }
 
@@ -95,31 +165,90 @@
       display: flex;
       width: 100%;
       justify-content: center;
+      margin-top: 1.5rem;
+
       .place-order-btn {
         margin-top: 1rem;
-         text-align: center;
-        font-size: 1rem;
+        text-align: center;
+        font-size: 1.1rem;
         width: 318px;
         height: 64px;
-        top: 1118px;
-        left: 883px;
         border: 1px solid #000;
         border-radius: 15px;
         background: $white;
         color: #000;
         cursor: pointer;
-        &:hover{
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent
+          );
+          transition: left 0.7s ease;
+        }
+
+        &:hover {
           border: 1px solid $light-brown;
           color: $light-brown;
+          box-shadow: 0 4px 12px rgba(184, 142, 47, 0.15);
+          transform: translateY(-3px);
+
+          &::before {
+            left: 100%;
+          }
         }
-        &:disabled{
+
+        &:disabled {
           cursor: not-allowed;
+          opacity: 0.6;
+          box-shadow: none;
+          transform: none;
+
+          &::before {
+            display: none;
+          }
         }
       }
     }
-
   }
 }
+
+// Nicer looking input fields on focus
+::ng-deep .mat-form-field.mat-focused .mat-form-field-outline {
+  color: $light-brown !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-label {
+  color: $light-brown !important;
+}
+
 input[aria-expanded="true"] + mat-autocomplete:after {
   content: "\f0d8";
+}
+
+// Animation for submit success
+@keyframes successPulse {
+  0% {
+    transform: scaleX(1) scaleY(1);
+    box-shadow: 0 0 0 0 rgba(184, 142, 47, 0.4);
+  }
+  70% {
+    transform: scaleX(1.05) scaleY(1.05);
+    box-shadow: 0 0 0 10px rgba(184, 142, 47, 0);
+  }
+  100% {
+    transform: scaleX(1) scaleY(1);
+    box-shadow: 0 0 0 0 rgba(184, 142, 47, 0);
+  }
 }

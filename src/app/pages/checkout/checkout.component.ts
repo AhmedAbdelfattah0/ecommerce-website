@@ -14,6 +14,7 @@ import { BaseComponent } from '../../common/components/base/base.component';
 import { map, Observable, startWith } from 'rxjs';
 import { ContriesService } from '../../services/contries/contries.service';
 import { toasterCases } from '../../common/constants/app.constants';
+import { trigger, state, style, animate, transition, query, stagger, group } from '@angular/animations';
 
 interface CheckoutItem {
   productName: string;
@@ -25,7 +26,81 @@ interface CheckoutItem {
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   imports: [FormsModule, CommonModule, FeaturesComponent, HeroComponent, BaseComponent.materialModules, ReactiveFormsModule, AddSpaceAfterCurrencyPipe],
-  styleUrls: ['./checkout.component.scss']
+  styleUrls: ['./checkout.component.scss'],
+  animations: [
+    // Container animations
+    trigger('pageAnimation', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('800ms ease-out', style({ opacity: 1 }))
+      ])
+    ]),
+
+    // Billing details section animation
+    trigger('billingAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateX(-20px)' }),
+        animate('600ms 200ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
+      ])
+    ]),
+
+    // Form fields staggered animation
+    trigger('formFieldsAnimation', [
+      transition(':enter', [
+        query('mat-form-field', [
+          style({ opacity: 0, transform: 'translateY(20px)' }),
+          stagger(80, [
+            animate('500ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+          ])
+        ], { optional: true })
+      ])
+    ]),
+
+    // Order summary animation
+    trigger('orderSummaryAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateX(20px)' }),
+        animate('600ms 400ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
+      ])
+    ]),
+
+    // Order items staggered animation
+    trigger('orderItemsAnimation', [
+      transition(':enter', [
+        query('.order-item', [
+          style({ opacity: 0, height: 0, marginBottom: 0 }),
+          stagger(100, [
+            animate('400ms ease-out', style({ opacity: 1, height: '*', marginBottom: '*' }))
+          ])
+        ], { optional: true })
+      ])
+    ]),
+
+    // Place order button animation
+    trigger('buttonAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'scale(0.8)' }),
+        animate('500ms 800ms cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+          style({ opacity: 1, transform: 'scale(1)' }))
+      ])
+    ]),
+
+    // Hover animation for the place order button
+    trigger('buttonHover', [
+      state('normal', style({
+        backgroundColor: '#ffffff',
+        color: '#000000',
+        transform: 'translateY(0)'
+      })),
+      state('hovered', style({
+        backgroundColor: '#ffffff',
+        color: '#B88E2F',
+        transform: 'translateY(-3px)',
+        boxShadow: '0 4px 8px rgba(184, 142, 47, 0.2)'
+      })),
+      transition('normal <=> hovered', animate('200ms ease-out'))
+    ])
+  ]
 })
 export class CheckoutComponent implements OnInit {
   checkoutForm!: FormGroup;
@@ -44,6 +119,9 @@ export class CheckoutComponent implements OnInit {
   paymentMethod: 'bank' | 'cod' = 'bank';
   cartItems: Cart[] = []
   selectedCountry: any = null;
+
+  // Button hover state
+  buttonState: 'normal' | 'hovered' = 'normal';
 
   constructor(
     private orderService: OrderService,
@@ -115,7 +193,10 @@ export class CheckoutComponent implements OnInit {
       return list
   }
 
-
+  // Method to set button hover state
+  setButtonHover(isHovered: boolean): void {
+    this.buttonState = isHovered ? 'hovered' : 'normal';
+  }
 
 
   placeOrder(): void {

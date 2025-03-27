@@ -1,9 +1,9 @@
 <app-hero></app-hero>
-<div class="checkout-container">
+<div class="checkout-container" [@pageAnimation]>
   <!-- Left Column: Billing details form -->
-  <div class="billing-details">
+  <div class="billing-details" [@billingAnimation]>
     <h2>Billing details</h2>
-    <form [formGroup]="checkoutForm" class="billing-form">
+    <form [formGroup]="checkoutForm" class="billing-form" [@formFieldsAnimation]>
       <!-- Row 1: First Name, Last Name -->
       <mat-form-field appearance="outline">
         <mat-label>First Name</mat-label>
@@ -14,8 +14,6 @@
         <mat-label>Last Name</mat-label>
         <input matInput formControlName="lastName" />
       </mat-form-field>
-
-
 
       <mat-form-field appearance="outline" class="example-full-width">
         <mat-label>Country / Region</mat-label>
@@ -53,9 +51,6 @@
         <input matInput formControlName="city" />
       </mat-form-field>
 
-
-
-
       <!-- Row 8: Phone -->
       <mat-form-field appearance="outline">
         <mat-label>Phone</mat-label>
@@ -77,19 +72,18 @@
   </div>
 
   <!-- Right Column: Order Summary -->
-  <div class="order-summary">
+  <div class="order-summary" [@orderSummaryAnimation]>
     <h2>
       Product
       <span>Subtotal</span>
     </h2>
-    <div class="order-items">
+    <div class="order-items" [@orderItemsAnimation]>
       @for (item of cartItems; track $index) {
       <div class="order-item">
         <span>{{item.title}} x {{item.qty}}</span>
         <span>{{item.price * item.qty | currency:'EGP':'symbol':'1.2-2' | addSpaceAfterCurrency }} </span>
       </div>
       }
-
     </div>
     <div class="line-item">
       <span>Subtotal</span>
@@ -100,8 +94,13 @@
       <span> {{ total | currency:'EGP':'symbol':'1.2-2' | addSpaceAfterCurrency }}</span>
     </div>
 
-    <div class="place-order-btn-container">
-      <button [disabled]="checkoutForm.invalid"   class="place-order-btn" (click)="placeOrder()">
+    <div class="place-order-btn-container" [@buttonAnimation]>
+      <button [disabled]="checkoutForm.invalid"
+              class="place-order-btn"
+              (click)="placeOrder()"
+              [@buttonHover]="buttonState"
+              (mouseenter)="setButtonHover(true)"
+              (mouseleave)="setButtonHover(false)">
         Place order
       </button>
     </div>
