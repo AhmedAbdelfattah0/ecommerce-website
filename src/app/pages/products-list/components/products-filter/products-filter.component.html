@@ -1,26 +1,50 @@
-<div class="filter-container">
+<div class="filter-container" [@filterContainerAnimation]>
   <!-- Wrapper for Filter & View Icons -->
   <div class="filter-wrapper">
     <div class="filter-left">
-      <mat-icon class="filter-button" [matMenuTriggerFor]="menu">tune</mat-icon>
+      <mat-icon
+        class="filter-button"
+        [matMenuTriggerFor]="menu"
+        [@filterButtonAnimation]
+        [@iconHover]="filterIconState"
+        (mouseenter)="setIconState('filter', 'hovered')"
+        (mouseleave)="setIconState('filter', 'normal')">
+        tune
+      </mat-icon>
       <span class="filter-text">Filter</span>
       <mat-menu #menu="matMenu" class="filter-menue">
-        <button mat-menu-item (click)="onFilterClick(null)"> All </button>
+        <div [@dropdownAnimation]>
+          <button mat-menu-item (click)="onFilterClick(null)"> All </button>
 
-        @for (item of catigoriesList; track $index) {
-
-          <button mat-menu-item (click)="onFilterClick(item.id)">{{item.title}}</button>
-        }
-
+          @for (item of catigoriesList; track $index) {
+            <button mat-menu-item (click)="onFilterClick(item.id)">{{item.title}}</button>
+          }
+        </div>
       </mat-menu>
     </div>
 
-    <div class="filter-left" (click)="setViewMode('grid')">
-      <div class="icon-grid"></div>
+    <div
+      class="filter-left"
+      (click)="setViewMode('grid')"
+      [@viewModeAnimation]
+      [@activeViewMode]="getViewModeState('grid')">
+      <div
+        class="icon-grid"
+        [@iconHover]="gridIconState"
+        (mouseenter)="setIconState('grid', 'hovered')"
+        (mouseleave)="setIconState('grid', 'normal')"></div>
     </div>
 
-    <div class="filter-left" (click)="setViewMode('list')">
-      <div class="icon-list"></div>
+    <div
+      class="filter-left"
+      (click)="setViewMode('list')"
+      [@viewModeAnimation]
+      [@activeViewMode]="getViewModeState('list')">
+      <div
+        class="icon-list"
+        [@iconHover]="listIconState"
+        (mouseenter)="setIconState('list', 'hovered')"
+        (mouseleave)="setIconState('list', 'normal')"></div>
     </div>
 
     <!-- Separator (border) -->
@@ -28,18 +52,17 @@
 
     <!-- Showing X of X results -->
     <div class="filter-left">
-      <span class="filter-text">
+      <span class="filter-text" [@resultsAnimation]="{value: '', params: {startIndex: startIndex, endIndex: endIndex, totalItems: totalItems}}">
         Showing {{ startIndex }}–{{ endIndex }} of {{ totalItems }} results
-
       </span>
     </div>
   </div>
 
   <!-- Sort & Items Per Page -->
-  <div class="filter-right">
-    <label for="sort-select">Show</label>
-    <select id="sort-select" (change)="onItemsPerPageClicked($event)">
-      <option value="16" >16</option>
+  <div class="filter-right" [@formControlsAnimation]>
+    <label for="items-per-page">Show</label>
+    <select id="items-per-page" (change)="onItemsPerPageClicked($event)">
+      <option value="16">16</option>
       <option value="32">32</option>
       <option value="64">64</option>
       <option value="100">100</option>
@@ -50,7 +73,5 @@
       <option value="priceAsc">Price (Low to High)</option>
       <option value="priceDesc">Price (High to Low)</option>
     </select>
-
-
   </div>
 </div>

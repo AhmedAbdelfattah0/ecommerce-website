@@ -1,5 +1,7 @@
 @use '../../../../../scss/global' as *;
- .filter-container {
+@use "sass:color";
+
+.filter-container {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -8,7 +10,14 @@
   gap: 1rem;
   background: $Light-beige;
   height: 100px;
-  padding: 0 1rem; // Add some horizontal padding
+  padding: 0 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  }
 
   // Main Wrapper for Filter + Icons + "Showing x of x"
   .filter-wrapper {
@@ -19,15 +28,33 @@
     .border {
       border-right: solid 2px #9f9f9f;
       height: 37px;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
 
+      &:hover {
+        opacity: 1;
+      }
     }
+
     .filter-left {
       display: flex;
       align-items: center;
       gap: 0.75rem;
+      padding: 8px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: rgba(184, 142, 47, 0.1);
+      }
 
       .filter-button {
         cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          color: $light-brown;
+        }
       }
 
       .icon-grid {
@@ -35,6 +62,12 @@
         width: 20.33px;
         height: 20.33px;
         cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          transform: scaleX(1.1) scaleY(1.1);
+          filter: brightness(1.2);
+        }
       }
 
       .icon-list {
@@ -42,17 +75,32 @@
         width: 20.33px;
         height: 20.33px;
         cursor: pointer;
-      }
+        transition: all 0.3s ease;
 
+        &:hover {
+          transform: scaleX(1.1) scaleY(1.1);
+          filter: brightness(1.2);
+        }
+      }
 
       .filter-text {
         font-size: 20px;
         color: $black;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: $light-brown;
+        }
       }
 
       .filter-sub-text {
         font-size: 0.9rem;
         color: #777;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #333;
+        }
       }
     }
   }
@@ -62,14 +110,34 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    // margin-top: 20px;
+
     label {
       font-size: 0.9rem;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $light-brown;
+      }
     }
 
     select {
-      padding: 0.3rem;
+      padding: 0.5rem;
       font-size: 0.9rem;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      background-color: white;
+      transition: all 0.3s ease;
+      cursor: pointer;
+
+      &:hover, &:focus {
+        border-color: $light-brown;
+        box-shadow: 0 0 0 2px rgba(184, 142, 47, 0.1);
+        outline: none;
+      }
+
+      option {
+        padding: 8px;
+      }
     }
 
     .view-toggle {
@@ -82,13 +150,15 @@
         margin-left: 0.5rem;
         cursor: pointer;
         color: #999;
+        transition: all 0.3s ease;
 
         &.active {
           color: #333;
         }
 
         &:hover {
-          color: #555;
+          color: $light-brown;
+          transform: scaleX(1.1) scaleY(1.1);
         }
       }
     }
@@ -118,6 +188,7 @@
           display: none;
         }
       }
+
       .border{
         display: none;
       }
@@ -140,6 +211,51 @@
           font-size: 1rem;
           margin-left: 0;
         }
+      }
+    }
+  }
+}
+
+// Animation keyframes
+@keyframes pulse {
+  0% {
+    transform: scaleX(1) scaleY(1);
+  }
+  50% {
+    transform: scaleX(1.05) scaleY(1.05);
+  }
+  100% {
+    transform: scaleX(1) scaleY(1);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Override styles for active view mode
+:host ::ng-deep {
+  .mat-mdc-menu-panel {
+    border-radius: 8px !important;
+    overflow: hidden;
+
+    .mat-mdc-menu-content {
+      padding: 0;
+    }
+
+    .mat-mdc-menu-item {
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: rgba(184, 142, 47, 0.1);
+        color: $light-brown;
       }
     }
   }
