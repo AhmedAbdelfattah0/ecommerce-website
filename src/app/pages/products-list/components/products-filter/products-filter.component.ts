@@ -120,7 +120,7 @@ export class ProductsFilterComponent {
   @Output() viewModeChanged = new EventEmitter<'grid' | 'list'>();
 
   catigoriesList: Category[] = [];
-  viewMode: 'grid' | 'list' = 'list';
+  viewMode: 'grid' | 'list' = 'grid';
   filterIconState: 'normal' | 'hovered' = 'normal';
   gridIconState: 'normal' | 'hovered' = 'normal';
   listIconState: 'normal' | 'hovered' = 'normal';
