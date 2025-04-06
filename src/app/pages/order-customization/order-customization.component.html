@@ -1,0 +1,460 @@
+<app-hero></app-hero>
+
+<div class="order-customization-container">
+  <div class="page-header">
+    <h1>Custom Furniture Order</h1>
+    <p class="subtitle">Create your perfect piece with our customization service</p>
+  </div>
+
+  <!-- Loading indicator -->
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Loading your customization options...</p>
+  </div>
+
+  <!-- Main content when not loading -->
+  <div *ngIf="!isLoading" class="main-content">
+    <!-- Progress Indicator -->
+    <div class="progress-stepper">
+      <div class="step" [class.active]="currentStep === 0" [class.completed]="currentStep > 0">
+        <div class="step-number">1</div>
+        <div class="step-label">Items</div>
+      </div>
+      <div class="step" [class.active]="currentStep === 1" [class.completed]="currentStep > 1">
+        <div class="step-number">2</div>
+        <div class="step-label">Customer Info</div>
+      </div>
+      <div class="step" [class.active]="currentStep === 2" [class.completed]="currentStep > 2">
+        <div class="step-number">3</div>
+        <div class="step-label">Review</div>
+      </div>
+    </div>
+
+    <!-- Step Content Container -->
+    <div class="step-content">
+      <!-- Step 1: Items -->
+      <div *ngIf="currentStep === 0" class="step-content-inner">
+        <h2>Items to Customize</h2>
+        <p>Add the furniture items you want to customize. You can add multiple items to your order.</p>
+
+        <form [formGroup]="itemsForm">
+          <div formArrayName="items">
+            <div *ngFor="let itemGroup of items.controls; let i = index" class="item-card" [formGroupName]="i">
+              <div class="item-header">
+                <h3>Item #{{i + 1}}</h3>
+                <div class="item-actions">
+                  <button *ngIf="items.length > 1" mat-icon-button color="warn" type="button"
+                    (click)="removeItem(i)" aria-label="Remove item">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                  <button mat-icon-button color="primary" type="button"
+                    (click)="duplicateItem(i)" aria-label="Duplicate item">
+                    <mat-icon>content_copy</mat-icon>
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <mat-form-field appearance="outline">
+                  <mat-label>Item Name</mat-label>
+                  <input matInput formControlName="name" placeholder="E.g., Coffee Table">
+                  <mat-error *ngIf="itemGroup.get('name')?.hasError('required')">Item name is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Quantity</mat-label>
+                  <input matInput formControlName="quantity" type="number" min="1" max="100">
+                  <mat-error *ngIf="itemGroup.get('quantity')?.hasError('required')">Quantity is required</mat-error>
+                  <mat-error *ngIf="itemGroup.get('quantity')?.hasError('min')">Minimum quantity is 1</mat-error>
+                  <mat-error *ngIf="itemGroup.get('quantity')?.hasError('max')">Maximum quantity is 100</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Description</mat-label>
+                  <textarea matInput formControlName="description" placeholder="Brief description of the item" rows="2"></textarea>
+                </mat-form-field>
+
+                <!-- Materials Section -->
+                <div class="section-title full-width">
+                  <h4>Materials</h4>
+                  <button mat-button color="primary" type="button" (click)="addMaterial(i)">
+                    <mat-icon>add</mat-icon> Add Material
+                  </button>
+                </div>
+
+                <div formArrayName="materials" class="materials-section full-width">
+                  <ng-container *ngFor="let materialGroup of getMaterialsArray(itemGroup); let j = index">
+                    <div [formGroupName]="j" class="material-row">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Material</mat-label>
+                        <mat-select formControlName="materialId">
+                          <mat-option *ngFor="let material of materials" [value]="material.id">
+                            {{material.name}}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="materialGroup.get('materialId')?.hasError('required')">Material is required</mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field appearance="outline" class="color-field">
+                        <mat-label>Color</mat-label>
+                        <div matPrefix class="color-preview" [style.background-color]="materialGroup.get('color')?.value || '#ffffff'"></div>
+                        <input matInput [value]="materialGroup.get('color')?.value || '#ffffff'" readonly>
+                        <button matSuffix mat-icon-button (click)="$event.preventDefault(); colorPicker.click()"
+                                type="button" aria-label="Choose color">
+                          <mat-icon>colorize</mat-icon>
+                        </button>
+                      </mat-form-field>
+
+                      <input #colorPicker type="color" class="color-picker-hidden"
+                             [value]="materialGroup.get('color')?.value || '#ffffff'"
+                             (change)="setMaterialColor(materialGroup, $event)">
+
+                      <mat-form-field appearance="outline" class="quantity-field">
+                        <mat-label>Quantity</mat-label>
+                        <input matInput formControlName="quantity" type="number" min="1">
+                        <mat-error *ngIf="materialGroup.get('quantity')?.hasError('required')">Quantity is required</mat-error>
+                        <mat-error *ngIf="materialGroup.get('quantity')?.hasError('min')">Minimum quantity is 1</mat-error>
+                      </mat-form-field>
+
+                      <button *ngIf="getMaterialsArray(itemGroup).length > 1"
+                        mat-icon-button color="warn" type="button" (click)="removeMaterial(i, j)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </div>
+                  </ng-container>
+                </div>
+
+                <!-- Dimensions and Appointment Section -->
+                <div class="section-title full-width">
+                  <h4>Dimensions</h4>
+                </div>
+
+                <!-- Custom Dimensions Form Group -->
+                <div formGroupName="dimensions" class="dimensions-section full-width">
+                  <mat-checkbox formControlName="hasDimensions" (change)="toggleDimensions(i, $event.checked)">
+                    I know the dimensions
+                  </mat-checkbox>
+
+                  <div *ngIf="itemGroup.get('dimensions')?.get('hasDimensions')?.value" class="dimensions-inputs">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Width</mat-label>
+                      <input matInput formControlName="width" type="number" placeholder="Width">
+                      <mat-error *ngIf="itemGroup.get('dimensions')?.get('width')?.hasError('required')">Width is required</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                      <mat-label>Height</mat-label>
+                      <input matInput formControlName="height" type="number" placeholder="Height">
+                      <mat-error *ngIf="itemGroup.get('dimensions')?.get('height')?.hasError('required')">Height is required</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                      <mat-label>Depth</mat-label>
+                      <input matInput formControlName="depth" type="number" placeholder="Depth">
+                      <mat-error *ngIf="itemGroup.get('dimensions')?.get('depth')?.hasError('required')">Depth is required</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="unit-field">
+                      <mat-label>Unit</mat-label>
+                      <mat-select formControlName="unit">
+                        <mat-option value="cm">Centimeters (cm)</mat-option>
+                        <mat-option value="in">Inches (in)</mat-option>
+                        <mat-option value="m">Meters (m)</mat-option>
+                        <mat-option value="ft">Feet (ft)</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <!-- Measurement Appointment Form Group -->
+                <div formGroupName="appointment" *ngIf="!itemGroup.get('dimensions')?.get('hasDimensions')?.value" class="measurement-appointment full-width">
+                  <h5>Schedule a Measurement Appointment</h5>
+                  <p class="help-text">Our professionals will visit to take precise measurements for your custom furniture.</p>
+
+                  <div class="form-row">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Preferred Date</mat-label>
+                      <input matInput [matDatepicker]="picker" formControlName="date" [min]="minDate">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                      <mat-error *ngIf="itemGroup.get('appointment')?.get('date')?.hasError('required')">Date is required</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                      <mat-label>Time Slot</mat-label>
+                      <mat-select formControlName="timeSlot">
+                        <mat-option value="morning">Morning (9 AM - 12 PM)</mat-option>
+                        <mat-option value="afternoon">Afternoon (1 PM - 5 PM)</mat-option>
+                        <mat-option value="evening">Evening (6 PM - 8 PM)</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="itemGroup.get('appointment')?.get('timeSlot')?.hasError('required')">Time slot is required</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="form-row">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Address for Measurement</mat-label>
+                      <textarea matInput formControlName="address" placeholder="Where should our technician visit?" rows="2"></textarea>
+                      <mat-error *ngIf="itemGroup.get('appointment')?.get('address')?.hasError('required')">Address is required</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="form-row">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>Additional Notes (Optional)</mat-label>
+                      <textarea matInput formControlName="notes" placeholder="Special instructions or information for the technician" rows="2"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <!-- Engraving Section -->
+                <div class="section-title full-width">
+                  <h4>Engraving</h4>
+                </div>
+
+                <div formGroupName="engraving" class="engraving-section full-width">
+                  <mat-checkbox formControlName="hasEngraving" (change)="toggleEngraving(i, $event.checked)">
+                    Add custom engraving
+                  </mat-checkbox>
+
+                  <mat-form-field *ngIf="itemGroup.get('engraving')?.get('hasEngraving')?.value"
+                    appearance="outline" class="full-width">
+                    <mat-label>Engraving Text</mat-label>
+                    <input matInput formControlName="text" placeholder="Enter text to engrave">
+                    <mat-error *ngIf="itemGroup.get('engraving')?.get('text')?.hasError('required')">Engraving text is required</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- Add-ons Section -->
+                <div class="section-title full-width">
+                  <h4>Optional Add-ons</h4>
+                </div>
+
+                <div class="addons-section full-width">
+                  <div class="addons-grid">
+                    <mat-card *ngFor="let addon of addOns" class="addon-card"
+                      [class.selected]="isAddOnSelected(i, addon.id)">
+                      <mat-card-header>
+                        <mat-card-title>{{addon.name}}</mat-card-title>
+                      </mat-card-header>
+                      <mat-card-content>
+                        <p>{{addon.description}}</p>
+                      </mat-card-content>
+                      <mat-card-actions>
+                        <button mat-button color="primary" type="button" (click)="toggleAddOn(i, addon)">
+                          {{isAddOnSelected(i, addon.id) ? 'REMOVE' : 'ADD'}}
+                        </button>
+                      </mat-card-actions>
+                    </mat-card>
+                  </div>
+                </div>
+
+                <!-- Reference Images Section -->
+                <div class="section-title full-width">
+                  <h4>Reference Images</h4>
+                </div>
+
+                <div class="reference-images-section full-width">
+                  <p class="help-text">Upload images to help us understand your vision (max 5MB per image)</p>
+
+                  <div class="file-upload">
+                    <label for="file-upload-{{i}}" class="custom-file-upload">
+                      <mat-icon>add_photo_alternate</mat-icon>
+                      <span>Upload Image</span>
+                    </label>
+                    <input id="file-upload-{{i}}" type="file" accept="image/jpeg,image/png,image/gif"
+                      (change)="onFileSelected($event, i)">
+                  </div>
+
+                  <div class="image-previews" *ngIf="uploadedImagePreviews[i] && uploadedImagePreviews[i].length > 0">
+                    <div class="image-preview" *ngFor="let preview of uploadedImagePreviews[i]; let imgIndex = index">
+                      <img [src]="preview" alt="Reference image">
+                      <button mat-icon-button class="remove-image" color="warn" (click)="removeImage(i, imgIndex)">
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="add-item-button">
+            <button mat-raised-button color="primary" type="button" (click)="addItem()">
+              <mat-icon>add</mat-icon> Add Another Item
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Step 2: Customer Information -->
+      <div *ngIf="currentStep === 1" class="step-content-inner">
+        <h2>Customer Information</h2>
+        <p>Please provide your contact and delivery information.</p>
+
+        <form [formGroup]="customerInfoForm" class="form-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Full Name</mat-label>
+            <input matInput formControlName="name" placeholder="John Doe">
+            <mat-error *ngIf="customerInfoForm.get('name')?.hasError('required')">Name is required</mat-error>
+            <mat-error *ngIf="customerInfoForm.get('name')?.hasError('minlength')">Name must be at least 3 characters</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Email Address</mat-label>
+            <input matInput formControlName="email" placeholder="johndoe@example.com" type="email">
+            <mat-error *ngIf="customerInfoForm.get('email')?.hasError('required')">Email is required</mat-error>
+            <mat-error *ngIf="customerInfoForm.get('email')?.hasError('email')">Please enter a valid email address</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="phone" placeholder="+1 (555) 123-4567">
+            <mat-error *ngIf="customerInfoForm.get('phone')?.hasError('required')">Phone number is required</mat-error>
+            <mat-error *ngIf="customerInfoForm.get('phone')?.hasError('pattern')">Please enter a valid phone number</mat-error>
+          </mat-form-field>
+
+          <div class="spacer"></div>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Delivery Address</mat-label>
+            <textarea matInput formControlName="address" placeholder="123 Main St, Apt 4B, New York, NY 10001" rows="3"></textarea>
+            <mat-error *ngIf="customerInfoForm.get('address')?.hasError('required')">Address is required</mat-error>
+            <mat-error *ngIf="customerInfoForm.get('address')?.hasError('minlength')">Please enter a complete address</mat-error>
+          </mat-form-field>
+        </form>
+      </div>
+
+      <!-- Step 3: Review -->
+      <div *ngIf="currentStep === 2" class="step-content-inner">
+        <h2 class="fade-in">Review Your Order</h2>
+        <p class="review-intro fade-up">Please review your customization details before submitting.</p>
+
+        <div class="order-summary">
+          <!-- Customer Information Summary -->
+          <div class="summary-section">
+            <h3><mat-icon>person</mat-icon> Customer Information</h3>
+            <div class="customer-info-grid">
+              <div class="info-item">
+                <span class="info-label"><mat-icon>badge</mat-icon> Name:</span>
+                <span class="info-value">{{customerInfoForm.get('name')?.value}}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label"><mat-icon>email</mat-icon> Email:</span>
+                <span class="info-value">{{customerInfoForm.get('email')?.value}}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label"><mat-icon>phone</mat-icon> Phone:</span>
+                <span class="info-value">{{customerInfoForm.get('phone')?.value}}</span>
+              </div>
+              <div class="info-item full-width">
+                <span class="info-label"><mat-icon>location_on</mat-icon> Address:</span>
+                <span class="info-value">{{customerInfoForm.get('address')?.value}}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Items Summary -->
+          <div class="summary-section">
+            <h3><mat-icon>inventory_2</mat-icon> Items</h3>
+            <div class="item-summary" *ngFor="let itemGroup of items.controls; let i = index">
+              <div class="item-summary-header">
+                <h4><mat-icon>chair</mat-icon> {{itemGroup.get('name')?.value}}</h4>
+                <div class="quantity">
+                  <mat-icon>production_quantity_limits</mat-icon>
+                  Quantity: {{itemGroup.get('quantity')?.value}}
+                </div>
+              </div>
+              <div class="item-details">
+                <div class="details-row" *ngIf="itemGroup.get('description')?.value">
+                  <strong><mat-icon>description</mat-icon> Description:</strong>
+                  <span>{{itemGroup.get('description')?.value}}</span>
+                </div>
+                <div class="details-row">
+                  <strong><mat-icon>category</mat-icon> Materials:</strong>
+                  <ul class="materials-list">
+                    <li *ngFor="let materialGroup of getMaterialsArray(itemGroup)" class="material-item">
+                      {{ getMaterial(materialGroup.get('materialId')?.value)?.name }} -
+                      {{ materialGroup.get('quantity')?.value }} {{ getMaterial(materialGroup.get('materialId')?.value)?.unitOfMeasure }}
+                      <span *ngIf="materialGroup.get('color')?.value" class="material-color">
+                        <span class="color-swatch" [style.background-color]="materialGroup.get('color')?.value"></span>
+                        {{materialGroup.get('color')?.value}}
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="details-row" *ngIf="getAddOnsArray(itemGroup).length > 0">
+                  <strong><mat-icon>add_circle</mat-icon> Add-ons:</strong>
+                  <ul class="addon-list">
+                    <li *ngFor="let addOnGroup of getAddOnsArray(itemGroup)" class="addon-item">
+                      {{ getAddOn(addOnGroup.get('addOnId')?.value)?.name }}
+                    </li>
+                  </ul>
+                </div>
+                <div class="details-row">
+                  <strong><mat-icon>straighten</mat-icon> Dimensions:</strong>
+                  <span *ngIf="itemGroup.get('dimensions')?.get('hasDimensions')?.value" class="dimensions-value">
+                    {{ itemGroup.get('dimensions')?.get('width')?.value }} ×
+                    {{ itemGroup.get('dimensions')?.get('height')?.value }} ×
+                    {{ itemGroup.get('dimensions')?.get('depth')?.value }}
+                    {{ itemGroup.get('dimensions')?.get('unit')?.value }}
+                  </span>
+                  <span *ngIf="!itemGroup.get('dimensions')?.get('hasDimensions')?.value" class="appointment-badge">
+                    <mat-icon>calendar_today</mat-icon> Measurement appointment scheduled
+                  </span>
+                </div>
+                <div class="details-row" *ngIf="itemGroup.get('engraving')?.get('hasEngraving')?.value">
+                  <strong><mat-icon>format_color_text</mat-icon> Engraving:</strong>
+                  <span class="engraving-text">{{itemGroup.get('engraving')?.get('text')?.value}}</span>
+                </div>
+                <div class="details-row" *ngIf="uploadedImagePreviews[i] && uploadedImagePreviews[i].length > 0">
+                  <strong><mat-icon>image</mat-icon> Reference Images:</strong>
+                  <span class="image-count">{{uploadedImagePreviews[i].length}} image(s) attached</span>
+                  <div class="reference-image-previews">
+                    <div class="preview-thumbnail" *ngFor="let preview of uploadedImagePreviews[i]">
+                      <img [src]="preview" alt="Reference image">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Note about pricing -->
+          <div class="note-section">
+            <p class="pricing-note">
+              <mat-icon>info</mat-icon>
+              Prices will be calculated after the measurement appointment.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="navigation-buttons">
+        <div class="left-buttons">
+          <button mat-stroked-button type="button" (click)="prevStep()" *ngIf="currentStep > 0">
+            <mat-icon>arrow_back</mat-icon> Previous
+          </button>
+          <button mat-stroked-button type="button" (click)="saveForLater()" *ngIf="currentStep === 2 && !isSubmitting">
+            <mat-icon>save</mat-icon> Save for Later
+          </button>
+        </div>
+        <div class="right-buttons">
+          <button *ngIf="currentStep < 2" mat-raised-button color="primary" type="button" (click)="nextStep()">
+            Next <mat-icon>arrow_forward</mat-icon>
+          </button>
+          <button *ngIf="currentStep === 2" mat-raised-button color="primary" type="button"
+            (click)="submitOrder()" [disabled]="isSubmitting" class="submit-button">
+            <span class="btn-content">
+              <mat-icon *ngIf="!isSubmitting">check_circle</mat-icon>
+              <mat-spinner *ngIf="isSubmitting" diameter="24" color="accent"></mat-spinner>
+              <span>{{ isSubmitting ? 'Submitting...' : 'Submit Order' }}</span>
+            </span>
+            <span class="btn-shine"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

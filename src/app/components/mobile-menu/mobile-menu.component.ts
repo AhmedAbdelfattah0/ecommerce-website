@@ -19,6 +19,7 @@ export class MobileMenuComponent {
   menuItems = [
     { path: '/', label: 'Home', icon: 'home' },
     { path: '/products', label: 'Products', icon: 'category' },
+    { path: '/customize', label: 'Customize', icon: 'design_services' },
     { path: '/deals', label: 'Hot deals', icon: 'local_fire_department' },
     { path: '/contact', label: 'Contact', icon: 'mail' }
   ];

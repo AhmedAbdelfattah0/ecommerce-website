@@ -14,26 +14,25 @@
           @if (i === currentIndex()) {
             <div class="slide" [@fadeAnimation]="'in'" [@slideAnimation]="currentIndex()">
               <img
-                [ngSrc]="banner.image_url"
+                [ngSrc]="banner.fileUrl"
                 width="1599"
                 height="539"
-
                 [priority]="i === 0"
-                [alt]="banner.title || 'Banner image'"
+                [alt]=" 'Banner image'"
                 class="banner-image"
                 fetchPriority="high"
               />
-              @if (banner.title || banner.subtitle) {
+              @if (banner.fileUrl) {
                 <div class="banner-content">
-                  @if (banner.title) {
+                  <!-- @if (banner.title) {
                     <h2>{{ banner.title }}</h2>
                   }
-                  @if (banner.subtitle) {
-                    <p>{{ banner.subtitle }}</p>
-                  }
-                  @if (banner.link) {
-                    <a [routerLink]="banner.link" class="banner-cta">Shop Now</a>
-                  }
+                  @if (banner.description) {
+                    <p>{{ banner.description }}</p>
+                  } -->
+                  <!-- @if (banner.fileUrl) {
+                    <a [routerLink]="banner.fileUrl" class="banner-cta">Shop Now</a>
+                  } -->
                 </div>
               }
             </div>

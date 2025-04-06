@@ -3,13 +3,12 @@ import { CommonModule, NgOptimizedImage, isPlatformBrowser, DOCUMENT } from '@an
 import { BannerService, Banner } from '../../../../services/banner/banner.service';
 import { Subject, takeUntil } from 'rxjs';
 import { trigger, transition, style, animate, state } from '@angular/animations';
-import { RouterLink } from '@angular/router';
-import { Inject, PLATFORM_ID } from '@angular/core';
+ import { Inject, PLATFORM_ID } from '@angular/core';
 
 @Component({
   selector: 'app-banner-carousel',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage, RouterLink],
+  imports: [CommonModule, NgOptimizedImage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './banner-carousel.component.html',
   styleUrl: './banner-carousel.component.scss',
@@ -117,7 +116,7 @@ export class BannerCarouselComponent implements OnInit, OnDestroy, AfterViewInit
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (data) => {
-          this.banners = data;
+          this.banners = data.filter(banner => banner.selected );
           this.loading = false;
 
           if (this.banners.length === 0) {
@@ -145,7 +144,7 @@ export class BannerCarouselComponent implements OnInit, OnDestroy, AfterViewInit
 
     const nextIndex = (this.currentIndex() + 1) % this.banners.length;
     const img = new Image();
-    img.src = this.banners[nextIndex].image_url;
+    img.src = this.banners[nextIndex].fileUrl;
   }
 
   prevSlide(): void {

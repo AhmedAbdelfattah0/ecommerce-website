@@ -7,6 +7,7 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { ContactUsComponent } from './pages/contsct-us/contact-us.component';
 import { HotDealsComponent } from './pages/hot-deals/hot-deals.component';
 import { FavoriteComponent } from './pages/favorites-list/favorite.component';
+import { OrderCustomizationComponent } from './pages/order-customization/order-customization.component';
 
 export const routes: Routes = [
   { path: "", redirectTo: "/home", pathMatch: "full" },
@@ -103,6 +104,30 @@ export const routes: Routes = [
         title: 'Contact Us',
         description: 'Get in touch with our team for inquiries, support, or to learn more about our furniture collection.',
         keywords: 'furniture store contact, customer service, support, locations, showroom'
+      }
+    }
+  },
+  {
+    path: 'customize',
+    component: OrderCustomizationComponent,
+    data: {
+      title: 'Customize Your Order',
+      seo: {
+        title: 'Custom Furniture Orders',
+        description: 'Create your own custom furniture piece. Choose materials, colors, dimensions and finishes to get exactly what you need.',
+        keywords: 'custom furniture, custom order, furniture customization, bespoke furniture, made to order'
+      }
+    }
+  },
+  {
+    path: 'customize/:id',
+    component: OrderCustomizationComponent,
+    data: {
+      title: 'Customize Your Order',
+      seo: {
+        title: 'Custom Furniture Orders',
+        description: 'Create your own custom furniture piece. Choose materials, colors, dimensions and finishes to get exactly what you need.',
+        keywords: 'custom furniture, custom order, furniture customization, bespoke furniture, made to order'
       }
     }
   },
