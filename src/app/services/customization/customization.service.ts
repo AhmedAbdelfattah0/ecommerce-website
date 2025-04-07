@@ -69,7 +69,7 @@ export class CustomizationService {
    * Get available material options
    */
   getMaterialOptions(): Observable<MaterialOption[]> {
-    return this.http.get<ApiResponse>(`materials/get_materials.php`)
+    return this.http.get<ApiResponse>(`/materials/get_materials.php`)
       .pipe(
         map(response => (response?.data || []) as MaterialOption[]),
         catchError(this.handleError<MaterialOption[]>('getMaterialOptions', [
@@ -136,7 +136,7 @@ export class CustomizationService {
    * Get available add-on options
    */
   getAddOnOptions(): Observable<AddOnOption[]> {
-    return this.http.get<ApiResponse>(`addons/get_addons.php`)
+    return this.http.get<ApiResponse>(`/addons/get_addons.php`)
       .pipe(
         map(response => (response?.data || []) as AddOnOption[]),
         catchError(this.handleError<AddOnOption[]>('getAddOnOptions', [
@@ -281,7 +281,7 @@ export class CustomizationService {
     this.saveOrderToStorage();
     // Make API call to schedule appointment
     return this.http.post<MeasurementAppointmentResponse>(
-      `appointments/schedule.php`,
+      `/appointments/schedule.php`,
       {
         orderId: currentOrder.id,
         itemIndex,
@@ -309,7 +309,7 @@ export class CustomizationService {
     }
 
     return this.http.post<OrderResponse>(
-      `orders/create_custom_order.php`,
+      `/orders/create_custom_order.php`,
       currentOrder,
       { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
     ).pipe(
@@ -339,7 +339,7 @@ export class CustomizationService {
     }
 
     return this.http.post<SavedCustomizationResponse>(
-      `orders/save_customization.php`,
+      `/orders/save_customization.php`,
       currentOrder,
       { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
     ).pipe(
@@ -361,7 +361,7 @@ export class CustomizationService {
    */
   loadSavedCustomization(saveCode: string): Observable<SavedCustomizationResponse> {
     return this.http.get<SavedCustomizationResponse>(
-      `orders/get_saved_customization.php?code=${saveCode}`,
+      `/orders/get_saved_customization.php?code=${saveCode}`,
       { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
     ).pipe(
       tap((response: any) => {
@@ -393,7 +393,7 @@ export class CustomizationService {
     formData.append('file', file);
 
     return this.http.post<UploadResponse>(
-      `uploads/upload_reference_image.php`,
+      `/uploads/upload_reference_image.php`,
       formData
     ).pipe(
       catchError(this.handleError<UploadResponse>('uploadImage', {
