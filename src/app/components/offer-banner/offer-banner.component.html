@@ -1,0 +1,42 @@
+@if (showBanner && activeBanner) {
+  <div class="offer-banner" [@bannerAnimation] [style.background-color]="activeBanner.backgroundColor" [style.color]="activeBanner.textColor">
+    <div class="banner-container">
+      <div class="banner-content">
+        <h3 class="banner-title">{{ activeBanner.title }}</h3>
+        <p class="banner-description">{{ activeBanner.description }}</p>
+      </div>
+
+      <div class="countdown-container">
+        <div class="countdown-unit">
+          <span class="countdown-value">{{ formatTimeUnit(countdownTime.days) }}</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-separator">:</div>
+        <div class="countdown-unit">
+          <span class="countdown-value">{{ formatTimeUnit(countdownTime.hours) }}</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-separator">:</div>
+        <div class="countdown-unit">
+          <span class="countdown-value">{{ formatTimeUnit(countdownTime.minutes) }}</span>
+          <span class="countdown-label">Minutes</span>
+        </div>
+        <div class="countdown-separator">:</div>
+        <div class="countdown-unit">
+          <span class="countdown-value">{{ formatTimeUnit(countdownTime.seconds) }}</span>
+          <span class="countdown-label">Seconds</span>
+        </div>
+      </div>
+
+      <div class="banner-actions">
+        <a [routerLink]="activeBanner.buttonLink" class="offer-button" [style.background-color]="activeBanner.accentColor">
+          {{ activeBanner.buttonText }}
+        </a>
+      </div>
+    </div>
+
+    <button class="close-button" (click)="closeBanner()" [style.color]="activeBanner.textColor">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+}

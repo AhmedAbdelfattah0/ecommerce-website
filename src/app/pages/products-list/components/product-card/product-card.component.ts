@@ -135,4 +135,8 @@ export class ProductCardComponent {
     const currentWishlist = this._cartService.wishlist();
     return currentWishlist.some(wishlistItem => wishlistItem.id === this.product.id);
   }
+
+  checkDiscountedPrice(discountedPrice: any) {
+    return Number(discountedPrice) > 0;
+  }
 }

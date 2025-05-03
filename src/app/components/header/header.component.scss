@@ -1,5 +1,13 @@
 @use '../../../scss/global' as *;
 
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
 .header-container {
   background-color: $white;
 
@@ -8,8 +16,6 @@
   padding: 2.5rem 2rem;
   background-color: $white;
   box-shadow: 0 4px 20px rgba($black, 0.08);
-  position: fixed;
-  top: 0;
   width: 100%;
   z-index: 4;
   transition: box-shadow 0.3s ease, padding 0.3s ease;

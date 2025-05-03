@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "isActive": false,
+    "title": "Spring Sale",
+    "description": "Get 20% off on all products",
+    "endDate": "2025-05-03T23:59:59",
+    "buttonText": "Shop Now",
+    "buttonLink": "/products",
+    "backgroundColor": "#FAF3EA",
+    "textColor": "#2d3436",
+    "accentColor": "#B88E2F"
+  },
+  {
+    "id": 2,
+    "isActive": true,
+    "title": "Flash Deals",
+    "description": "Website opening limited time offer - up to 40% off selected items",
+    "endDate": "2025-06-03T23:59:59",
+    "buttonText": "See Deals",
+    "buttonLink": "/deals",
+    "backgroundColor": "#2d3436",
+    "textColor": "#ffffff",
+    "accentColor": "#e74c3c"
+  }
+]

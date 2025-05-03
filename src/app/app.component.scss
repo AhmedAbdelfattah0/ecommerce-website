@@ -1,3 +1,14 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  /* Remove padding-top since header is now sticky instead of fixed */
+}
+
 .whatsapp-button {
     position: fixed;
     bottom: 20px;
@@ -28,6 +39,4 @@
   .whatsapp-button img {
     width: 100%;
     height: auto;
-
-
   }

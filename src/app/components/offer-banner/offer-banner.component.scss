@@ -1,0 +1,170 @@
+@use '../../../scss/global' as *;
+
+.offer-banner {
+  width: 100%;
+  padding: $base-spacing;
+  background-color: inherit;
+  z-index: 3;
+  transition: $transition-base;
+
+  @include respond-below(md) {
+    padding: $base-spacing * 0.5;
+  }
+}
+
+.banner-container {
+  @include container;
+  @include flex-center(row);
+  gap: $base-spacing * 2;
+
+  @include respond-below(lg) {
+    flex-direction: column;
+    gap: $base-spacing;
+  }
+}
+
+.banner-content {
+  display: flex;
+  flex-direction: column;
+  gap: $base-spacing * 0.5;
+
+  @include respond-below(lg) {
+    text-align: center;
+    flex: 0 0 100%;
+  }
+}
+
+.banner-title {
+  font-family: $font-family-secondary;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin: 0;
+
+  @include respond-below(md) {
+    font-size: 1rem;
+  }
+}
+
+.banner-description {
+  font-family: $font-family-primary;
+  font-size: 0.875rem;
+  margin: 0;
+
+  @include respond-below(md) {
+    font-size: 0.75rem;
+  }
+}
+
+.countdown-container {
+  display: flex;
+  align-items: center;
+  gap: $base-spacing * 0.5;
+
+  @include respond-below(lg) {
+    justify-content: center;
+  }
+
+  @include respond-below(sm) {
+    flex-wrap: wrap;
+    gap: $base-spacing * 0.25;
+  }
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60px;
+
+  @include respond-below(md) {
+    min-width: 45px;
+  }
+
+  @include respond-below(sm) {
+    min-width: 35px;
+  }
+}
+
+.countdown-value {
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.2;
+
+  @include respond-below(md) {
+    font-size: 1rem;
+  }
+}
+
+.countdown-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+
+  @include respond-below(md) {
+    font-size: 0.625rem;
+  }
+}
+
+.countdown-separator {
+  font-weight: 700;
+  font-size: 1.25rem;
+  padding-bottom: 1rem;
+
+  @include respond-below(md) {
+    font-size: 1rem;
+  }
+
+  @include respond-below(sm) {
+    display: none;
+  }
+}
+
+.banner-actions {
+  @include respond-below(lg) {
+    margin-top: $base-spacing * 0.5;
+  }
+}
+
+.offer-button {
+  display: inline-block;
+  padding: $base-spacing * 0.5 $base-spacing;
+  color: $white;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  transition: $transition-base;
+
+  &:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+
+  @include respond-below(md) {
+    padding: $base-spacing * 0.25 $base-spacing * 0.75;
+    font-size: 0.75rem;
+  }
+}
+
+.close-button {
+  position: absolute;
+  top: $base-spacing * 0.5;
+  right: $base-spacing * 0.5;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+
+  mat-icon {
+    font-size: 18px;
+    height: 18px;
+    width: 18px;
+    line-height: 18px;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

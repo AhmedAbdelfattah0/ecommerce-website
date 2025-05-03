@@ -47,8 +47,12 @@
     <p class="product-subtitle" *ngIf="product.subtitle">{{product.subtitle}}</p>
 
     <div class="price">
+      @if (checkDiscountedPrice(product.discountedPrice)) {
       <span class="current-price">{{product.discountedPrice | currency:'EGP' | addSpaceAfterCurrency}}</span>
-      <span class="old-price" *ngIf="product.discount > 0">{{product.originalPrice | currency:'EGP' | addSpaceAfterCurrency}}</span>
+      <span class="old-price">{{product.originalPrice | currency:'EGP' | addSpaceAfterCurrency}}</span>
+      } @else {
+      <span class="current-price">{{product.originalPrice | currency:'EGP' | addSpaceAfterCurrency}}</span>
+      }
     </div>
   </div>
 </div>

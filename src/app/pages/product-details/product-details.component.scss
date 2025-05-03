@@ -60,6 +60,13 @@
         margin: 0 0 0.5rem;
       }
 
+      .price-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 3rem;
+      }
+
       .price {
         font-weight: 500;
         font-size: 24px;
@@ -67,6 +74,26 @@
         letter-spacing: 0%;
         color: #9F9F9F;
         margin-bottom: 3rem;
+      }
+
+      .original-price {
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 100%;
+        color: #9F9F9F;
+        margin-bottom: 0;
+      }
+
+      .strike {
+        text-decoration: line-through;
+      }
+
+      .discounted-price {
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 100%;
+        color: $light-brown;
+        margin-bottom: 0;
       }
 
       .color-options {

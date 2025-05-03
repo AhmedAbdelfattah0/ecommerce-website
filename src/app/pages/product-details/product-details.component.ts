@@ -140,9 +140,15 @@ export class ProductDetailsComponent {
   getProductsByCatigoryId(categoryId: any) {
     this._productService.getProductsByCategory(categoryId).subscribe(res => {
       this.relatedProducts = res;
-      this.filteredRelatedProducts = this.relatedProducts
-        .slice(this.startIndex, this.endIndex)
-        .filter(product => product.id !== this.product?.id);
+      if (this.relatedProducts.length > 0) {
+        this.filteredRelatedProducts = this.relatedProducts
+          .slice(this.startIndex, this.endIndex)
+          .filter(product => product.id !== this.product?.id);
+      }
     });
+  }
+
+  checkDiscountedPrice(discountedPrice: any) {
+    return Number(discountedPrice) > 0;
   }
 }

@@ -1,8 +1,19 @@
-<app-header></app-header>
-<app-toaster></app-toaster>
+<div class="app-container">
+  <!-- Banner is positioned at the very top -->
+  <app-offer-banner></app-offer-banner>
 
-<router-outlet />
-<app-footer></app-footer>
+  <!-- Fixed header -->
+  <app-header></app-header>
+  <app-toaster></app-toaster>
+
+  <!-- Main content with padding-top to account for fixed header -->
+  <div class="main-content">
+    <router-outlet />
+  </div>
+
+  <app-footer></app-footer>
+</div>
+
 <a class="whatsapp-button" href="https://wa.me/201023351915" target="_blank" rel="noopener">
-<img src="/whatsapp.svg" alt="WhatsApp" />
+  <img src="/whatsapp.svg" alt="WhatsApp" />
 </a>
