@@ -120,7 +120,7 @@ export class ProductDetailsComponent {
         id:this.product.id,
         title:this.product.title,
         image: this.product.images[0] || '',
-        price: Number(this.product.originalPrice),
+        price: this.checkDiscountedPrice(this.product.discountedPrice) ? Number(this.product.discountedPrice) : Number(this.product.originalPrice),
         qty: this.qty
       };
 
