@@ -9,7 +9,7 @@ import { CatigoryService } from '../categories/categories.service';
   providedIn: 'root'
 })
 export class SitemapGeneratorService {
-  private baseUrl = 'https://lugarstore.com';
+  private baseUrl = 'https://lugarstore.net';
 
   constructor(
     private http: HttpClient,

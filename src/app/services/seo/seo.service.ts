@@ -10,8 +10,8 @@ export class SeoService {
   private readonly siteName = 'Lugar Store';
   private readonly defaultDescription = 'Lugar Store offers premium furniture and home decor products with elegant designs for modern homes.';
   private readonly defaultKeywords = 'furniture, home decor, interior design, Lugar Store, premium furniture';
-  private readonly defaultImage = 'https://lugarstore.com/uploads/LOGO1-lugar.svg';
-  private readonly baseUrl = 'https://lugarstore.com';
+  private readonly defaultImage = 'https://lugarstore.net/uploads/LOGO1-lugar.svg';
+  private readonly baseUrl = 'https://lugarstore.net';
 
   constructor(
     private meta: Meta,
