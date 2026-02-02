@@ -24,6 +24,15 @@
     padding: 1.5rem 6rem;
   }
 
+  .mobile-menu-button {
+    color: $primary-color;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: $light-brown;
+    }
+  }
+
   .logo {
     font-size: 1.5rem;
     font-weight: 700;
@@ -48,6 +57,76 @@
     @include respond-above(md) {
       @include flex-center(row);
       gap: 2.5rem;
+    }
+
+    .nav-link-wrapper {
+      position: relative;
+      display: inline-block;
+
+      .nav-link {
+        cursor: pointer;
+      }
+
+      .dropdown-icon {
+        font-size: 1.25rem;
+        vertical-align: middle;
+        margin-left: 2px;
+        transition: transform 0.3s ease;
+
+        &.rotated {
+          transform: rotate(180deg);
+        }
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 0.25rem;
+        background-color: $white;
+        box-shadow: 0 8px 24px rgba($black, 0.15);
+        border-radius: 8px;
+        min-width: 200px;
+        opacity: 1;
+        animation: dropdownFadeIn 0.3s ease-in-out;
+        z-index: 1000;
+
+        .dropdown-content {
+          padding: 0.5rem 0;
+        }
+
+        .dropdown-item {
+          display: block;
+          padding: 0.75rem 1.5rem;
+          color: $primary-color;
+          text-decoration: none;
+          font-size: 0.95rem;
+          transition: all 0.2s ease;
+          cursor: pointer;
+
+          &:hover {
+            background-color: rgba($light-brown, 0.1);
+            color: $light-brown;
+            padding-left: 2rem;
+          }
+
+          &:first-child {
+            border-radius: 8px 8px 0 0;
+            font-weight: 600;
+          }
+
+          &:last-child {
+            border-radius: 0 0 8px 8px;
+          }
+        }
+
+        .dropdown-divider {
+          height: 1px;
+          background-color: rgba($primary-color, 0.1);
+          margin: 0.5rem 0;
+        }
+      }
     }
 
     .nav-link {
@@ -187,5 +266,16 @@
   100% {
     transform: scaleX(1.2) scaleY(1.2) rotate(-5deg);
     color: #ff5722;
+  }
+}
+
+@keyframes dropdownFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
   }
 }

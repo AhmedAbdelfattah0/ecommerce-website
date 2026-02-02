@@ -10,11 +10,38 @@
   </skapa-modal-header>
 
   <mat-nav-list>
-    <a mat-list-item
-       *ngFor="let item of menuItems"
-       (click)="navigate(item.path)">
-      <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
-      <span matListItemTitle>{{ item.label }}</span>
-    </a>
+    <ng-container *ngFor="let item of menuItems">
+      <!-- Menu items without submenu -->
+      <a mat-list-item
+         *ngIf="!item.hasSubmenu"
+         (click)="navigate(item.path, item.hasSubmenu)">
+        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+        <span matListItemTitle>{{ item.label }}</span>
+      </a>
+
+      <!-- Products menu item with submenu -->
+      <div *ngIf="item.hasSubmenu" class="menu-item-with-submenu">
+        <div class="menu-item-content" (click)="toggleCategoriesSubmenu($event)">
+          <mat-icon class="menu-icon">{{ item.icon }}</mat-icon>
+          <span class="menu-label">{{ item.label }}</span>
+          <mat-icon class="expand-icon" [class.expanded]="showCategoriesSubmenu">
+            expand_more
+          </mat-icon>
+        </div>
+
+        <!-- Categories submenu -->
+        <div class="submenu" *ngIf="showCategoriesSubmenu">
+          <a class="submenu-item all-products"
+             (click)="navigateToCategory(0)">
+            <span>All Products</span>
+          </a>
+          <a *ngFor="let category of categories"
+             class="submenu-item"
+             (click)="navigateToCategory(category.id)">
+            <span>{{ category.title }}</span>
+          </a>
+        </div>
+      </div>
+    </ng-container>
   </mat-nav-list>
 </skapa-sheet>

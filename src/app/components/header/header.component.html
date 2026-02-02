@@ -1,10 +1,12 @@
 <mat-toolbar class="header-container" [@headerAnimation] #matToolbar>
 
-  <!-- Mobile Menu -->
   <!-- Mobile Menu Trigger -->
-
-  <app-mobile-menu *ngIf="(isMobile$ | async) === true" [isMobile]="(isMobile$ | async)|| false"></app-mobile-menu>
-  <!-- Mobile Menu Toggle -->
+  <button *ngIf="(isMobile$ | async) === true"
+          mat-icon-button
+          (click)="toggleMobileMenu()"
+          class="mobile-menu-button">
+    <mat-icon>menu</mat-icon>
+  </button>
 
   <div class="logo" [@logoAnimation]>
     <a routerLink="/">
@@ -17,9 +19,30 @@
        [routerLinkActiveOptions]="{ exact: true }">
       <span>Home</span>
     </a>
-    <a [routerLink]="['/products']" routerLinkActive="router-link-active" class="nav-link">
-      <span>Products</span>
-    </a>
+
+    <!-- Products with dropdown -->
+    <div class="nav-link-wrapper">
+      <a class="nav-link"
+         
+         routerLinkActive="router-link-active"
+         (click)="toggleProductsDropdown($event)">
+        <span>Products</span>
+        <mat-icon class="dropdown-icon" [class.rotated]="showProductsDropdown">arrow_drop_down</mat-icon>
+      </a>
+
+      <!-- Dropdown menu -->
+      <div class="dropdown-menu" *ngIf="showProductsDropdown">
+        <div class="dropdown-content">
+          <a class="dropdown-item" (click)="navigateToCategory(0)">All Products</a>
+          <a class="dropdown-item"
+             *ngFor="let category of categories"
+             (click)="navigateToCategory(category.id)">
+            {{ category.title }}
+          </a>
+        </div>
+      </div>
+    </div>
+
     <a [routerLink]="['/customize']" routerLinkActive="router-link-active" class="nav-link">
       <span>Customize</span>
     </a>

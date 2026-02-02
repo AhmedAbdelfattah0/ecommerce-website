@@ -3,7 +3,7 @@
   <app-offer-banner></app-offer-banner>
 
   <!-- Fixed header -->
-  <app-header></app-header>
+  <app-header (menuToggle)="toggleMobileMenu()"></app-header>
   <app-toaster></app-toaster>
 
   <!-- Main content with padding-top to account for fixed header -->
@@ -13,6 +13,9 @@
 
   <app-footer></app-footer>
 </div>
+
+<!-- Mobile Menu at app level to float above all content -->
+<app-mobile-menu [isMobile]="(isMobile$ | async) || false"></app-mobile-menu>
 
 <a class="whatsapp-button" href="https://wa.me/+201080777114" target="_blank" rel="noopener">
   <img src="/whatsapp.svg" alt="WhatsApp" />

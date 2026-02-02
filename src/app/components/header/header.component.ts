@@ -1,18 +1,18 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, OnInit, ViewChild, ElementRef, Renderer2, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from '../../common/components/base/base.component';
 import { ResponsiveService } from '../../common/services/responsive.service';
 import { Observable, reduce } from 'rxjs';
-import { MobileMenuComponent } from '../mobile-menu/mobile-menu.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { CartService } from '../../services/cart/cart.service';
+import { CatigoryService } from '../../services/categories/categories.service';
+import { Category } from '../../models/category';
 import { trigger, state, style, animate, transition, query, stagger, animateChild, group, keyframes } from '@angular/animations';
 
 @Component({
   selector: 'app-header',
-  imports: [BaseComponent.materialModules, MobileMenuComponent, CommonModule,
-    RouterModule],
+  imports: [BaseComponent.materialModules, CommonModule, RouterModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   animations: [
@@ -86,8 +86,8 @@ import { trigger, state, style, animate, transition, query, stagger, animateChil
   ]
 })
 export class HeaderComponent implements OnInit {
-  @ViewChild(MobileMenuComponent) mobileMenu!: MobileMenuComponent;
   @ViewChild('matToolbar', { static: true }) matToolbar!: ElementRef;
+  @Output() menuToggle = new EventEmitter<void>();
 
   isMobile$: Observable<boolean> = new Observable<boolean>();
   previousCount = 0;
@@ -97,9 +97,14 @@ export class HeaderComponent implements OnInit {
   favoriteHover = 'default';
   cartHover = 'default';
 
+  // Categories and dropdown state
+  categories: Category[] = [];
+  showProductsDropdown: boolean = false;
+
   constructor(
     private responsiveService: ResponsiveService,
     private _cartService: CartService,
+    private _categoryService: CatigoryService,
     public router: Router,
     private renderer: Renderer2,
     private el: ElementRef
@@ -108,6 +113,13 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.isMobile$ = this.responsiveService.isMobile$;
     this.previousCount = this.itemsCount();
+    this.loadCategories();
+  }
+
+  loadCategories(): void {
+    this._categoryService.getCatigories().subscribe(categories => {
+      this.categories = categories;
+    });
   }
 
   @HostListener('window:scroll', [])
@@ -123,7 +135,7 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleMobileMenu(): void {
-     this.mobileMenu.toggleMenu();
+    this.menuToggle.emit();
   }
 
   itemsCount(){
@@ -148,5 +160,34 @@ export class HeaderComponent implements OnInit {
 
   onCartMouseLeave() {
     this.cartHover = 'default';
+  }
+
+  // Products dropdown methods
+  toggleProductsDropdown(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.showProductsDropdown = !this.showProductsDropdown;
+  }
+
+  navigateToCategory(categoryId: number): void {
+    if (categoryId === 0) {
+      // Navigate to all products (no filter)
+      this.router.navigate(['/products']);
+    } else {
+      // Navigate to filtered products by category
+      this.router.navigate(['/products'], { queryParams: { pros: categoryId } });
+    }
+    this.showProductsDropdown = false;
+  }
+
+  // Close dropdown when clicking outside
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    const clickedInside = this.el.nativeElement.querySelector('.nav-link-wrapper')?.contains(target);
+
+    if (!clickedInside && this.showProductsDropdown) {
+      this.showProductsDropdown = false;
+    }
   }
 }
