@@ -33,13 +33,18 @@ ng generate service <name>       # Generate a new service
 ng generate --help               # See all available schematics
 ```
 
+**Note**: Component generation defaults to SCSS styling and `app-` prefix (configured in `angular.json`).
+
 ## Architecture
 
 ### Application Structure
 
-**Standalone Components**: This application uses Angular's standalone component architecture (no NgModules). All components are self-contained with explicit imports.
+**Standalone Components**: This application uses Angular's standalone component architecture (no NgModules). All components are self-contained with explicit imports. Application providers are configured in `src/app/app.config.ts`.
 
-**Routing**: Route-based architecture with SEO metadata defined per route in `src/app/app.routes.ts`. Each route includes `title` and `seo` data for meta tags.
+**Routing**: Route-based architecture with SEO metadata defined per route in `src/app/app.routes.ts`. Each route includes `title` and `seo` data for meta tags. Router configured in `src/app/app.config.ts` with:
+- `PreloadAllModules` for eager module preloading
+- `scrollPositionRestoration: 'enabled'` for automatic scroll restoration
+- Client-side hydration enabled
 
 **State Management**: Uses Angular signals for reactive state management:
 - `CartService` manages shopping cart and wishlist with signals
@@ -49,12 +54,8 @@ ng generate --help               # See all available schematics
 **API Integration**:
 - Base API URL configured per environment in `src/environments/`
 - Production API: `https://lugarstore.net/api`
-- HTTP interceptor (`http-interceptor.interceptor.ts`) automatically prepends API URL to all requests (except `.json` files)
-
-**Responsive Design**:
-- `ResponsiveService` uses Angular CDK BreakpointObserver
-- Tracks mobile/tablet breakpoints with `isMobile$` observable
-- Used throughout components for adaptive layouts
+- HTTP interceptor (`src/app/common/services/http-interceptor.interceptor.ts`) automatically prepends API URL to all requests (except `.json` files)
+- Configured in `app.config.ts` via `provideHttpClient(withInterceptors([httpInterceptor]))`
 
 ### Key Services
 
@@ -64,14 +65,29 @@ ng generate --help               # See all available schematics
 - Methods: `addToCart()`, `updateQty()`, `removeFromCart()`, `addToWishlist()`, `removeFromWishlist()`, `addAllToCart()`
 
 **SEO Service** (`src/app/services/seo/seo.service.ts`)
-- Automatically updates meta tags on route changes
+- Automatically updates meta tags on route changes via `init()` method
 - Sets Open Graph and Twitter Card metadata
 - Domain: `https://lugarstore.net`
 - Call `updateProductMetaTags(product)` for product pages with dynamic content
+- Automatically manages canonical URLs
+- For product pages, includes product-specific meta tags (price, currency, availability, category)
 
 **Toaster Service** (`src/app/services/toatser.service.ts`)
 - Toast notifications using INGKA toast web components
 - Constants defined in `src/app/common/constants/app.constants.ts`
+
+**ResponsiveService** (`src/app/common/services/responsive.service.ts`)
+- Provides `isMobile$` observable for tracking mobile/tablet breakpoints
+- Uses Angular CDK BreakpointObserver
+
+**Other Services**:
+- `ProductService` - Fetches product data from API
+- `CategoriesService` - Manages product categories
+- `SubCategoriesService` - Manages subcategories
+- `OrderService` - Handles order creation
+- `CustomizationService` - Handles custom furniture orders
+- `ContactUsService` - Handles contact form submissions
+- `BannerService` - Manages promotional banners
 
 ### Page Components
 
@@ -118,15 +134,21 @@ TypeScript interfaces in `src/app/models/`:
 ### Environment Configuration
 
 Environment files in `src/environments/`:
-- `environment.ts` - Default (maps to development)
-- `environment.development.ts` - Development configuration
+- `environment.ts` - Default configuration (points to production API)
+- `environment.development.ts` - Development configuration (file replacement in angular.json)
 - `environment.prod.ts` / `environment.production.ts` - Production configuration
 
-File replacement configured in `angular.json` for development builds.
+File replacement configured in `angular.json`: `environment.ts` is replaced with `environment.development.ts` during development builds. All environments currently point to production API: `https://lugarstore.net/api`.
 
 ### Animations
 
-Custom animations defined in `src/app/shared/animations.ts`. Used with:
+Custom animations defined in `src/app/shared/animations.ts`:
+- Entry animations: `fadeInUp`, `fadeIn`, `fadeInRight`, `fadeInLeft`, `flipLeft`, `zoomIn`, `bounceIn`
+- Scroll-triggered animations: `scrollFadeIn`, `scrollZoomIn`, `scrollFlipIn`
+- Stagger animations: `staggerFadeInUp`
+- Attention animations: `attention`
+
+Used with directives:
 - `appear-animate.directive.ts` - Animation on element appearance
 - `intersection-observer.directive.ts` - Trigger animations on viewport intersection
 
@@ -146,7 +168,7 @@ These are imported as custom elements in relevant components.
 
 **Base Component**: `src/app/common/components/base/base.component.ts` provides a base class for component lifecycle management. Extend this for components that need cleanup.
 
-**HTTP Interceptor**: All HTTP requests (except `.json` files) are automatically prefixed with the API URL from environment configuration.
+**HTTP Interceptor**: All HTTP requests (except `.json` files) are automatically prefixed with the API URL from environment configuration. This means service methods should use relative URLs (e.g., `/products` not `https://lugarstore.net/api/products`).
 
 **Local Storage**: Cart and wishlist are persisted automatically. No manual save/load needed when using CartService methods.
 

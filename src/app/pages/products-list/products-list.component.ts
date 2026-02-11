@@ -98,6 +98,8 @@ export class ProductsListComponent implements OnInit {
   fetchProducts() {
     this._productService.getProducts().subscribe((res: any) => {
       this.products = res;
+      // Sort products by ID descending by default
+      this.products.sort((a, b) => Number(b.id) - Number(a.id));
       this.filteredProducts = this.products.slice(0, this.itemsPerPage);
       this.totalProducts = this.products.length;
       this._productService.isProductsLoading.set(false);
